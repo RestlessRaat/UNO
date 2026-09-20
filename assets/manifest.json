@@ -1,0 +1,5459 @@
+{
+  "source": "Uno Show 'Em No Mercy (Multiplayer).sb3",
+  "sha256": "8a3d193647c8607cf74fec032041dead5a8e46fcb57de3b6ff9295bc7d6cbfef",
+  "targets": {
+    "Stage": {
+      "costumes": {
+        "uno-background": {
+          "path": "images/b1fcbe8af1ea93fd721b07a9b2741a43.png",
+          "source": "b1fcbe8af1ea93fd721b07a9b2741a43.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "uno-flip": {
+          "path": "images/ed1f40699d6ae9a7728c7119f5fb2510.png",
+          "source": "ed1f40699d6ae9a7728c7119f5fb2510.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "barbie backdrop": {
+          "path": "images/7c65e55ae667ef3f31e9dcb36a379535.png",
+          "source": "7c65e55ae667ef3f31e9dcb36a379535.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "mario": {
+          "path": "images/1c016a4a0c5ecef5bf679f9ce9af2e4e.png",
+          "source": "1c016a4a0c5ecef5bf679f9ce9af2e4e.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "scratch": {
+          "path": "images/7bedbb50b222f6a50bf82135f3352391.png",
+          "source": "7bedbb50b222f6a50bf82135f3352391.svg",
+          "center": [
+            361.715087890625,
+            271.2782897949219
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            723.43017578125,
+            542.5565795898438
+          ]
+        },
+        "no mercy": {
+          "path": "images/9304cc88edd5f082c39b1494f199737e.png",
+          "source": "9304cc88edd5f082c39b1494f199737e.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "blank": {
+          "path": "images/1c1c5142cb4d983e8200a4672b1f7753.png",
+          "source": "1c1c5142cb4d983e8200a4672b1f7753.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        }
+      },
+      "sounds": {
+        "pop": "sounds/83a9787d4cb6f3b7632b4ddfebf74367.wav"
+      }
+    },
+    "blank": {
+      "costumes": {
+        "blank": {
+          "path": "images/3339a2953a3bf62bb80e54ff575dbced.png",
+          "source": "3339a2953a3bf62bb80e54ff575dbced.svg",
+          "center": [
+            0,
+            0
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            0,
+            0
+          ]
+        }
+      },
+      "sounds": {
+        "pop": "sounds/83a9787d4cb6f3b7632b4ddfebf74367.wav"
+      }
+    },
+    "uno": {
+      "costumes": {
+        "select": {
+          "path": "images/b67233740c25308e0c5e2f6de8d1cf1a.png",
+          "source": "b67233740c25308e0c5e2f6de8d1cf1a.svg",
+          "center": [
+            134.53328,
+            134.53328
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            269.0665588378906,
+            269.0665588378906
+          ]
+        },
+        "select.blue": {
+          "path": "images/8c382f303abfb044d963ac71f467108d.png",
+          "source": "8c382f303abfb044d963ac71f467108d.svg",
+          "center": [
+            -1.5719431577057037,
+            120.82650366066983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            119.88751220703125,
+            119.88153839111328
+          ]
+        },
+        "select.green": {
+          "path": "images/cf4626bcf3badd66ba47cba6e2df370b.png",
+          "source": "cf4626bcf3badd66ba47cba6e2df370b.svg",
+          "center": [
+            -1.5719446302950644,
+            -2.3250941358609225
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            119.88751983642578,
+            119.88153839111328
+          ]
+        },
+        "select.red": {
+          "path": "images/f834333fb3fa8b62f70f3bfabfc3da46.png",
+          "source": "f834333fb3fa8b62f70f3bfabfc3da46.svg",
+          "center": [
+            121.45942376056078,
+            120.82651662131059
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            119.88749694824219,
+            119.88155364990234
+          ]
+        },
+        "select.yellow": {
+          "path": "images/6b79392d9aad08dd60bf12434c03cc45.png",
+          "source": "6b79392d9aad08dd60bf12434c03cc45.svg",
+          "center": [
+            121.45942397697956,
+            -2.9550541358609053
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            119.88749694824219,
+            119.88155364990234
+          ]
+        },
+        "select.pink": {
+          "path": "images/a82fcdc22040c167fbdef04520278d8c.png",
+          "source": "a82fcdc22040c167fbdef04520278d8c.svg",
+          "center": [
+            -1.5719394731171406,
+            120.82650098200943
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            119.88751220703125,
+            119.88153839111328
+          ]
+        },
+        "select.purple": {
+          "path": "images/3e06974e666fa28425f158766b0a761b.png",
+          "source": "3e06974e666fa28425f158766b0a761b.svg",
+          "center": [
+            -1.5719492605900882,
+            -2.325098271721913
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            119.88751983642578,
+            119.88153839111328
+          ]
+        },
+        "select.aqua": {
+          "path": "images/88a8ba6b5b92f76b7c3bb9a44d284285.png",
+          "source": "88a8ba6b5b92f76b7c3bb9a44d284285.svg",
+          "center": [
+            121.45942128168235,
+            120.82651986393176
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            119.88749694824219,
+            119.88155364990234
+          ]
+        },
+        "select.orange": {
+          "path": "images/cb4a2aa436bb5fe2b241160585ed0563.png",
+          "source": "cb4a2aa436bb5fe2b241160585ed0563.svg",
+          "center": [
+            121.45942193093873,
+            -2.9550524075826843
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            119.88749694824219,
+            119.88155364990234
+          ]
+        },
+        "decide": {
+          "path": "images/ce055ed953c38ecc7387beb7f5297a2a.png",
+          "source": "ce055ed953c38ecc7387beb7f5297a2a.svg",
+          "center": [
+            134.53328,
+            134.53328
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            269.0665588378906,
+            269.0665588378906
+          ]
+        },
+        "challenge": {
+          "path": "images/f12a83d7ec7dc3c7bcdffceef66c6df0.png",
+          "source": "f12a83d7ec7dc3c7bcdffceef66c6df0.svg",
+          "center": [
+            110.5655736787788,
+            119.12880999999999
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            221.09153747558594,
+            146.3241729736328
+          ]
+        },
+        "draw four": {
+          "path": "images/d4bb4af9bfd0f0177ecf942f7bb23b3c.png",
+          "source": "d4bb4af9bfd0f0177ecf942f7bb23b3c.svg",
+          "center": [
+            110.52596000000028,
+            26.565404494653734
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            221.09153747558594,
+            146.3241729736328
+          ]
+        },
+        "challnged": {
+          "path": "images/80ed34fc26fc2d6ee6158d0b45fb93ce.png",
+          "source": "80ed34fc26fc2d6ee6158d0b45fb93ce.svg",
+          "center": [
+            213.60344825781266,
+            62.83732585766148
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            429.68048095703125,
+            124.54120635986328
+          ]
+        },
+        "button.end turn": {
+          "path": "images/50b3b7d12060e36b558b8179f71ce8f0.png",
+          "source": "50b3b7d12060e36b558b8179f71ce8f0.svg",
+          "center": [
+            20.558224691543614,
+            23.469085000000007
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            41.3060417175293,
+            46.938201904296875
+          ]
+        },
+        "button.uno": {
+          "path": "images/2727676fec17a5b6919d5075f5fc82b8.png",
+          "source": "2727676fec17a5b6919d5075f5fc82b8.svg",
+          "center": [
+            21.057585321342287,
+            23.4690866719493
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            42.78556823730469,
+            46.938201904296875
+          ]
+        },
+        "button.uno challenge": {
+          "path": "images/849452e0c912b654385f6fe19f767206.png",
+          "source": "849452e0c912b654385f6fe19f767206.svg",
+          "center": [
+            19.5553378882002,
+            23.469085000000007
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            40.103450775146484,
+            46.938201904296875
+          ]
+        },
+        "direction": {
+          "path": "images/682f4bfe97dfa036efd7e9af2366d8bf.png",
+          "source": "682f4bfe97dfa036efd7e9af2366d8bf.svg",
+          "center": [
+            120,
+            120
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            240,
+            240
+          ]
+        },
+        "direction2": {
+          "path": "images/6bae8a945aab9243e0566e901344fe62.png",
+          "source": "6bae8a945aab9243e0566e901344fe62.svg",
+          "center": [
+            120,
+            120
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            240,
+            240
+          ]
+        },
+        "thumb": {
+          "path": "images/ae451f3ecbfdae2b3776892959ff4e8e.png",
+          "source": "ae451f3ecbfdae2b3776892959ff4e8e.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red 0": {
+          "path": "images/4ec8a3c3bf594dcdc6efb6557499ee60.png",
+          "source": "4ec8a3c3bf594dcdc6efb6557499ee60.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red 1": {
+          "path": "images/4886f4888521b39eb3a193b38274d7ca.png",
+          "source": "4886f4888521b39eb3a193b38274d7ca.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red 2": {
+          "path": "images/9f46a5f83b4f827a1813f414f5b7d8f5.png",
+          "source": "9f46a5f83b4f827a1813f414f5b7d8f5.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red 3": {
+          "path": "images/b75fc9fe5fd772c8652ac6a61e3cd4f3.png",
+          "source": "b75fc9fe5fd772c8652ac6a61e3cd4f3.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red 4": {
+          "path": "images/1414242ac3bd971a966bd2da022e9a8b.png",
+          "source": "1414242ac3bd971a966bd2da022e9a8b.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red 5": {
+          "path": "images/a29babfb0de2c05c725f866bb442e9d5.png",
+          "source": "a29babfb0de2c05c725f866bb442e9d5.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red 6": {
+          "path": "images/c24ce17a4178bd4b57616cb05238b228.png",
+          "source": "c24ce17a4178bd4b57616cb05238b228.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red 7": {
+          "path": "images/aedf6ff178942f339b983f1bd245ae0c.png",
+          "source": "aedf6ff178942f339b983f1bd245ae0c.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red 8": {
+          "path": "images/a8f483bcbb16cd9318eef188c5b89fb7.png",
+          "source": "a8f483bcbb16cd9318eef188c5b89fb7.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red 9": {
+          "path": "images/ff77a1e08c856d595eb2f542af43ab12.png",
+          "source": "ff77a1e08c856d595eb2f542af43ab12.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red discard all": {
+          "path": "images/e367bff954a1c9f3d108a14877f13444.png",
+          "source": "e367bff954a1c9f3d108a14877f13444.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red draw 2": {
+          "path": "images/5d5fa363cbec71413abc3d1a47e91e67.png",
+          "source": "5d5fa363cbec71413abc3d1a47e91e67.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red draw 4": {
+          "path": "images/7962c05841308d21605e783e84a2599c.png",
+          "source": "7962c05841308d21605e783e84a2599c.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red reverse": {
+          "path": "images/55e42d15fb86a689d1ebc7d896552fec.png",
+          "source": "55e42d15fb86a689d1ebc7d896552fec.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red skip all": {
+          "path": "images/39f8a0f361f5318e65dbe08896aaceb6.png",
+          "source": "39f8a0f361f5318e65dbe08896aaceb6.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "red skip": {
+          "path": "images/5ac634661c7ae0b733c5f94f8d686a92.png",
+          "source": "5ac634661c7ae0b733c5f94f8d686a92.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "uno": {
+          "path": "images/e8bb9087fc20e974a531ada5b028151a.png",
+          "source": "e8bb9087fc20e974a531ada5b028151a.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "wild colour roulette": {
+          "path": "images/8faac889b94025e43bd7242eb6252800.png",
+          "source": "8faac889b94025e43bd7242eb6252800.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "wild draw 6": {
+          "path": "images/8749bc30eadd3058731e9c7dd0de4fdf.png",
+          "source": "8749bc30eadd3058731e9c7dd0de4fdf.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "wild draw 10": {
+          "path": "images/18010489f3fd171a35d91764188ae6f8.png",
+          "source": "18010489f3fd171a35d91764188ae6f8.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "wild reverse draw 4": {
+          "path": "images/055f2f3b49c52ec6600365f225729e0c.png",
+          "source": "055f2f3b49c52ec6600365f225729e0c.png",
+          "center": [
+            162,
+            253
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        }
+      },
+      "sounds": {
+        "music: song 1": "sounds/8f534fd42965ac2871a14d5a0c32c296.mp3",
+        "music: song 2": "sounds/8baccfc0a01acaadfaf7d83990aed6b1.mp3",
+        "music: song 3": "sounds/f190d41a24b915bbc06fbc9ac6fdc7b3.mp3",
+        "music: song 4": "sounds/de1eb953073982a21782ab12bb6feda0.mp3",
+        "music: winner": "sounds/9670c946d231931e15eb496529ee5374.mp3",
+        "sfx: shuffle pack": "sounds/6c33943134f2edf0affdc9e4231cbc7a.mp3",
+        "sfx: bloop": "sounds/7e7c6806a8083fe16b66038da0313302.mp3",
+        "sfx: draw slow": "sounds/667c753f146670ab702253a4a4413941.mp3",
+        "sfx: game start beep": "sounds/45845de1310ffe463a6ea2c96c04d231.mp3",
+        "sfx: game start ding": "sounds/9b89fad97f47b5588bb196db2517a172.mp3",
+        "sfx: draw fast": "sounds/ce7ae0dbca3e80def0fc5fba0b846f78.mp3",
+        "sfx: whooping": "sounds/d19ffe6c7bcb4663a7dd9b22fd49cf0e.mp3",
+        "sfx: disconnected": "sounds/70146946201853201316a9bd3c15e07c.mp3",
+        "voice: draw 2": "sounds/70c621fcf14d8282a75a4409a1791ff1.wav",
+        "voice: draw 4": "sounds/4aa1a0db6f23b313f9cffebdc89c2b33.wav",
+        "voice: draw 6": "sounds/6779f9caf8a6e369a49333abdb0f95d7.wav",
+        "voice: draw 8": "sounds/2e8c1d6848a538b76bc534c37cf7a69f.wav",
+        "voice: draw 10": "sounds/a6bef9b78d9799db6b7b3fc5590dbf77.wav",
+        "voice: draw 12": "sounds/996893d67da0caa4dba499350ea3bea9.wav",
+        "voice: draw 14": "sounds/5778c91950a9ca488b404665e0cdd564.wav",
+        "voice: draw 16": "sounds/9634aebb886283ff664cf5384fba6bd9.wav",
+        "voice: draw 18": "sounds/e820b21d70cbb5c92be29eaff2f32ff7.wav",
+        "voice: draw 20": "sounds/91d8ea90fdcfa3f463884098aed13de7.wav",
+        "voice: draw 22": "sounds/7df91a775d75214e28318f5a16db7006.mp3",
+        "voice: draw 24": "sounds/a8c1ea70a285597aadec435238a3ef48.mp3",
+        "voice: draw 26": "sounds/bd3578570435319a57b20b3698060542.mp3",
+        "voice: draw 28": "sounds/0ab650eb9952b0c9888127bac1e7e563.mp3",
+        "voice: draw 30": "sounds/d6614706aa9c11b5c9cc4dd93a0dd70b.wav",
+        "voice: draw 32": "sounds/cd36cf43b236815c6d79e00470108eb1.mp3",
+        "voice: draw 34": "sounds/f737db374509cea5850bfc997992550e.mp3",
+        "voice: draw 36": "sounds/f7658df521fffae52203af8333f7375d.mp3",
+        "voice: draw 38": "sounds/429197a26f83918cd5f928b3d76b3d99.mp3",
+        "voice: draw 40": "sounds/e27dad2853f1c91de1b55b9f060ccb45.wav",
+        "voice: draw cards": "sounds/a96b1d7143763773f24490ea1b1ea4cc.wav",
+        "voice: blue": "sounds/fd66d6c91b7f0495223abc406407aa0f.wav",
+        "voice: green": "sounds/a8efec4642dd8b7cb7f1d66f568fb195.wav",
+        "voice: red": "sounds/37b29bfc2c0cb8174ee50e0af9df4e96.wav",
+        "voice: yellow": "sounds/06701e22c558a3d4b92c16d7b7caba74.wav",
+        "voice: flip": "sounds/84fc4f3295926896f0f747e61889a748.wav",
+        "voice: flip-a-roony": "sounds/23dc656a63ae0f8fd31c0ed137e408cc.wav",
+        "voice: reverse": "sounds/fae49e10036577c63231bc26b75d21d1.wav",
+        "voice: reverse mania": "sounds/898f2ecf9da1d9b5acc778a2c21908ca.wav",
+        "voice: skip-'em-all": "sounds/ecbc64a4fa93352f166f0dc7db8f2800.wav",
+        "voice: skip everyone": "sounds/8f227448f4b9ec85ea7e0a2dcc474877.wav",
+        "voice: skip": "sounds/653fc3b5e53873e3cee988f813b7edf6.wav",
+        "voice: skippity dip": "sounds/2944d555bee8fab5e7a9eb927790dee9.wav",
+        "voice: hooray": "sounds/0403a434688a73e895c8c0109d0abac9.wav",
+        "voice: no way": "sounds/6a0b4d07a7a74e585b1e93b3b126f562.wav",
+        "voice: uno": "sounds/c1ae90baee3b170116364d9c8b58f168.wav",
+        "voice: discard all blues": "sounds/5e410136b0731537e0f350bdd6e1738e.wav",
+        "voice: discard all greens": "sounds/610580ac57207050739e63c65473fc85.wav",
+        "voice: discard all reds": "sounds/000dc4c8e029e574f44dd363f1ff396d.wav",
+        "voice: discard all yellows": "sounds/00adbfa3f34ce41cf5c8b6c7a70546d1.wav",
+        "voice: mercy": "sounds/5cc370befe31ebfb1aed6f97f531ac98.wav",
+        "voice: sevens swap": "sounds/b85d1e10cbfddd3a16d0730307d44d36.wav",
+        "voice: swap hands": "sounds/0642b7537ce1c319755d8d3958cf8222.wav",
+        "voice: zeroes pass": "sounds/9ef478bcf0743b3a75e18b54f42f8776.wav",
+        "voice: pass hands around": "sounds/962d90ad8ec9aa233ed0d1c89cfc4828.wav",
+        "voice: start drawing": "sounds/0a9d4c810c8bb240463651a9bea3afcf.wav",
+        "voice: wild colour roulette": "sounds/ac0b48281c642b675addb3dd2a232b37.wav",
+        "voice: mercy tally": "sounds/5f2b84d3ec806ad9ced80b50f6ac7ae1.mp3"
+      }
+    },
+    "lobby": {
+      "costumes": {
+        "font A": {
+          "path": "images/139f38612d6ec9efaf315d126cdbbd14.png",
+          "source": "139f38612d6ec9efaf315d126cdbbd14.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.88280963897705,
+            27
+          ]
+        },
+        "font B": {
+          "path": "images/26cb830ab807517a15031dee6cd579d0.png",
+          "source": "26cb830ab807517a15031dee6cd579d0.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.921879768371582,
+            27
+          ]
+        },
+        "font C": {
+          "path": "images/833ca32e8e097ea9204cebda5e6a78f6.png",
+          "source": "833ca32e8e097ea9204cebda5e6a78f6.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            16,
+            27
+          ]
+        },
+        "font D": {
+          "path": "images/22b282cbd54f98723789bd6ad5de7e54.png",
+          "source": "22b282cbd54f98723789bd6ad5de7e54.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            16.1406307220459,
+            27
+          ]
+        },
+        "font E": {
+          "path": "images/80b976870d51050fd9418072e899ad19.png",
+          "source": "80b976870d51050fd9418072e899ad19.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13.60155963897705,
+            27
+          ]
+        },
+        "font F": {
+          "path": "images/54791b4ea08b5311c4177d9aa791ecc5.png",
+          "source": "54791b4ea08b5311c4177d9aa791ecc5.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13.5,
+            27
+          ]
+        },
+        "font G": {
+          "path": "images/f94eaf0b13e9fb4afb5311a99d38fd15.png",
+          "source": "f94eaf0b13e9fb4afb5311a99d38fd15.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            16.226560592651367,
+            27
+          ]
+        },
+        "font H": {
+          "path": "images/a8a3e3c899c709929f22eedb13a9d24e.png",
+          "source": "a8a3e3c899c709929f22eedb13a9d24e.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15.421879768371582,
+            27
+          ]
+        },
+        "font I": {
+          "path": "images/5868b093ac8c4e0118d03a6f273cc6c9.png",
+          "source": "5868b093ac8c4e0118d03a6f273cc6c9.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            5.882810115814209,
+            27
+          ]
+        },
+        "font J": {
+          "path": "images/8f25f0a37afef96bc07aa74de66fb779.png",
+          "source": "8f25f0a37afef96bc07aa74de66fb779.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.546879768371582,
+            27
+          ]
+        },
+        "font K": {
+          "path": "images/d0a09a1414b3c64831821ec2504e1264.png",
+          "source": "d0a09a1414b3c64831821ec2504e1264.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.5,
+            27
+          ]
+        },
+        "font L": {
+          "path": "images/2df7aa26a702ed02b0d82ba00d1c8d9e.png",
+          "source": "2df7aa26a702ed02b0d82ba00d1c8d9e.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12,
+            27
+          ]
+        },
+        "font M": {
+          "path": "images/2c6ea2e8d6aaad2f75c3c03df8964c0f.png",
+          "source": "2c6ea2e8d6aaad2f75c3c03df8964c0f.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            18.226560592651367,
+            27
+          ]
+        },
+        "font N": {
+          "path": "images/a36d0cb56d34c1473fff4e43b4c944c3.png",
+          "source": "a36d0cb56d34c1473fff4e43b4c944c3.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            16.625,
+            27
+          ]
+        },
+        "font O": {
+          "path": "images/8243e217459390a822c86d0b14391899.png",
+          "source": "8243e217459390a822c86d0b14391899.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            17.304689407348633,
+            27
+          ]
+        },
+        "font P": {
+          "path": "images/6a847678447e38f36ec1dde44566a1ff.png",
+          "source": "6a847678447e38f36ec1dde44566a1ff.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.5,
+            27
+          ]
+        },
+        "font Q": {
+          "path": "images/57b2346dc02dfb2c066df3023b4c972f.png",
+          "source": "57b2346dc02dfb2c066df3023b4c972f.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            16.6406307220459,
+            27
+          ]
+        },
+        "font R": {
+          "path": "images/30f4884b7ee6a5f6c907f69e67b4b2e2.png",
+          "source": "30f4884b7ee6a5f6c907f69e67b4b2e2.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15.5,
+            27
+          ]
+        },
+        "font S": {
+          "path": "images/e510df89c9ab6252b8c8e53ed40bde9a.png",
+          "source": "e510df89c9ab6252b8c8e53ed40bde9a.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13.546879768371582,
+            27
+          ]
+        },
+        "font T": {
+          "path": "images/d551ac5c857ccb7f020ad600f3a4e393.png",
+          "source": "d551ac5c857ccb7f020ad600f3a4e393.svg",
+          "center": [
+            0.8499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15,
+            27
+          ]
+        },
+        "font U": {
+          "path": "images/cf4fa8f9da38cf19682bcc59f4b55ab3.png",
+          "source": "cf4fa8f9da38cf19682bcc59f4b55ab3.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.72655963897705,
+            27
+          ]
+        },
+        "font V": {
+          "path": "images/a05d1fdb0d2bb9ac71938c3d316abfac.png",
+          "source": "a05d1fdb0d2bb9ac71938c3d316abfac.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15,
+            27
+          ]
+        },
+        "font W": {
+          "path": "images/c5cb5eea27247fd201fc713969fc1ffc.png",
+          "source": "c5cb5eea27247fd201fc713969fc1ffc.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            21.945310592651367,
+            27
+          ]
+        },
+        "font X": {
+          "path": "images/8da2576098e9b96e2dfdf3d84a90b448.png",
+          "source": "8da2576098e9b96e2dfdf3d84a90b448.svg",
+          "center": [
+            0.8499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15,
+            27
+          ]
+        },
+        "font Y": {
+          "path": "images/28597a88d7600d1436bb7d7130e4eae0.png",
+          "source": "28597a88d7600d1436bb7d7130e4eae0.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13.5,
+            27
+          ]
+        },
+        "font Z": {
+          "path": "images/14f070180db77251ff7ad8bb3108d318.png",
+          "source": "14f070180db77251ff7ad8bb3108d318.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14,
+            27
+          ]
+        },
+        "font a": {
+          "path": "images/4f4e8ba15aecb1338112a05333506f3a.png",
+          "source": "4f4e8ba15aecb1338112a05333506f3a.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11,
+            27
+          ]
+        },
+        "font b": {
+          "path": "images/34d56be837a2493d96fac8b2ec8d29cf.png",
+          "source": "34d56be837a2493d96fac8b2ec8d29cf.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.046879768371582,
+            27
+          ]
+        },
+        "font c": {
+          "path": "images/c9800505dc4991387cc5d8a0cceaafcb.png",
+          "source": "c9800505dc4991387cc5d8a0cceaafcb.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10,
+            27
+          ]
+        },
+        "font d": {
+          "path": "images/98ddc8181b17c520883519089ec0d867.png",
+          "source": "98ddc8181b17c520883519089ec0d867.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.46094036102295,
+            27
+          ]
+        },
+        "font e": {
+          "path": "images/6e2477da4b86397b8f9886e5d5c73cc0.png",
+          "source": "6e2477da4b86397b8f9886e5d5c73cc0.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.5,
+            27
+          ]
+        },
+        "font f": {
+          "path": "images/19a0619212e05c937dc5ddb537604931.png",
+          "source": "19a0619212e05c937dc5ddb537604931.svg",
+          "center": [
+            0.8499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            9.5,
+            27
+          ]
+        },
+        "font g": {
+          "path": "images/95ebeb6faad605ca06c343a3f1c4f5ca.png",
+          "source": "95ebeb6faad605ca06c343a3f1c4f5ca.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.32030963897705,
+            27
+          ]
+        },
+        "font h": {
+          "path": "images/3cb7e03b3a20e3d9b70193a3221ad4e3.png",
+          "source": "3cb7e03b3a20e3d9b70193a3221ad4e3.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12,
+            27
+          ]
+        },
+        "font i": {
+          "path": "images/4f92b3e76263ee6d053e2a1d2cd13982.png",
+          "source": "4f92b3e76263ee6d053e2a1d2cd13982.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            5,
+            27
+          ]
+        },
+        "font j": {
+          "path": "images/60bdead88b212f54662ca21befd69c06.png",
+          "source": "60bdead88b212f54662ca21befd69c06.svg",
+          "center": [
+            2.349999999999966,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            7.023439884185791,
+            27
+          ]
+        },
+        "font k": {
+          "path": "images/4dbc733e9f1f2a9265908d936f1bea2e.png",
+          "source": "4dbc733e9f1f2a9265908d936f1bea2e.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11,
+            27
+          ]
+        },
+        "font l": {
+          "path": "images/981aefa064711e0f6792285d89853fc1.png",
+          "source": "981aefa064711e0f6792285d89853fc1.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            6.5,
+            27
+          ]
+        },
+        "font m": {
+          "path": "images/7efc00c02e687481cf3100483e802e04.png",
+          "source": "7efc00c02e687481cf3100483e802e04.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15.5,
+            27
+          ]
+        },
+        "font n": {
+          "path": "images/010afaea0cedacee0294800664d1823d.png",
+          "source": "010afaea0cedacee0294800664d1823d.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11,
+            27
+          ]
+        },
+        "font o": {
+          "path": "images/a1adedc6c4131cb6e3e986a41eaa0027.png",
+          "source": "a1adedc6c4131cb6e3e986a41eaa0027.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.80469036102295,
+            27
+          ]
+        },
+        "font p": {
+          "path": "images/f5ba687b9211b2ddb2fa5732b4ad80de.png",
+          "source": "f5ba687b9211b2ddb2fa5732b4ad80de.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.421879768371582,
+            27
+          ]
+        },
+        "font q": {
+          "path": "images/32bac395c173b582a597dd0a95f1ec6b.png",
+          "source": "32bac395c173b582a597dd0a95f1ec6b.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.265629768371582,
+            27
+          ]
+        },
+        "font r": {
+          "path": "images/bdb6f55a788981061ae7290b0a6ed95d.png",
+          "source": "bdb6f55a788981061ae7290b0a6ed95d.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            9.5,
+            27
+          ]
+        },
+        "font s": {
+          "path": "images/7c989f1af72f2376a024708ba7f97926.png",
+          "source": "7c989f1af72f2376a024708ba7f97926.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            9.72655963897705,
+            27
+          ]
+        },
+        "font t": {
+          "path": "images/062822a5cc18820b0a4a73a3f1fd27f2.png",
+          "source": "062822a5cc18820b0a4a73a3f1fd27f2.svg",
+          "center": [
+            0.8499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            9,
+            27
+          ]
+        },
+        "font u": {
+          "path": "images/c409725adadbf7c4d3e83e1cabda0604.png",
+          "source": "c409725adadbf7c4d3e83e1cabda0604.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.16405963897705,
+            27
+          ]
+        },
+        "font v": {
+          "path": "images/892be193d7f2455a080648e3b8b06f87.png",
+          "source": "892be193d7f2455a080648e3b8b06f87.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.5,
+            27
+          ]
+        },
+        "font w": {
+          "path": "images/3a6aafe9f5001d48131386181dca32b5.png",
+          "source": "3a6aafe9f5001d48131386181dca32b5.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.44530963897705,
+            27
+          ]
+        },
+        "font x": {
+          "path": "images/2fd426d15cb1e2c6dc33d96eaccb6803.png",
+          "source": "2fd426d15cb1e2c6dc33d96eaccb6803.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10,
+            27
+          ]
+        },
+        "font y": {
+          "path": "images/702d0a2064870a747e009c564125c702.png",
+          "source": "702d0a2064870a747e009c564125c702.svg",
+          "center": [
+            0.8499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.34375,
+            27
+          ]
+        },
+        "font z": {
+          "path": "images/0be20fcebe7ea3b4b28ce994e39d56bd.png",
+          "source": "0be20fcebe7ea3b4b28ce994e39d56bd.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10,
+            27
+          ]
+        },
+        "font 0": {
+          "path": "images/748f697186260b1c1233b5a1627da26f.png",
+          "source": "748f697186260b1c1233b5a1627da26f.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13.88280963897705,
+            27
+          ]
+        },
+        "font 1": {
+          "path": "images/5db1b97afa285cb6176b4a3449bad5e7.png",
+          "source": "5db1b97afa285cb6176b4a3449bad5e7.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            7.765629768371582,
+            27
+          ]
+        },
+        "font 2": {
+          "path": "images/5b1a5f87b1d063cac7b201b6b0c44cca.png",
+          "source": "5b1a5f87b1d063cac7b201b6b0c44cca.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12.5,
+            27
+          ]
+        },
+        "font 3": {
+          "path": "images/a7b80db91505cc6d8cd2927465ad2f15.png",
+          "source": "a7b80db91505cc6d8cd2927465ad2f15.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11.484379768371582,
+            27
+          ]
+        },
+        "font 4": {
+          "path": "images/7b95c650b4261ab75606c2d9e649d6b2.png",
+          "source": "7b95c650b4261ab75606c2d9e649d6b2.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11.88280963897705,
+            27
+          ]
+        },
+        "font 5": {
+          "path": "images/14480ab37a913a1b063226de7b936fbd.png",
+          "source": "14480ab37a913a1b063226de7b936fbd.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12.5625,
+            27
+          ]
+        },
+        "font 6": {
+          "path": "images/8229e916fccba9402bfdf90365b040e6.png",
+          "source": "8229e916fccba9402bfdf90365b040e6.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12.625,
+            27
+          ]
+        },
+        "font 7": {
+          "path": "images/3021ecf57b05d774de9d10b1fa8d9cc8.png",
+          "source": "3021ecf57b05d774de9d10b1fa8d9cc8.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.72655963897705,
+            27
+          ]
+        },
+        "font 8": {
+          "path": "images/9408b32f7cbd180ae8e679b4d1825cf7.png",
+          "source": "9408b32f7cbd180ae8e679b4d1825cf7.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13,
+            27
+          ]
+        },
+        "font 9": {
+          "path": "images/4ae11f4c4af68ffa5fdecb3a4e882fc6.png",
+          "source": "4ae11f4c4af68ffa5fdecb3a4e882fc6.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11.08594036102295,
+            27
+          ]
+        },
+        "font -": {
+          "path": "images/99eef2d6f4df58dc667bf39b662f132b.png",
+          "source": "99eef2d6f4df58dc667bf39b662f132b.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11.90625,
+            27
+          ]
+        },
+        "font _": {
+          "path": "images/6f337867397c51ee6392517b9aed7658.png",
+          "source": "6f337867397c51ee6392517b9aed7658.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15.5,
+            27
+          ]
+        },
+        "font .": {
+          "path": "images/5c8afef227cad02d68b859ffd8c78f23.png",
+          "source": "5c8afef227cad02d68b859ffd8c78f23.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            5.523439884185791,
+            27
+          ]
+        },
+        "font end marker": {
+          "path": "images/cd21514d0531fdffb22204e0ec5ed84a.png",
+          "source": "cd21514d0531fdffb22204e0ec5ed84a.svg",
+          "center": [
+            0,
+            0
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            2,
+            2
+          ]
+        },
+        "inviting window": {
+          "path": "images/b4d5ec5fda4577efd6d6b74f6fd827c2.png",
+          "source": "b4d5ec5fda4577efd6d6b74f6fd827c2.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "join group?": {
+          "path": "images/28e0eb9e6d46c70b09fd3e84ced1debf.png",
+          "source": "28e0eb9e6d46c70b09fd3e84ced1debf.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "inviting randomly window": {
+          "path": "images/0e6c540bd5f918cce4d933ad905f9408.png",
+          "source": "0e6c540bd5f918cce4d933ad905f9408.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "starting ai game": {
+          "path": "images/c438e671d4c5a442f3dc6044f65fdc4f.png",
+          "source": "c438e671d4c5a442f3dc6044f65fdc4f.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "ai": {
+          "path": "images/4e51eddf0bce256d13d92ff65f8f4c27.png",
+          "source": "4e51eddf0bce256d13d92ff65f8f4c27.png",
+          "center": [
+            48,
+            48
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "2p": {
+          "path": "images/aa5d36e97a0d21004ce13254591b0285.png",
+          "source": "aa5d36e97a0d21004ce13254591b0285.png",
+          "center": [
+            48,
+            48
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "3p": {
+          "path": "images/c823d8ce6002e16dce990e9d79d8bf40.png",
+          "source": "c823d8ce6002e16dce990e9d79d8bf40.png",
+          "center": [
+            48,
+            48
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "4p": {
+          "path": "images/8ef9284ad1a37217b10f3bb5d3cddfc9.png",
+          "source": "8ef9284ad1a37217b10f3bb5d3cddfc9.png",
+          "center": [
+            48,
+            48
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "invite": {
+          "path": "images/21521aae5ae07d567f3d0a1679da6846.png",
+          "source": "21521aae5ae07d567f3d0a1679da6846.svg",
+          "center": [
+            24,
+            24
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            48,
+            48
+          ]
+        },
+        "anim background": {
+          "path": "images/a158466978de7248e765c00cbe205e8f.png",
+          "source": "a158466978de7248e765c00cbe205e8f.svg",
+          "center": [
+            41.833315,
+            41.833315
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            83.66667175292969,
+            83.66667175292969
+          ]
+        },
+        "anim background populate": {
+          "path": "images/e274a4997d8a4500f63b9bb26804bee2.png",
+          "source": "e274a4997d8a4500f63b9bb26804bee2.svg",
+          "center": [
+            142.5,
+            57
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            290,
+            137.5
+          ]
+        },
+        "anim background assign": {
+          "path": "images/8e6253f68ada60fec51b50621a31fd8a.png",
+          "source": "8e6253f68ada60fec51b50621a31fd8a.svg",
+          "center": [
+            142.5,
+            57
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            290,
+            137.5
+          ]
+        },
+        "anim background wait for slot": {
+          "path": "images/46a00bf7b9cd7dc90c12af8712bdc226.png",
+          "source": "46a00bf7b9cd7dc90c12af8712bdc226.svg",
+          "center": [
+            142.5,
+            188
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            290,
+            229.8333740234375
+          ]
+        },
+        "anim background wait for slot2": {
+          "path": "images/264b5ca9bbff1ec292a77a31ac34a283.png",
+          "source": "264b5ca9bbff1ec292a77a31ac34a283.svg",
+          "center": [
+            142.5,
+            173
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            290,
+            137.5
+          ]
+        },
+        "accept": {
+          "path": "images/11246af56d02a567d950a20ac84cd77b.png",
+          "source": "11246af56d02a567d950a20ac84cd77b.svg",
+          "center": [
+            22.51581250000001,
+            22.51581250000001
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            45.03163146972656,
+            45.03163146972656
+          ]
+        },
+        "cancel": {
+          "path": "images/2fb9dade2fe8731a047f111b5f16584e.png",
+          "source": "2fb9dade2fe8731a047f111b5f16584e.svg",
+          "center": [
+            22.515809999999988,
+            22.515810000000016
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            45.031620025634766,
+            45.031620025634766
+          ]
+        },
+        "yes": {
+          "path": "images/09b15c29d2490490fa2466e369c74909.png",
+          "source": "09b15c29d2490490fa2466e369c74909.svg",
+          "center": [
+            13.150000000000034,
+            13.150000000000006
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            26.299999237060547,
+            26.299999237060547
+          ]
+        },
+        "no": {
+          "path": "images/f971e34711fb6be4f729e0d0b8f3c1a0.png",
+          "source": "f971e34711fb6be4f729e0d0b8f3c1a0.svg",
+          "center": [
+            13.150000000000006,
+            13.150000000000006
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            26.299999237060547,
+            26.299999237060547
+          ]
+        },
+        "maybe": {
+          "path": "images/cfa3fffa02ee23508bef0bd554896e84.png",
+          "source": "cfa3fffa02ee23508bef0bd554896e84.svg",
+          "center": [
+            13.150000000000006,
+            13.150000000000006
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            26.299999237060547,
+            28.46875
+          ]
+        },
+        "inviting": {
+          "path": "images/fa2b00fdd03739e951b746be85bd894f.png",
+          "source": "fa2b00fdd03739e951b746be85bd894f.svg",
+          "center": [
+            80.625,
+            9.25
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            81.25,
+            18.5
+          ]
+        },
+        "invited": {
+          "path": "images/5664448a18ce18649b3a976517f0f9d1.png",
+          "source": "5664448a18ce18649b3a976517f0f9d1.svg",
+          "center": [
+            80.625,
+            9.25
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            81.25,
+            18.5
+          ]
+        },
+        "waiting": {
+          "path": "images/014550746e30d8d9864ef434e5563fdb.png",
+          "source": "014550746e30d8d9864ef434e5563fdb.svg",
+          "center": [
+            80.37500000000003,
+            9.25
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            81.25,
+            18.5
+          ]
+        },
+        "waiting 2": {
+          "path": "images/48f30832674294b851aa4fc43a80d011.png",
+          "source": "48f30832674294b851aa4fc43a80d011.svg",
+          "center": [
+            80.62500000000003,
+            9.25
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            81.25,
+            18.5
+          ]
+        },
+        "waiting 3": {
+          "path": "images/22f8213a73bdbc28dcc89e11be439fb5.png",
+          "source": "22f8213a73bdbc28dcc89e11be439fb5.svg",
+          "center": [
+            80.62500000000003,
+            9.25
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            81.25,
+            18.5
+          ]
+        },
+        "waiting 4": {
+          "path": "images/ea576d921f6260c180aee8f142d70eec.png",
+          "source": "ea576d921f6260c180aee8f142d70eec.svg",
+          "center": [
+            80.37500000000003,
+            9.25
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            81.25,
+            18.5
+          ]
+        },
+        "playing": {
+          "path": "images/1c68a49ff1814df141cada295a575aeb.png",
+          "source": "1c68a49ff1814df141cada295a575aeb.svg",
+          "center": [
+            80.625,
+            9.25
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            81.25,
+            18.5
+          ]
+        },
+        "bg": {
+          "path": "images/10f6778e31fae3e576412f4339c8f5cd.png",
+          "source": "10f6778e31fae3e576412f4339c8f5cd.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "waiting loop": {
+          "path": "images/398f273852f86285d310215c3c844e80.png",
+          "source": "398f273852f86285d310215c3c844e80.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop2": {
+          "path": "images/279b29ae90ccffa310a34efe06279beb.png",
+          "source": "279b29ae90ccffa310a34efe06279beb.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop3": {
+          "path": "images/99dc07f0e0715eaaecb84772ec7f4f83.png",
+          "source": "99dc07f0e0715eaaecb84772ec7f4f83.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop4": {
+          "path": "images/f94e5ba128f132641de8097cb016dd2e.png",
+          "source": "f94e5ba128f132641de8097cb016dd2e.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop5": {
+          "path": "images/b35e5bd409ea3b1786bae6b3ae8d804a.png",
+          "source": "b35e5bd409ea3b1786bae6b3ae8d804a.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop6": {
+          "path": "images/ba8d77c130c72bb7445936a6ff757619.png",
+          "source": "ba8d77c130c72bb7445936a6ff757619.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop7": {
+          "path": "images/309d30f7eef5f8f4310ad114a00d8ce5.png",
+          "source": "309d30f7eef5f8f4310ad114a00d8ce5.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop8": {
+          "path": "images/869808d9410dd044b2b604b018020a89.png",
+          "source": "869808d9410dd044b2b604b018020a89.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop9": {
+          "path": "images/6cd26bb7fee5d99c46bba6f51828aa84.png",
+          "source": "6cd26bb7fee5d99c46bba6f51828aa84.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop10": {
+          "path": "images/718785b648c52a9903fc8c39ef3b08aa.png",
+          "source": "718785b648c52a9903fc8c39ef3b08aa.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop11": {
+          "path": "images/32a361f349889cf3269315d1cdcf751c.png",
+          "source": "32a361f349889cf3269315d1cdcf751c.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop12": {
+          "path": "images/740bfc8432e06c4448e869cd46fc74fa.png",
+          "source": "740bfc8432e06c4448e869cd46fc74fa.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop13": {
+          "path": "images/9315be416aec408767ed6d936de190f6.png",
+          "source": "9315be416aec408767ed6d936de190f6.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop14": {
+          "path": "images/1d75e2c5bd735a33e07a00722bc430dd.png",
+          "source": "1d75e2c5bd735a33e07a00722bc430dd.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop15": {
+          "path": "images/f53a11165812fe6ad3bfa1393fe180f9.png",
+          "source": "f53a11165812fe6ad3bfa1393fe180f9.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop16": {
+          "path": "images/cb23a24eb1d7e0f8eb4278383a042769.png",
+          "source": "cb23a24eb1d7e0f8eb4278383a042769.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop17": {
+          "path": "images/4b77f90249b8f717a3c8a1a898e5b1b8.png",
+          "source": "4b77f90249b8f717a3c8a1a898e5b1b8.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop18": {
+          "path": "images/029fb88d5d9ed50dfadee6530ef8a6dc.png",
+          "source": "029fb88d5d9ed50dfadee6530ef8a6dc.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop19": {
+          "path": "images/ce595164718044a3feb926ae952cd221.png",
+          "source": "ce595164718044a3feb926ae952cd221.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop20": {
+          "path": "images/f9c3da0dff3ef3800214599037175cda.png",
+          "source": "f9c3da0dff3ef3800214599037175cda.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop21": {
+          "path": "images/1ed681fc8d67729089854f64bbf58b26.png",
+          "source": "1ed681fc8d67729089854f64bbf58b26.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop22": {
+          "path": "images/5a87dad2f5740580c0848d4f83fb6a7c.png",
+          "source": "5a87dad2f5740580c0848d4f83fb6a7c.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop23": {
+          "path": "images/63aa8e128b9f050f4fe82aadc2ee0317.png",
+          "source": "63aa8e128b9f050f4fe82aadc2ee0317.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop24": {
+          "path": "images/19a4b3585ef991e479bdac2e1a53df70.png",
+          "source": "19a4b3585ef991e479bdac2e1a53df70.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "waiting loop25": {
+          "path": "images/eb1370252723c47342348cc793e34e18.png",
+          "source": "eb1370252723c47342348cc793e34e18.png",
+          "center": [
+            68,
+            68
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "disconnected": {
+          "path": "images/a6374cd2ac4f6588fbc61959a54687ce.png",
+          "source": "a6374cd2ac4f6588fbc61959a54687ce.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "turbo": {
+          "path": "images/9d367650b25424f18eee85f504f43530.png",
+          "source": "9d367650b25424f18eee85f504f43530.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "lobby": {
+          "path": "images/3bcd7af813185b24279ce37461e93214.png",
+          "source": "3bcd7af813185b24279ce37461e93214.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "help icon": {
+          "path": "images/562ca4966d4741a915a697bb1b7e6655.png",
+          "source": "562ca4966d4741a915a697bb1b7e6655.png",
+          "center": [
+            167,
+            29
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "help icon - vector": {
+          "path": "images/c4f48737f1f20c1505a2397f05e5ac5b.png",
+          "source": "c4f48737f1f20c1505a2397f05e5ac5b.svg",
+          "center": [
+            83.46562501701743,
+            14.200009999999992
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            106.68699645996094,
+            35.44879150390625
+          ]
+        },
+        "offline background": {
+          "path": "images/cbf420cca23780350f9fe48d190d9f80.png",
+          "source": "cbf420cca23780350f9fe48d190d9f80.svg",
+          "center": [
+            143,
+            187.6901365429688
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            290,
+            229.8333740234375
+          ]
+        }
+      },
+      "sounds": {
+        "button": "sounds/0f6e083efee91a6d8ab854d869f2ace3.mp3",
+        "main menu": "sounds/b2fd7c7f42e866fe5668c12f072ba385.mp3",
+        "voice: uno": "sounds/c1ae90baee3b170116364d9c8b58f168.wav"
+      }
+    },
+    "font": {
+      "costumes": {
+        "font A": {
+          "path": "images/139f38612d6ec9efaf315d126cdbbd14.png",
+          "source": "139f38612d6ec9efaf315d126cdbbd14.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.88280963897705,
+            27
+          ]
+        },
+        "font B": {
+          "path": "images/26cb830ab807517a15031dee6cd579d0.png",
+          "source": "26cb830ab807517a15031dee6cd579d0.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.921879768371582,
+            27
+          ]
+        },
+        "font C": {
+          "path": "images/833ca32e8e097ea9204cebda5e6a78f6.png",
+          "source": "833ca32e8e097ea9204cebda5e6a78f6.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            16,
+            27
+          ]
+        },
+        "font D": {
+          "path": "images/22b282cbd54f98723789bd6ad5de7e54.png",
+          "source": "22b282cbd54f98723789bd6ad5de7e54.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            16.1406307220459,
+            27
+          ]
+        },
+        "font E": {
+          "path": "images/80b976870d51050fd9418072e899ad19.png",
+          "source": "80b976870d51050fd9418072e899ad19.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13.60155963897705,
+            27
+          ]
+        },
+        "font F": {
+          "path": "images/54791b4ea08b5311c4177d9aa791ecc5.png",
+          "source": "54791b4ea08b5311c4177d9aa791ecc5.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13.5,
+            27
+          ]
+        },
+        "font G": {
+          "path": "images/f94eaf0b13e9fb4afb5311a99d38fd15.png",
+          "source": "f94eaf0b13e9fb4afb5311a99d38fd15.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            16.226560592651367,
+            27
+          ]
+        },
+        "font H": {
+          "path": "images/a8a3e3c899c709929f22eedb13a9d24e.png",
+          "source": "a8a3e3c899c709929f22eedb13a9d24e.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15.421879768371582,
+            27
+          ]
+        },
+        "font I": {
+          "path": "images/5868b093ac8c4e0118d03a6f273cc6c9.png",
+          "source": "5868b093ac8c4e0118d03a6f273cc6c9.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            5.882810115814209,
+            27
+          ]
+        },
+        "font J": {
+          "path": "images/8f25f0a37afef96bc07aa74de66fb779.png",
+          "source": "8f25f0a37afef96bc07aa74de66fb779.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.546879768371582,
+            27
+          ]
+        },
+        "font K": {
+          "path": "images/d0a09a1414b3c64831821ec2504e1264.png",
+          "source": "d0a09a1414b3c64831821ec2504e1264.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.5,
+            27
+          ]
+        },
+        "font L": {
+          "path": "images/2df7aa26a702ed02b0d82ba00d1c8d9e.png",
+          "source": "2df7aa26a702ed02b0d82ba00d1c8d9e.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12,
+            27
+          ]
+        },
+        "font M": {
+          "path": "images/2c6ea2e8d6aaad2f75c3c03df8964c0f.png",
+          "source": "2c6ea2e8d6aaad2f75c3c03df8964c0f.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            18.226560592651367,
+            27
+          ]
+        },
+        "font N": {
+          "path": "images/a36d0cb56d34c1473fff4e43b4c944c3.png",
+          "source": "a36d0cb56d34c1473fff4e43b4c944c3.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            16.625,
+            27
+          ]
+        },
+        "font O": {
+          "path": "images/8243e217459390a822c86d0b14391899.png",
+          "source": "8243e217459390a822c86d0b14391899.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            17.304689407348633,
+            27
+          ]
+        },
+        "font P": {
+          "path": "images/6a847678447e38f36ec1dde44566a1ff.png",
+          "source": "6a847678447e38f36ec1dde44566a1ff.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.5,
+            27
+          ]
+        },
+        "font Q": {
+          "path": "images/57b2346dc02dfb2c066df3023b4c972f.png",
+          "source": "57b2346dc02dfb2c066df3023b4c972f.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            16.6406307220459,
+            27
+          ]
+        },
+        "font R": {
+          "path": "images/30f4884b7ee6a5f6c907f69e67b4b2e2.png",
+          "source": "30f4884b7ee6a5f6c907f69e67b4b2e2.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15.5,
+            27
+          ]
+        },
+        "font S": {
+          "path": "images/e510df89c9ab6252b8c8e53ed40bde9a.png",
+          "source": "e510df89c9ab6252b8c8e53ed40bde9a.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13.546879768371582,
+            27
+          ]
+        },
+        "font T": {
+          "path": "images/d551ac5c857ccb7f020ad600f3a4e393.png",
+          "source": "d551ac5c857ccb7f020ad600f3a4e393.svg",
+          "center": [
+            0.8499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15,
+            27
+          ]
+        },
+        "font U": {
+          "path": "images/cf4fa8f9da38cf19682bcc59f4b55ab3.png",
+          "source": "cf4fa8f9da38cf19682bcc59f4b55ab3.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.72655963897705,
+            27
+          ]
+        },
+        "font V": {
+          "path": "images/a05d1fdb0d2bb9ac71938c3d316abfac.png",
+          "source": "a05d1fdb0d2bb9ac71938c3d316abfac.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15,
+            27
+          ]
+        },
+        "font W": {
+          "path": "images/c5cb5eea27247fd201fc713969fc1ffc.png",
+          "source": "c5cb5eea27247fd201fc713969fc1ffc.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            21.945310592651367,
+            27
+          ]
+        },
+        "font X": {
+          "path": "images/8da2576098e9b96e2dfdf3d84a90b448.png",
+          "source": "8da2576098e9b96e2dfdf3d84a90b448.svg",
+          "center": [
+            0.8499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15,
+            27
+          ]
+        },
+        "font Y": {
+          "path": "images/28597a88d7600d1436bb7d7130e4eae0.png",
+          "source": "28597a88d7600d1436bb7d7130e4eae0.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13.5,
+            27
+          ]
+        },
+        "font Z": {
+          "path": "images/14f070180db77251ff7ad8bb3108d318.png",
+          "source": "14f070180db77251ff7ad8bb3108d318.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14,
+            27
+          ]
+        },
+        "font a": {
+          "path": "images/4f4e8ba15aecb1338112a05333506f3a.png",
+          "source": "4f4e8ba15aecb1338112a05333506f3a.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11,
+            27
+          ]
+        },
+        "font b": {
+          "path": "images/34d56be837a2493d96fac8b2ec8d29cf.png",
+          "source": "34d56be837a2493d96fac8b2ec8d29cf.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.046879768371582,
+            27
+          ]
+        },
+        "font c": {
+          "path": "images/c9800505dc4991387cc5d8a0cceaafcb.png",
+          "source": "c9800505dc4991387cc5d8a0cceaafcb.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10,
+            27
+          ]
+        },
+        "font d": {
+          "path": "images/98ddc8181b17c520883519089ec0d867.png",
+          "source": "98ddc8181b17c520883519089ec0d867.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.46094036102295,
+            27
+          ]
+        },
+        "font e": {
+          "path": "images/6e2477da4b86397b8f9886e5d5c73cc0.png",
+          "source": "6e2477da4b86397b8f9886e5d5c73cc0.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.5,
+            27
+          ]
+        },
+        "font f": {
+          "path": "images/19a0619212e05c937dc5ddb537604931.png",
+          "source": "19a0619212e05c937dc5ddb537604931.svg",
+          "center": [
+            0.8499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            9.5,
+            27
+          ]
+        },
+        "font g": {
+          "path": "images/95ebeb6faad605ca06c343a3f1c4f5ca.png",
+          "source": "95ebeb6faad605ca06c343a3f1c4f5ca.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.32030963897705,
+            27
+          ]
+        },
+        "font h": {
+          "path": "images/3cb7e03b3a20e3d9b70193a3221ad4e3.png",
+          "source": "3cb7e03b3a20e3d9b70193a3221ad4e3.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12,
+            27
+          ]
+        },
+        "font i": {
+          "path": "images/4f92b3e76263ee6d053e2a1d2cd13982.png",
+          "source": "4f92b3e76263ee6d053e2a1d2cd13982.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            5,
+            27
+          ]
+        },
+        "font j": {
+          "path": "images/60bdead88b212f54662ca21befd69c06.png",
+          "source": "60bdead88b212f54662ca21befd69c06.svg",
+          "center": [
+            2.349999999999966,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            7.023439884185791,
+            27
+          ]
+        },
+        "font k": {
+          "path": "images/4dbc733e9f1f2a9265908d936f1bea2e.png",
+          "source": "4dbc733e9f1f2a9265908d936f1bea2e.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11,
+            27
+          ]
+        },
+        "font l": {
+          "path": "images/981aefa064711e0f6792285d89853fc1.png",
+          "source": "981aefa064711e0f6792285d89853fc1.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            6.5,
+            27
+          ]
+        },
+        "font m": {
+          "path": "images/7efc00c02e687481cf3100483e802e04.png",
+          "source": "7efc00c02e687481cf3100483e802e04.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15.5,
+            27
+          ]
+        },
+        "font n": {
+          "path": "images/010afaea0cedacee0294800664d1823d.png",
+          "source": "010afaea0cedacee0294800664d1823d.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11,
+            27
+          ]
+        },
+        "font o": {
+          "path": "images/a1adedc6c4131cb6e3e986a41eaa0027.png",
+          "source": "a1adedc6c4131cb6e3e986a41eaa0027.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.80469036102295,
+            27
+          ]
+        },
+        "font p": {
+          "path": "images/f5ba687b9211b2ddb2fa5732b4ad80de.png",
+          "source": "f5ba687b9211b2ddb2fa5732b4ad80de.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.421879768371582,
+            27
+          ]
+        },
+        "font q": {
+          "path": "images/32bac395c173b582a597dd0a95f1ec6b.png",
+          "source": "32bac395c173b582a597dd0a95f1ec6b.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.265629768371582,
+            27
+          ]
+        },
+        "font r": {
+          "path": "images/bdb6f55a788981061ae7290b0a6ed95d.png",
+          "source": "bdb6f55a788981061ae7290b0a6ed95d.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            9.5,
+            27
+          ]
+        },
+        "font s": {
+          "path": "images/7c989f1af72f2376a024708ba7f97926.png",
+          "source": "7c989f1af72f2376a024708ba7f97926.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            9.72655963897705,
+            27
+          ]
+        },
+        "font t": {
+          "path": "images/062822a5cc18820b0a4a73a3f1fd27f2.png",
+          "source": "062822a5cc18820b0a4a73a3f1fd27f2.svg",
+          "center": [
+            0.8499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            9,
+            27
+          ]
+        },
+        "font u": {
+          "path": "images/c409725adadbf7c4d3e83e1cabda0604.png",
+          "source": "c409725adadbf7c4d3e83e1cabda0604.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.16405963897705,
+            27
+          ]
+        },
+        "font v": {
+          "path": "images/892be193d7f2455a080648e3b8b06f87.png",
+          "source": "892be193d7f2455a080648e3b8b06f87.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.5,
+            27
+          ]
+        },
+        "font w": {
+          "path": "images/3a6aafe9f5001d48131386181dca32b5.png",
+          "source": "3a6aafe9f5001d48131386181dca32b5.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            14.44530963897705,
+            27
+          ]
+        },
+        "font x": {
+          "path": "images/2fd426d15cb1e2c6dc33d96eaccb6803.png",
+          "source": "2fd426d15cb1e2c6dc33d96eaccb6803.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10,
+            27
+          ]
+        },
+        "font y": {
+          "path": "images/702d0a2064870a747e009c564125c702.png",
+          "source": "702d0a2064870a747e009c564125c702.svg",
+          "center": [
+            0.8499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.34375,
+            27
+          ]
+        },
+        "font z": {
+          "path": "images/0be20fcebe7ea3b4b28ce994e39d56bd.png",
+          "source": "0be20fcebe7ea3b4b28ce994e39d56bd.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10,
+            27
+          ]
+        },
+        "font 0": {
+          "path": "images/748f697186260b1c1233b5a1627da26f.png",
+          "source": "748f697186260b1c1233b5a1627da26f.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13.88280963897705,
+            27
+          ]
+        },
+        "font 1": {
+          "path": "images/5db1b97afa285cb6176b4a3449bad5e7.png",
+          "source": "5db1b97afa285cb6176b4a3449bad5e7.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            7.765629768371582,
+            27
+          ]
+        },
+        "font 2": {
+          "path": "images/5b1a5f87b1d063cac7b201b6b0c44cca.png",
+          "source": "5b1a5f87b1d063cac7b201b6b0c44cca.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12.5,
+            27
+          ]
+        },
+        "font 3": {
+          "path": "images/a7b80db91505cc6d8cd2927465ad2f15.png",
+          "source": "a7b80db91505cc6d8cd2927465ad2f15.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11.484379768371582,
+            27
+          ]
+        },
+        "font 4": {
+          "path": "images/7b95c650b4261ab75606c2d9e649d6b2.png",
+          "source": "7b95c650b4261ab75606c2d9e649d6b2.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11.88280963897705,
+            27
+          ]
+        },
+        "font 5": {
+          "path": "images/14480ab37a913a1b063226de7b936fbd.png",
+          "source": "14480ab37a913a1b063226de7b936fbd.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12.5625,
+            27
+          ]
+        },
+        "font 6": {
+          "path": "images/8229e916fccba9402bfdf90365b040e6.png",
+          "source": "8229e916fccba9402bfdf90365b040e6.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12.625,
+            27
+          ]
+        },
+        "font 7": {
+          "path": "images/3021ecf57b05d774de9d10b1fa8d9cc8.png",
+          "source": "3021ecf57b05d774de9d10b1fa8d9cc8.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            10.72655963897705,
+            27
+          ]
+        },
+        "font 8": {
+          "path": "images/9408b32f7cbd180ae8e679b4d1825cf7.png",
+          "source": "9408b32f7cbd180ae8e679b4d1825cf7.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            13,
+            27
+          ]
+        },
+        "font 9": {
+          "path": "images/4ae11f4c4af68ffa5fdecb3a4e882fc6.png",
+          "source": "4ae11f4c4af68ffa5fdecb3a4e882fc6.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11.08594036102295,
+            27
+          ]
+        },
+        "font -": {
+          "path": "images/99eef2d6f4df58dc667bf39b662f132b.png",
+          "source": "99eef2d6f4df58dc667bf39b662f132b.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            11.90625,
+            27
+          ]
+        },
+        "font _": {
+          "path": "images/6f337867397c51ee6392517b9aed7658.png",
+          "source": "6f337867397c51ee6392517b9aed7658.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            15.5,
+            27
+          ]
+        },
+        "font .": {
+          "path": "images/5c8afef227cad02d68b859ffd8c78f23.png",
+          "source": "5c8afef227cad02d68b859ffd8c78f23.svg",
+          "center": [
+            0.3499999999999659,
+            0.549999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            5.523439884185791,
+            27
+          ]
+        },
+        "font !": {
+          "path": "images/e35f6b033d37d376d629c8e50c82bb57.png",
+          "source": "e35f6b033d37d376d629c8e50c82bb57.svg",
+          "center": [
+            0.3499999999999659,
+            0.799999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            5.664060115814209,
+            27.25
+          ]
+        },
+        "font [": {
+          "path": "images/065857fecf1f31012838f8a3261f3284.png",
+          "source": "065857fecf1f31012838f8a3261f3284.svg",
+          "center": [
+            0.3499999999999659,
+            0.799999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            12.80469036102295,
+            27.25
+          ]
+        },
+        "font ]": {
+          "path": "images/d95a624d198e092e54627eeea41224b5.png",
+          "source": "d95a624d198e092e54627eeea41224b5.svg",
+          "center": [
+            0.3499999999999659,
+            0.799999999999983
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            33.101558685302734,
+            27.25
+          ]
+        },
+        "font end marker": {
+          "path": "images/1cd2e7dc542d23332a859798afbfa565.png",
+          "source": "1cd2e7dc542d23332a859798afbfa565.svg",
+          "center": [
+            16.5,
+            20
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            33,
+            40
+          ]
+        }
+      },
+      "sounds": {}
+    },
+    "messages": {
+      "costumes": {
+        "messages12": {
+          "path": "images/5ce64c7f699d73784c881cee3a55e533.png",
+          "source": "5ce64c7f699d73784c881cee3a55e533.svg",
+          "center": [
+            0.5,
+            64.29468981257952
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            15.943400382995605
+          ]
+        },
+        "messages16": {
+          "path": "images/3f54e12efdb4dcc793170d2764e88dc5.png",
+          "source": "3f54e12efdb4dcc793170d2764e88dc5.svg",
+          "center": [
+            0.5,
+            64.95268981257954
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            31.60140037536621
+          ]
+        },
+        "messages15": {
+          "path": "images/2f79a2932e8f3d671c115e1aad95a357.png",
+          "source": "2f79a2932e8f3d671c115e1aad95a357.svg",
+          "center": [
+            0.5,
+            64.95268981257954
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            46.60139846801758
+          ]
+        },
+        "messages14": {
+          "path": "images/80d1a839af23b538fc08af80012aac0e.png",
+          "source": "80d1a839af23b538fc08af80012aac0e.svg",
+          "center": [
+            0.5,
+            64.95268981257948
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            61.60139846801758
+          ]
+        },
+        "messages13": {
+          "path": "images/a5c6fb5c0cd480445017b02969455e7a.png",
+          "source": "a5c6fb5c0cd480445017b02969455e7a.svg",
+          "center": [
+            0.5,
+            64.95268981257948
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            76.60140228271484
+          ]
+        },
+        "messages11": {
+          "path": "images/63b375f8d494bdb983c7ac8cbf584cfe.png",
+          "source": "63b375f8d494bdb983c7ac8cbf584cfe.svg",
+          "center": [
+            0.5,
+            64.95270981257954
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            91.6014175415039
+          ]
+        },
+        "messages10": {
+          "path": "images/5bd4be18a5c47e4b189578e679fd9cda.png",
+          "source": "5bd4be18a5c47e4b189578e679fd9cda.svg",
+          "center": [
+            0.5,
+            64.95269981257951
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            106.60140991210938
+          ]
+        },
+        "messages9": {
+          "path": "images/fa5ed9c6f5754e2b4c224582f9f2968a.png",
+          "source": "fa5ed9c6f5754e2b4c224582f9f2968a.svg",
+          "center": [
+            0.5,
+            64.95268981257948
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            121.60140228271484
+          ]
+        },
+        "messages8": {
+          "path": "images/10f2d6da6d510882600a937601e396f5.png",
+          "source": "10f2d6da6d510882600a937601e396f5.svg",
+          "center": [
+            0.5,
+            64.95268981257954
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            136.6013946533203
+          ]
+        },
+        "messages7": {
+          "path": "images/baf627a1ca0fdba5eb9f6c45e02823da.png",
+          "source": "baf627a1ca0fdba5eb9f6c45e02823da.svg",
+          "center": [
+            0.5,
+            64.95268981257954
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            151.6013946533203
+          ]
+        },
+        "messages6": {
+          "path": "images/2120fdc05b7d331864e351e48d97d7db.png",
+          "source": "2120fdc05b7d331864e351e48d97d7db.svg",
+          "center": [
+            0.5,
+            64.95269981257951
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            166.60140991210938
+          ]
+        },
+        "messages5": {
+          "path": "images/8889d1643be01aa2ccdffcd2cea3acc0.png",
+          "source": "8889d1643be01aa2ccdffcd2cea3acc0.svg",
+          "center": [
+            0.5,
+            64.95269981257948
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            181.60140991210938
+          ]
+        },
+        "messages4": {
+          "path": "images/32c3763625fa66835deb86f373eff591.png",
+          "source": "32c3763625fa66835deb86f373eff591.svg",
+          "center": [
+            0.5,
+            64.95269981257948
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            196.60140991210938
+          ]
+        },
+        "messages3": {
+          "path": "images/cfcad0009f41da26474482a0e4fe3a0a.png",
+          "source": "cfcad0009f41da26474482a0e4fe3a0a.svg",
+          "center": [
+            0.5,
+            64.95270981257949
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            211.60142517089844
+          ]
+        },
+        "messages2": {
+          "path": "images/c8e16925c7a3f22659c46df1af6f737f.png",
+          "source": "c8e16925c7a3f22659c46df1af6f737f.svg",
+          "center": [
+            0.5,
+            64.95268981257951
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            226.6013946533203
+          ]
+        },
+        "messages20": {
+          "path": "images/7195cd5ee3575bce6fda2f9d6f110e87.png",
+          "source": "7195cd5ee3575bce6fda2f9d6f110e87.svg",
+          "center": [
+            0.5,
+            64.95269981257948
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            241.60140991210938
+          ]
+        },
+        "messages21": {
+          "path": "images/f51ff147f5137f4b6daba0965bc4244b.png",
+          "source": "f51ff147f5137f4b6daba0965bc4244b.svg",
+          "center": [
+            0.5,
+            64.95268981257951
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            256.6014099121094
+          ]
+        },
+        "messages19": {
+          "path": "images/a9102a32e09ac6cd69ce8d3445081c55.png",
+          "source": "a9102a32e09ac6cd69ce8d3445081c55.svg",
+          "center": [
+            0.5,
+            64.95267981257948
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            271.60137939453125
+          ]
+        },
+        "messages18": {
+          "path": "images/b190528fd0103d12599bbcbe32ab9f74.png",
+          "source": "b190528fd0103d12599bbcbe32ab9f74.svg",
+          "center": [
+            0.5,
+            64.95267981257948
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            286.60137939453125
+          ]
+        },
+        "messages17": {
+          "path": "images/b62611c3644b323efdb85c5620a76a1b.png",
+          "source": "b62611c3644b323efdb85c5620a76a1b.svg",
+          "center": [
+            0.5,
+            64.95258981257948
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            301.451416015625
+          ]
+        },
+        "highlight": {
+          "path": "images/cb62c9c2959c021032421f98e3ab71bb.png",
+          "source": "cb62c9c2959c021032421f98e3ab71bb.svg",
+          "center": [
+            0.5,
+            5.851034999999968
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            15.943400382995605
+          ]
+        },
+        "message title": {
+          "path": "images/4d9d0b63e970ab674814846e6b4b8cae.png",
+          "source": "4d9d0b63e970ab674814846e6b4b8cae.svg",
+          "center": [
+            0.5,
+            65.85101499999999
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            82.08419799804688,
+            16.65768051147461
+          ]
+        },
+        "bubble 1": {
+          "path": "images/fbd938bac383b9a5504c456c15d47874.png",
+          "source": "fbd938bac383b9a5504c456c15d47874.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 2": {
+          "path": "images/8cdac1e61b3e3d205a68664327d5b865.png",
+          "source": "8cdac1e61b3e3d205a68664327d5b865.svg",
+          "center": [
+            45.020399999999995,
+            12.201215000000047
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 3": {
+          "path": "images/d1cb75d015444f386600ab5c3bc25cd7.png",
+          "source": "d1cb75d015444f386600ab5c3bc25cd7.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 4": {
+          "path": "images/67e7eb97e2c53b284001efe9bc401ccf.png",
+          "source": "67e7eb97e2c53b284001efe9bc401ccf.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 5": {
+          "path": "images/50ade43c041a286d6f13696e872f7eb0.png",
+          "source": "50ade43c041a286d6f13696e872f7eb0.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 6": {
+          "path": "images/3b2c1a3b52ce2cac9f942fd3eb9170ab.png",
+          "source": "3b2c1a3b52ce2cac9f942fd3eb9170ab.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 7": {
+          "path": "images/3622b69dfefe302057b11506354a0033.png",
+          "source": "3622b69dfefe302057b11506354a0033.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 8": {
+          "path": "images/0f68bda3dd2db0b158944ae9d073f06a.png",
+          "source": "0f68bda3dd2db0b158944ae9d073f06a.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 9": {
+          "path": "images/99a46d02ccb30c263b37751a91761623.png",
+          "source": "99a46d02ccb30c263b37751a91761623.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 10": {
+          "path": "images/d01e234f17e8e758554d790f4324fbda.png",
+          "source": "d01e234f17e8e758554d790f4324fbda.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 11": {
+          "path": "images/ba6585a4231fca694838bab2e68a6d53.png",
+          "source": "ba6585a4231fca694838bab2e68a6d53.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 12": {
+          "path": "images/fc8804885eae7fffbe0582c4950f837d.png",
+          "source": "fc8804885eae7fffbe0582c4950f837d.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 13": {
+          "path": "images/f3d791be861e7c29d18fb1accd4485fa.png",
+          "source": "f3d791be861e7c29d18fb1accd4485fa.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 14": {
+          "path": "images/575993327c4663282b893497b7a2ac0f.png",
+          "source": "575993327c4663282b893497b7a2ac0f.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 15": {
+          "path": "images/a101fcdf1b7f328d082ab09204ca077a.png",
+          "source": "a101fcdf1b7f328d082ab09204ca077a.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 16": {
+          "path": "images/f93a163415f547d7a80ecade24d05505.png",
+          "source": "f93a163415f547d7a80ecade24d05505.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 17": {
+          "path": "images/915ce959a47d5ce37b0a52e7312b5b3e.png",
+          "source": "915ce959a47d5ce37b0a52e7312b5b3e.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 18": {
+          "path": "images/11885eebb69378b126a0b908b998988e.png",
+          "source": "11885eebb69378b126a0b908b998988e.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 19": {
+          "path": "images/4babb32ff1b68328e54c6133af6860f5.png",
+          "source": "4babb32ff1b68328e54c6133af6860f5.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        },
+        "bubble 20": {
+          "path": "images/32fd29c451c4cb15c0371797c32b40cf.png",
+          "source": "32fd29c451c4cb15c0371797c32b40cf.svg",
+          "center": [
+            44.625,
+            12.875
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            89.25,
+            25.75
+          ]
+        }
+      },
+      "sounds": {
+        "button": "sounds/0f6e083efee91a6d8ab854d869f2ace3.mp3"
+      }
+    },
+    "instructions": {
+      "costumes": {
+        "back default": {
+          "path": "images/7d5c8ac23ea0be4f0c0850815a8408c9.png",
+          "source": "7d5c8ac23ea0be4f0c0850815a8408c9.svg",
+          "center": [
+            -201,
+            170
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            30,
+            31
+          ]
+        },
+        "back": {
+          "path": "images/c5d6caa39882637fdeddceabe8151d0e.png",
+          "source": "c5d6caa39882637fdeddceabe8151d0e.svg",
+          "center": [
+            -201,
+            170
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            30,
+            31
+          ]
+        },
+        "backdrop": {
+          "path": "images/fbcfd3b2a16c76f1152f7e3004e780fc.png",
+          "source": "fbcfd3b2a16c76f1152f7e3004e780fc.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions": {
+          "path": "images/cef299c7f12f181f1997f2663c83441b.png",
+          "source": "cef299c7f12f181f1997f2663c83441b.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "page 2": {
+          "path": "images/842d1cf6c578ca81574ea5010c92277f.png",
+          "source": "842d1cf6c578ca81574ea5010c92277f.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "page 3": {
+          "path": "images/506c62fbf491c78cb5b556349a3414d3.png",
+          "source": "506c62fbf491c78cb5b556349a3414d3.svg",
+          "center": [
+            240.56883,
+            181.23541
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480.5688171386719,
+            362.60845947265625
+          ]
+        },
+        "page 4": {
+          "path": "images/973827d4e12ee7ec7d0021a73ee23e77.png",
+          "source": "973827d4e12ee7ec7d0021a73ee23e77.svg",
+          "center": [
+            240.56883,
+            181.23540000000003
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480.5688171386719,
+            362.6084899902344
+          ]
+        },
+        "page 5": {
+          "path": "images/b53dc16c28d6620b89094cc1d610477f.png",
+          "source": "b53dc16c28d6620b89094cc1d610477f.svg",
+          "center": [
+            240.56883,
+            181.23540000000014
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480.5688171386719,
+            362.6084899902344
+          ]
+        },
+        "page 7": {
+          "path": "images/ef3fb549305c9212aba3937418d1da17.png",
+          "source": "ef3fb549305c9212aba3937418d1da17.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "page 8": {
+          "path": "images/ec284eb940c10c8c6b494ada083a6f69.png",
+          "source": "ec284eb940c10c8c6b494ada083a6f69.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "instructions 1 selected": {
+          "path": "images/4c9cf67474aead69440a6f6d4c558907.png",
+          "source": "4c9cf67474aead69440a6f6d4c558907.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 1": {
+          "path": "images/29c3c94eaa79d7814e182dc36d4c75ce.png",
+          "source": "29c3c94eaa79d7814e182dc36d4c75ce.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 2 selected": {
+          "path": "images/569deffda27c74e560d7a743c309be32.png",
+          "source": "569deffda27c74e560d7a743c309be32.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 2": {
+          "path": "images/12801e83d84166d28e6770121838a016.png",
+          "source": "12801e83d84166d28e6770121838a016.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 3 selected": {
+          "path": "images/f0169be4274f672430743b8ccc898370.png",
+          "source": "f0169be4274f672430743b8ccc898370.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 3": {
+          "path": "images/d23cdeab218faa13183c14b946aec990.png",
+          "source": "d23cdeab218faa13183c14b946aec990.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 4 selected": {
+          "path": "images/9a2325b86f49f88def1a208406dd91f2.png",
+          "source": "9a2325b86f49f88def1a208406dd91f2.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 4": {
+          "path": "images/c4df2ae6b7502ce9596acb895465ae6a.png",
+          "source": "c4df2ae6b7502ce9596acb895465ae6a.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 5 selected": {
+          "path": "images/b6b7bf08c7c43c6bbc1178aeca13ebe8.png",
+          "source": "b6b7bf08c7c43c6bbc1178aeca13ebe8.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 5": {
+          "path": "images/329bb218b366bfd79ae5dc8d406dd60f.png",
+          "source": "329bb218b366bfd79ae5dc8d406dd60f.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 6 selected": {
+          "path": "images/0dd6678a6bbfea27a6bcba1be874a6dc.png",
+          "source": "0dd6678a6bbfea27a6bcba1be874a6dc.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 6": {
+          "path": "images/08f44aac9700db58e762141288af4226.png",
+          "source": "08f44aac9700db58e762141288af4226.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 7 selected": {
+          "path": "images/708e6973babcc552ad587715862c3711.png",
+          "source": "708e6973babcc552ad587715862c3711.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 7": {
+          "path": "images/103272e2a932c831606267f82861d358.png",
+          "source": "103272e2a932c831606267f82861d358.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 8 selected": {
+          "path": "images/78e2e8bdea9faf3182302c0edd79113c.png",
+          "source": "78e2e8bdea9faf3182302c0edd79113c.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "instructions 8": {
+          "path": "images/f4ddcb8791c0e5d087e9aa80443b5c49.png",
+          "source": "f4ddcb8791c0e5d087e9aa80443b5c49.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "page 1": {
+          "path": "images/cc1a2f2d79476e53d1bd5bb27ef22001.png",
+          "source": "cc1a2f2d79476e53d1bd5bb27ef22001.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        },
+        "page 6": {
+          "path": "images/91ca5e377857a4e2619cc5a49ee8ce72.png",
+          "source": "91ca5e377857a4e2619cc5a49ee8ce72.svg",
+          "center": [
+            240,
+            180
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            480,
+            360
+          ]
+        }
+      },
+      "sounds": {
+        "button": "sounds/0f6e083efee91a6d8ab854d869f2ace3.mp3"
+      }
+    },
+    "TODO": {
+      "costumes": {
+        "uno": {
+          "path": "images/e1a60f31a6f95c17914c95bf4c402a97.png",
+          "source": "e1a60f31a6f95c17914c95bf4c402a97.svg",
+          "center": [
+            81,
+            126.5
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            162,
+            253
+          ]
+        }
+      },
+      "sounds": {}
+    },
+    "transition": {
+      "costumes": {
+        "background": {
+          "path": "images/a579d0d598864dfed588ffb27a35f8cf.png",
+          "source": "a579d0d598864dfed588ffb27a35f8cf.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "uno-background": {
+          "path": "images/b1fcbe8af1ea93fd721b07a9b2741a43.png",
+          "source": "b1fcbe8af1ea93fd721b07a9b2741a43.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "uno-flip": {
+          "path": "images/ed1f40699d6ae9a7728c7119f5fb2510.png",
+          "source": "ed1f40699d6ae9a7728c7119f5fb2510.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "barbie backdrop": {
+          "path": "images/7c65e55ae667ef3f31e9dcb36a379535.png",
+          "source": "7c65e55ae667ef3f31e9dcb36a379535.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "mario": {
+          "path": "images/1c016a4a0c5ecef5bf679f9ce9af2e4e.png",
+          "source": "1c016a4a0c5ecef5bf679f9ce9af2e4e.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "scratch": {
+          "path": "images/7bedbb50b222f6a50bf82135f3352391.png",
+          "source": "7bedbb50b222f6a50bf82135f3352391.svg",
+          "center": [
+            361.715087890625,
+            271.2782897949219
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            723.43017578125,
+            542.5565795898438
+          ]
+        },
+        "no mercy": {
+          "path": "images/9304cc88edd5f082c39b1494f199737e.png",
+          "source": "9304cc88edd5f082c39b1494f199737e.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        }
+      },
+      "sounds": {
+        "pop": "sounds/83a9787d4cb6f3b7632b4ddfebf74367.wav"
+      }
+    },
+    "intro": {
+      "costumes": {
+        "11": {
+          "path": "images/cdcb18fdd9210621698f02a7f26624d5.png",
+          "source": "cdcb18fdd9210621698f02a7f26624d5.svg",
+          "center": [
+            110,
+            242
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            130,
+            243
+          ]
+        },
+        "14": {
+          "path": "images/4cf2d1a0b5ccec740cb925ba4afdf528.png",
+          "source": "4cf2d1a0b5ccec740cb925ba4afdf528.svg",
+          "center": [
+            35,
+            312
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            127,
+            312
+          ]
+        },
+        "15": {
+          "path": "images/06ee819114ba67a55c4da6a412806de6.png",
+          "source": "06ee819114ba67a55c4da6a412806de6.svg",
+          "center": [
+            3,
+            56
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            67,
+            57
+          ]
+        },
+        "16": {
+          "path": "images/73e3d6cb57296b4a3b6bbfee72c33278.png",
+          "source": "73e3d6cb57296b4a3b6bbfee72c33278.svg",
+          "center": [
+            63,
+            127
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            171,
+            128
+          ]
+        },
+        "17": {
+          "path": "images/12c0f886650d0a642bc9e33b26a7edae.png",
+          "source": "12c0f886650d0a642bc9e33b26a7edae.svg",
+          "center": [
+            36,
+            217
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            88,
+            218
+          ]
+        },
+        "18": {
+          "path": "images/03bfdf4136a79c9fceae947abf204314.png",
+          "source": "03bfdf4136a79c9fceae947abf204314.svg",
+          "center": [
+            195,
+            176
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            196,
+            176
+          ]
+        },
+        "19": {
+          "path": "images/ed4fe3d415e1e38d890449a2cbd36cd1.png",
+          "source": "ed4fe3d415e1e38d890449a2cbd36cd1.svg",
+          "center": [
+            297,
+            205
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            388,
+            205
+          ]
+        },
+        "20": {
+          "path": "images/70207ffe90b0501b03bfd74778464300.png",
+          "source": "70207ffe90b0501b03bfd74778464300.svg",
+          "center": [
+            140,
+            59
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            141,
+            59
+          ]
+        },
+        "21": {
+          "path": "images/819a071312f0f8a3df208e5520991d14.png",
+          "source": "819a071312f0f8a3df208e5520991d14.svg",
+          "center": [
+            22,
+            176
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            90,
+            177
+          ]
+        },
+        "22": {
+          "path": "images/31da4aa2ffca45fd192aebe08081ff3b.png",
+          "source": "31da4aa2ffca45fd192aebe08081ff3b.svg",
+          "center": [
+            415,
+            82
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            416,
+            83
+          ]
+        },
+        "Backdrop": {
+          "path": "images/b048b5397d78e08c492e9db306b9fcb4.png",
+          "source": "b048b5397d78e08c492e9db306b9fcb4.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "Crack ": {
+          "path": "images/8938d5a8dc5af487f642d9ed104d08f4.png",
+          "source": "8938d5a8dc5af487f642d9ed104d08f4.png",
+          "center": [
+            198,
+            352
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "Crack 2": {
+          "path": "images/bea53f767953c770504d23adb7313a3c.png",
+          "source": "bea53f767953c770504d23adb7313a3c.png",
+          "center": [
+            198,
+            352
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "Crack 3": {
+          "path": "images/cd45b988cc4ecf971374552c75b20f22.png",
+          "source": "cd45b988cc4ecf971374552c75b20f22.png",
+          "center": [
+            198,
+            352
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "Crack 4": {
+          "path": "images/267b4d1406e769b5213d14736a0f97da.png",
+          "source": "267b4d1406e769b5213d14736a0f97da.png",
+          "center": [
+            410,
+            352
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "Crack 5": {
+          "path": "images/b62dc92599d28dacc6fb3eda7c0b338d.png",
+          "source": "b62dc92599d28dacc6fb3eda7c0b338d.png",
+          "center": [
+            480,
+            360
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "Fragment": {
+          "path": "images/9358ab217e5676d3099489e760c99141.png",
+          "source": "9358ab217e5676d3099489e760c99141.svg",
+          "center": [
+            215,
+            294
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            216,
+            295
+          ]
+        },
+        "caveman 1": {
+          "path": "images/a2d3442d49296835f0e9a602c3477968.png",
+          "source": "a2d3442d49296835f0e9a602c3477968.png",
+          "center": [
+            22,
+            120
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 2": {
+          "path": "images/417643cb69ef45771245266611fe05de.png",
+          "source": "417643cb69ef45771245266611fe05de.png",
+          "center": [
+            36,
+            118
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 3": {
+          "path": "images/3171943cd2d67bb2616593f7703bebaf.png",
+          "source": "3171943cd2d67bb2616593f7703bebaf.png",
+          "center": [
+            24,
+            144
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 4": {
+          "path": "images/eabea44e25ceeb6b500165235b92816b.png",
+          "source": "eabea44e25ceeb6b500165235b92816b.png",
+          "center": [
+            64,
+            116
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 5": {
+          "path": "images/89b1811f819bc4a575460c1ac9bca34d.png",
+          "source": "89b1811f819bc4a575460c1ac9bca34d.png",
+          "center": [
+            36,
+            74
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 6": {
+          "path": "images/1f8cf871553f9b262ec2111f4cc61437.png",
+          "source": "1f8cf871553f9b262ec2111f4cc61437.png",
+          "center": [
+            48,
+            70
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 7": {
+          "path": "images/58275686e47ff24abc484d47c71aa7b3.png",
+          "source": "58275686e47ff24abc484d47c71aa7b3.png",
+          "center": [
+            58,
+            76
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 8": {
+          "path": "images/145d05d2289538542bc80404b960ed68.png",
+          "source": "145d05d2289538542bc80404b960ed68.png",
+          "center": [
+            76,
+            94
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 9": {
+          "path": "images/1028f73e8270938268de2729fe8f3c72.png",
+          "source": "1028f73e8270938268de2729fe8f3c72.png",
+          "center": [
+            40,
+            74
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 10": {
+          "path": "images/677e5a2d1e316d5d3a5fd941fd05d1ab.png",
+          "source": "677e5a2d1e316d5d3a5fd941fd05d1ab.png",
+          "center": [
+            56,
+            80
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 12": {
+          "path": "images/8db8ba92250c31aee16026e689ad4f60.png",
+          "source": "8db8ba92250c31aee16026e689ad4f60.png",
+          "center": [
+            48,
+            84
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "caveman 13": {
+          "path": "images/ec21d18d108a753abb00196df1a1cab8.png",
+          "source": "ec21d18d108a753abb00196df1a1cab8.png",
+          "center": [
+            46,
+            82
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        },
+        "advert": {
+          "path": "images/65302ca048373661962f70a5b503b655.png",
+          "source": "65302ca048373661962f70a5b503b655.svg",
+          "center": [
+            249.40000915527344,
+            195.60000610351562
+          ],
+          "bitmap_resolution": 1,
+          "raster_scale": 3,
+          "logical_size": [
+            494,
+            384
+          ]
+        },
+        "url": {
+          "path": "images/1e1e9c6ab135ed15f5940f2233da2e1d.png",
+          "source": "1e1e9c6ab135ed15f5940f2233da2e1d.png",
+          "center": [
+            389,
+            100.5
+          ],
+          "bitmap_resolution": 2,
+          "raster_scale": 1
+        }
+      },
+      "sounds": {
+        "Thud": "sounds/ccfe58d62b6b62a12306a4392f6c999e.wav",
+        "ScreenSmash": "sounds/56e26c3f7c1cea33af378b0d1709e97d.wav"
+      }
+    }
+  },
+  "svg": [
+    {
+      "source": "7bedbb50b222f6a50bf82135f3352391.svg",
+      "output": "images/7bedbb50b222f6a50bf82135f3352391.png"
+    },
+    {
+      "source": "3339a2953a3bf62bb80e54ff575dbced.svg",
+      "output": "images/3339a2953a3bf62bb80e54ff575dbced.png"
+    },
+    {
+      "source": "b67233740c25308e0c5e2f6de8d1cf1a.svg",
+      "output": "images/b67233740c25308e0c5e2f6de8d1cf1a.png"
+    },
+    {
+      "source": "8c382f303abfb044d963ac71f467108d.svg",
+      "output": "images/8c382f303abfb044d963ac71f467108d.png"
+    },
+    {
+      "source": "cf4626bcf3badd66ba47cba6e2df370b.svg",
+      "output": "images/cf4626bcf3badd66ba47cba6e2df370b.png"
+    },
+    {
+      "source": "f834333fb3fa8b62f70f3bfabfc3da46.svg",
+      "output": "images/f834333fb3fa8b62f70f3bfabfc3da46.png"
+    },
+    {
+      "source": "6b79392d9aad08dd60bf12434c03cc45.svg",
+      "output": "images/6b79392d9aad08dd60bf12434c03cc45.png"
+    },
+    {
+      "source": "a82fcdc22040c167fbdef04520278d8c.svg",
+      "output": "images/a82fcdc22040c167fbdef04520278d8c.png"
+    },
+    {
+      "source": "3e06974e666fa28425f158766b0a761b.svg",
+      "output": "images/3e06974e666fa28425f158766b0a761b.png"
+    },
+    {
+      "source": "88a8ba6b5b92f76b7c3bb9a44d284285.svg",
+      "output": "images/88a8ba6b5b92f76b7c3bb9a44d284285.png"
+    },
+    {
+      "source": "cb4a2aa436bb5fe2b241160585ed0563.svg",
+      "output": "images/cb4a2aa436bb5fe2b241160585ed0563.png"
+    },
+    {
+      "source": "ce055ed953c38ecc7387beb7f5297a2a.svg",
+      "output": "images/ce055ed953c38ecc7387beb7f5297a2a.png"
+    },
+    {
+      "source": "f12a83d7ec7dc3c7bcdffceef66c6df0.svg",
+      "output": "images/f12a83d7ec7dc3c7bcdffceef66c6df0.png"
+    },
+    {
+      "source": "d4bb4af9bfd0f0177ecf942f7bb23b3c.svg",
+      "output": "images/d4bb4af9bfd0f0177ecf942f7bb23b3c.png"
+    },
+    {
+      "source": "80ed34fc26fc2d6ee6158d0b45fb93ce.svg",
+      "output": "images/80ed34fc26fc2d6ee6158d0b45fb93ce.png"
+    },
+    {
+      "source": "50b3b7d12060e36b558b8179f71ce8f0.svg",
+      "output": "images/50b3b7d12060e36b558b8179f71ce8f0.png"
+    },
+    {
+      "source": "2727676fec17a5b6919d5075f5fc82b8.svg",
+      "output": "images/2727676fec17a5b6919d5075f5fc82b8.png"
+    },
+    {
+      "source": "849452e0c912b654385f6fe19f767206.svg",
+      "output": "images/849452e0c912b654385f6fe19f767206.png"
+    },
+    {
+      "source": "682f4bfe97dfa036efd7e9af2366d8bf.svg",
+      "output": "images/682f4bfe97dfa036efd7e9af2366d8bf.png"
+    },
+    {
+      "source": "6bae8a945aab9243e0566e901344fe62.svg",
+      "output": "images/6bae8a945aab9243e0566e901344fe62.png"
+    },
+    {
+      "source": "139f38612d6ec9efaf315d126cdbbd14.svg",
+      "output": "images/139f38612d6ec9efaf315d126cdbbd14.png"
+    },
+    {
+      "source": "26cb830ab807517a15031dee6cd579d0.svg",
+      "output": "images/26cb830ab807517a15031dee6cd579d0.png"
+    },
+    {
+      "source": "833ca32e8e097ea9204cebda5e6a78f6.svg",
+      "output": "images/833ca32e8e097ea9204cebda5e6a78f6.png"
+    },
+    {
+      "source": "22b282cbd54f98723789bd6ad5de7e54.svg",
+      "output": "images/22b282cbd54f98723789bd6ad5de7e54.png"
+    },
+    {
+      "source": "80b976870d51050fd9418072e899ad19.svg",
+      "output": "images/80b976870d51050fd9418072e899ad19.png"
+    },
+    {
+      "source": "54791b4ea08b5311c4177d9aa791ecc5.svg",
+      "output": "images/54791b4ea08b5311c4177d9aa791ecc5.png"
+    },
+    {
+      "source": "f94eaf0b13e9fb4afb5311a99d38fd15.svg",
+      "output": "images/f94eaf0b13e9fb4afb5311a99d38fd15.png"
+    },
+    {
+      "source": "a8a3e3c899c709929f22eedb13a9d24e.svg",
+      "output": "images/a8a3e3c899c709929f22eedb13a9d24e.png"
+    },
+    {
+      "source": "5868b093ac8c4e0118d03a6f273cc6c9.svg",
+      "output": "images/5868b093ac8c4e0118d03a6f273cc6c9.png"
+    },
+    {
+      "source": "8f25f0a37afef96bc07aa74de66fb779.svg",
+      "output": "images/8f25f0a37afef96bc07aa74de66fb779.png"
+    },
+    {
+      "source": "d0a09a1414b3c64831821ec2504e1264.svg",
+      "output": "images/d0a09a1414b3c64831821ec2504e1264.png"
+    },
+    {
+      "source": "2df7aa26a702ed02b0d82ba00d1c8d9e.svg",
+      "output": "images/2df7aa26a702ed02b0d82ba00d1c8d9e.png"
+    },
+    {
+      "source": "2c6ea2e8d6aaad2f75c3c03df8964c0f.svg",
+      "output": "images/2c6ea2e8d6aaad2f75c3c03df8964c0f.png"
+    },
+    {
+      "source": "a36d0cb56d34c1473fff4e43b4c944c3.svg",
+      "output": "images/a36d0cb56d34c1473fff4e43b4c944c3.png"
+    },
+    {
+      "source": "8243e217459390a822c86d0b14391899.svg",
+      "output": "images/8243e217459390a822c86d0b14391899.png"
+    },
+    {
+      "source": "6a847678447e38f36ec1dde44566a1ff.svg",
+      "output": "images/6a847678447e38f36ec1dde44566a1ff.png"
+    },
+    {
+      "source": "57b2346dc02dfb2c066df3023b4c972f.svg",
+      "output": "images/57b2346dc02dfb2c066df3023b4c972f.png"
+    },
+    {
+      "source": "30f4884b7ee6a5f6c907f69e67b4b2e2.svg",
+      "output": "images/30f4884b7ee6a5f6c907f69e67b4b2e2.png"
+    },
+    {
+      "source": "e510df89c9ab6252b8c8e53ed40bde9a.svg",
+      "output": "images/e510df89c9ab6252b8c8e53ed40bde9a.png"
+    },
+    {
+      "source": "d551ac5c857ccb7f020ad600f3a4e393.svg",
+      "output": "images/d551ac5c857ccb7f020ad600f3a4e393.png"
+    },
+    {
+      "source": "cf4fa8f9da38cf19682bcc59f4b55ab3.svg",
+      "output": "images/cf4fa8f9da38cf19682bcc59f4b55ab3.png"
+    },
+    {
+      "source": "a05d1fdb0d2bb9ac71938c3d316abfac.svg",
+      "output": "images/a05d1fdb0d2bb9ac71938c3d316abfac.png"
+    },
+    {
+      "source": "c5cb5eea27247fd201fc713969fc1ffc.svg",
+      "output": "images/c5cb5eea27247fd201fc713969fc1ffc.png"
+    },
+    {
+      "source": "8da2576098e9b96e2dfdf3d84a90b448.svg",
+      "output": "images/8da2576098e9b96e2dfdf3d84a90b448.png"
+    },
+    {
+      "source": "28597a88d7600d1436bb7d7130e4eae0.svg",
+      "output": "images/28597a88d7600d1436bb7d7130e4eae0.png"
+    },
+    {
+      "source": "14f070180db77251ff7ad8bb3108d318.svg",
+      "output": "images/14f070180db77251ff7ad8bb3108d318.png"
+    },
+    {
+      "source": "4f4e8ba15aecb1338112a05333506f3a.svg",
+      "output": "images/4f4e8ba15aecb1338112a05333506f3a.png"
+    },
+    {
+      "source": "34d56be837a2493d96fac8b2ec8d29cf.svg",
+      "output": "images/34d56be837a2493d96fac8b2ec8d29cf.png"
+    },
+    {
+      "source": "c9800505dc4991387cc5d8a0cceaafcb.svg",
+      "output": "images/c9800505dc4991387cc5d8a0cceaafcb.png"
+    },
+    {
+      "source": "98ddc8181b17c520883519089ec0d867.svg",
+      "output": "images/98ddc8181b17c520883519089ec0d867.png"
+    },
+    {
+      "source": "6e2477da4b86397b8f9886e5d5c73cc0.svg",
+      "output": "images/6e2477da4b86397b8f9886e5d5c73cc0.png"
+    },
+    {
+      "source": "19a0619212e05c937dc5ddb537604931.svg",
+      "output": "images/19a0619212e05c937dc5ddb537604931.png"
+    },
+    {
+      "source": "95ebeb6faad605ca06c343a3f1c4f5ca.svg",
+      "output": "images/95ebeb6faad605ca06c343a3f1c4f5ca.png"
+    },
+    {
+      "source": "3cb7e03b3a20e3d9b70193a3221ad4e3.svg",
+      "output": "images/3cb7e03b3a20e3d9b70193a3221ad4e3.png"
+    },
+    {
+      "source": "4f92b3e76263ee6d053e2a1d2cd13982.svg",
+      "output": "images/4f92b3e76263ee6d053e2a1d2cd13982.png"
+    },
+    {
+      "source": "60bdead88b212f54662ca21befd69c06.svg",
+      "output": "images/60bdead88b212f54662ca21befd69c06.png"
+    },
+    {
+      "source": "4dbc733e9f1f2a9265908d936f1bea2e.svg",
+      "output": "images/4dbc733e9f1f2a9265908d936f1bea2e.png"
+    },
+    {
+      "source": "981aefa064711e0f6792285d89853fc1.svg",
+      "output": "images/981aefa064711e0f6792285d89853fc1.png"
+    },
+    {
+      "source": "7efc00c02e687481cf3100483e802e04.svg",
+      "output": "images/7efc00c02e687481cf3100483e802e04.png"
+    },
+    {
+      "source": "010afaea0cedacee0294800664d1823d.svg",
+      "output": "images/010afaea0cedacee0294800664d1823d.png"
+    },
+    {
+      "source": "a1adedc6c4131cb6e3e986a41eaa0027.svg",
+      "output": "images/a1adedc6c4131cb6e3e986a41eaa0027.png"
+    },
+    {
+      "source": "f5ba687b9211b2ddb2fa5732b4ad80de.svg",
+      "output": "images/f5ba687b9211b2ddb2fa5732b4ad80de.png"
+    },
+    {
+      "source": "32bac395c173b582a597dd0a95f1ec6b.svg",
+      "output": "images/32bac395c173b582a597dd0a95f1ec6b.png"
+    },
+    {
+      "source": "bdb6f55a788981061ae7290b0a6ed95d.svg",
+      "output": "images/bdb6f55a788981061ae7290b0a6ed95d.png"
+    },
+    {
+      "source": "7c989f1af72f2376a024708ba7f97926.svg",
+      "output": "images/7c989f1af72f2376a024708ba7f97926.png"
+    },
+    {
+      "source": "062822a5cc18820b0a4a73a3f1fd27f2.svg",
+      "output": "images/062822a5cc18820b0a4a73a3f1fd27f2.png"
+    },
+    {
+      "source": "c409725adadbf7c4d3e83e1cabda0604.svg",
+      "output": "images/c409725adadbf7c4d3e83e1cabda0604.png"
+    },
+    {
+      "source": "892be193d7f2455a080648e3b8b06f87.svg",
+      "output": "images/892be193d7f2455a080648e3b8b06f87.png"
+    },
+    {
+      "source": "3a6aafe9f5001d48131386181dca32b5.svg",
+      "output": "images/3a6aafe9f5001d48131386181dca32b5.png"
+    },
+    {
+      "source": "2fd426d15cb1e2c6dc33d96eaccb6803.svg",
+      "output": "images/2fd426d15cb1e2c6dc33d96eaccb6803.png"
+    },
+    {
+      "source": "702d0a2064870a747e009c564125c702.svg",
+      "output": "images/702d0a2064870a747e009c564125c702.png"
+    },
+    {
+      "source": "0be20fcebe7ea3b4b28ce994e39d56bd.svg",
+      "output": "images/0be20fcebe7ea3b4b28ce994e39d56bd.png"
+    },
+    {
+      "source": "748f697186260b1c1233b5a1627da26f.svg",
+      "output": "images/748f697186260b1c1233b5a1627da26f.png"
+    },
+    {
+      "source": "5db1b97afa285cb6176b4a3449bad5e7.svg",
+      "output": "images/5db1b97afa285cb6176b4a3449bad5e7.png"
+    },
+    {
+      "source": "5b1a5f87b1d063cac7b201b6b0c44cca.svg",
+      "output": "images/5b1a5f87b1d063cac7b201b6b0c44cca.png"
+    },
+    {
+      "source": "a7b80db91505cc6d8cd2927465ad2f15.svg",
+      "output": "images/a7b80db91505cc6d8cd2927465ad2f15.png"
+    },
+    {
+      "source": "7b95c650b4261ab75606c2d9e649d6b2.svg",
+      "output": "images/7b95c650b4261ab75606c2d9e649d6b2.png"
+    },
+    {
+      "source": "14480ab37a913a1b063226de7b936fbd.svg",
+      "output": "images/14480ab37a913a1b063226de7b936fbd.png"
+    },
+    {
+      "source": "8229e916fccba9402bfdf90365b040e6.svg",
+      "output": "images/8229e916fccba9402bfdf90365b040e6.png"
+    },
+    {
+      "source": "3021ecf57b05d774de9d10b1fa8d9cc8.svg",
+      "output": "images/3021ecf57b05d774de9d10b1fa8d9cc8.png"
+    },
+    {
+      "source": "9408b32f7cbd180ae8e679b4d1825cf7.svg",
+      "output": "images/9408b32f7cbd180ae8e679b4d1825cf7.png"
+    },
+    {
+      "source": "4ae11f4c4af68ffa5fdecb3a4e882fc6.svg",
+      "output": "images/4ae11f4c4af68ffa5fdecb3a4e882fc6.png"
+    },
+    {
+      "source": "99eef2d6f4df58dc667bf39b662f132b.svg",
+      "output": "images/99eef2d6f4df58dc667bf39b662f132b.png"
+    },
+    {
+      "source": "6f337867397c51ee6392517b9aed7658.svg",
+      "output": "images/6f337867397c51ee6392517b9aed7658.png"
+    },
+    {
+      "source": "5c8afef227cad02d68b859ffd8c78f23.svg",
+      "output": "images/5c8afef227cad02d68b859ffd8c78f23.png"
+    },
+    {
+      "source": "cd21514d0531fdffb22204e0ec5ed84a.svg",
+      "output": "images/cd21514d0531fdffb22204e0ec5ed84a.png"
+    },
+    {
+      "source": "b4d5ec5fda4577efd6d6b74f6fd827c2.svg",
+      "output": "images/b4d5ec5fda4577efd6d6b74f6fd827c2.png"
+    },
+    {
+      "source": "28e0eb9e6d46c70b09fd3e84ced1debf.svg",
+      "output": "images/28e0eb9e6d46c70b09fd3e84ced1debf.png"
+    },
+    {
+      "source": "0e6c540bd5f918cce4d933ad905f9408.svg",
+      "output": "images/0e6c540bd5f918cce4d933ad905f9408.png"
+    },
+    {
+      "source": "c438e671d4c5a442f3dc6044f65fdc4f.svg",
+      "output": "images/c438e671d4c5a442f3dc6044f65fdc4f.png"
+    },
+    {
+      "source": "21521aae5ae07d567f3d0a1679da6846.svg",
+      "output": "images/21521aae5ae07d567f3d0a1679da6846.png"
+    },
+    {
+      "source": "a158466978de7248e765c00cbe205e8f.svg",
+      "output": "images/a158466978de7248e765c00cbe205e8f.png"
+    },
+    {
+      "source": "e274a4997d8a4500f63b9bb26804bee2.svg",
+      "output": "images/e274a4997d8a4500f63b9bb26804bee2.png"
+    },
+    {
+      "source": "8e6253f68ada60fec51b50621a31fd8a.svg",
+      "output": "images/8e6253f68ada60fec51b50621a31fd8a.png"
+    },
+    {
+      "source": "46a00bf7b9cd7dc90c12af8712bdc226.svg",
+      "output": "images/46a00bf7b9cd7dc90c12af8712bdc226.png"
+    },
+    {
+      "source": "264b5ca9bbff1ec292a77a31ac34a283.svg",
+      "output": "images/264b5ca9bbff1ec292a77a31ac34a283.png"
+    },
+    {
+      "source": "11246af56d02a567d950a20ac84cd77b.svg",
+      "output": "images/11246af56d02a567d950a20ac84cd77b.png"
+    },
+    {
+      "source": "2fb9dade2fe8731a047f111b5f16584e.svg",
+      "output": "images/2fb9dade2fe8731a047f111b5f16584e.png"
+    },
+    {
+      "source": "09b15c29d2490490fa2466e369c74909.svg",
+      "output": "images/09b15c29d2490490fa2466e369c74909.png"
+    },
+    {
+      "source": "f971e34711fb6be4f729e0d0b8f3c1a0.svg",
+      "output": "images/f971e34711fb6be4f729e0d0b8f3c1a0.png"
+    },
+    {
+      "source": "cfa3fffa02ee23508bef0bd554896e84.svg",
+      "output": "images/cfa3fffa02ee23508bef0bd554896e84.png"
+    },
+    {
+      "source": "fa2b00fdd03739e951b746be85bd894f.svg",
+      "output": "images/fa2b00fdd03739e951b746be85bd894f.png"
+    },
+    {
+      "source": "5664448a18ce18649b3a976517f0f9d1.svg",
+      "output": "images/5664448a18ce18649b3a976517f0f9d1.png"
+    },
+    {
+      "source": "014550746e30d8d9864ef434e5563fdb.svg",
+      "output": "images/014550746e30d8d9864ef434e5563fdb.png"
+    },
+    {
+      "source": "48f30832674294b851aa4fc43a80d011.svg",
+      "output": "images/48f30832674294b851aa4fc43a80d011.png"
+    },
+    {
+      "source": "22f8213a73bdbc28dcc89e11be439fb5.svg",
+      "output": "images/22f8213a73bdbc28dcc89e11be439fb5.png"
+    },
+    {
+      "source": "ea576d921f6260c180aee8f142d70eec.svg",
+      "output": "images/ea576d921f6260c180aee8f142d70eec.png"
+    },
+    {
+      "source": "1c68a49ff1814df141cada295a575aeb.svg",
+      "output": "images/1c68a49ff1814df141cada295a575aeb.png"
+    },
+    {
+      "source": "10f6778e31fae3e576412f4339c8f5cd.svg",
+      "output": "images/10f6778e31fae3e576412f4339c8f5cd.png"
+    },
+    {
+      "source": "a6374cd2ac4f6588fbc61959a54687ce.svg",
+      "output": "images/a6374cd2ac4f6588fbc61959a54687ce.png"
+    },
+    {
+      "source": "9d367650b25424f18eee85f504f43530.svg",
+      "output": "images/9d367650b25424f18eee85f504f43530.png"
+    },
+    {
+      "source": "3bcd7af813185b24279ce37461e93214.svg",
+      "output": "images/3bcd7af813185b24279ce37461e93214.png"
+    },
+    {
+      "source": "c4f48737f1f20c1505a2397f05e5ac5b.svg",
+      "output": "images/c4f48737f1f20c1505a2397f05e5ac5b.png"
+    },
+    {
+      "source": "cbf420cca23780350f9fe48d190d9f80.svg",
+      "output": "images/cbf420cca23780350f9fe48d190d9f80.png"
+    },
+    {
+      "source": "e35f6b033d37d376d629c8e50c82bb57.svg",
+      "output": "images/e35f6b033d37d376d629c8e50c82bb57.png"
+    },
+    {
+      "source": "065857fecf1f31012838f8a3261f3284.svg",
+      "output": "images/065857fecf1f31012838f8a3261f3284.png"
+    },
+    {
+      "source": "d95a624d198e092e54627eeea41224b5.svg",
+      "output": "images/d95a624d198e092e54627eeea41224b5.png"
+    },
+    {
+      "source": "1cd2e7dc542d23332a859798afbfa565.svg",
+      "output": "images/1cd2e7dc542d23332a859798afbfa565.png"
+    },
+    {
+      "source": "5ce64c7f699d73784c881cee3a55e533.svg",
+      "output": "images/5ce64c7f699d73784c881cee3a55e533.png"
+    },
+    {
+      "source": "3f54e12efdb4dcc793170d2764e88dc5.svg",
+      "output": "images/3f54e12efdb4dcc793170d2764e88dc5.png"
+    },
+    {
+      "source": "2f79a2932e8f3d671c115e1aad95a357.svg",
+      "output": "images/2f79a2932e8f3d671c115e1aad95a357.png"
+    },
+    {
+      "source": "80d1a839af23b538fc08af80012aac0e.svg",
+      "output": "images/80d1a839af23b538fc08af80012aac0e.png"
+    },
+    {
+      "source": "a5c6fb5c0cd480445017b02969455e7a.svg",
+      "output": "images/a5c6fb5c0cd480445017b02969455e7a.png"
+    },
+    {
+      "source": "63b375f8d494bdb983c7ac8cbf584cfe.svg",
+      "output": "images/63b375f8d494bdb983c7ac8cbf584cfe.png"
+    },
+    {
+      "source": "5bd4be18a5c47e4b189578e679fd9cda.svg",
+      "output": "images/5bd4be18a5c47e4b189578e679fd9cda.png"
+    },
+    {
+      "source": "fa5ed9c6f5754e2b4c224582f9f2968a.svg",
+      "output": "images/fa5ed9c6f5754e2b4c224582f9f2968a.png"
+    },
+    {
+      "source": "10f2d6da6d510882600a937601e396f5.svg",
+      "output": "images/10f2d6da6d510882600a937601e396f5.png"
+    },
+    {
+      "source": "baf627a1ca0fdba5eb9f6c45e02823da.svg",
+      "output": "images/baf627a1ca0fdba5eb9f6c45e02823da.png"
+    },
+    {
+      "source": "2120fdc05b7d331864e351e48d97d7db.svg",
+      "output": "images/2120fdc05b7d331864e351e48d97d7db.png"
+    },
+    {
+      "source": "8889d1643be01aa2ccdffcd2cea3acc0.svg",
+      "output": "images/8889d1643be01aa2ccdffcd2cea3acc0.png"
+    },
+    {
+      "source": "32c3763625fa66835deb86f373eff591.svg",
+      "output": "images/32c3763625fa66835deb86f373eff591.png"
+    },
+    {
+      "source": "cfcad0009f41da26474482a0e4fe3a0a.svg",
+      "output": "images/cfcad0009f41da26474482a0e4fe3a0a.png"
+    },
+    {
+      "source": "c8e16925c7a3f22659c46df1af6f737f.svg",
+      "output": "images/c8e16925c7a3f22659c46df1af6f737f.png"
+    },
+    {
+      "source": "7195cd5ee3575bce6fda2f9d6f110e87.svg",
+      "output": "images/7195cd5ee3575bce6fda2f9d6f110e87.png"
+    },
+    {
+      "source": "f51ff147f5137f4b6daba0965bc4244b.svg",
+      "output": "images/f51ff147f5137f4b6daba0965bc4244b.png"
+    },
+    {
+      "source": "a9102a32e09ac6cd69ce8d3445081c55.svg",
+      "output": "images/a9102a32e09ac6cd69ce8d3445081c55.png"
+    },
+    {
+      "source": "b190528fd0103d12599bbcbe32ab9f74.svg",
+      "output": "images/b190528fd0103d12599bbcbe32ab9f74.png"
+    },
+    {
+      "source": "b62611c3644b323efdb85c5620a76a1b.svg",
+      "output": "images/b62611c3644b323efdb85c5620a76a1b.png"
+    },
+    {
+      "source": "cb62c9c2959c021032421f98e3ab71bb.svg",
+      "output": "images/cb62c9c2959c021032421f98e3ab71bb.png"
+    },
+    {
+      "source": "4d9d0b63e970ab674814846e6b4b8cae.svg",
+      "output": "images/4d9d0b63e970ab674814846e6b4b8cae.png"
+    },
+    {
+      "source": "fbd938bac383b9a5504c456c15d47874.svg",
+      "output": "images/fbd938bac383b9a5504c456c15d47874.png"
+    },
+    {
+      "source": "8cdac1e61b3e3d205a68664327d5b865.svg",
+      "output": "images/8cdac1e61b3e3d205a68664327d5b865.png"
+    },
+    {
+      "source": "d1cb75d015444f386600ab5c3bc25cd7.svg",
+      "output": "images/d1cb75d015444f386600ab5c3bc25cd7.png"
+    },
+    {
+      "source": "67e7eb97e2c53b284001efe9bc401ccf.svg",
+      "output": "images/67e7eb97e2c53b284001efe9bc401ccf.png"
+    },
+    {
+      "source": "50ade43c041a286d6f13696e872f7eb0.svg",
+      "output": "images/50ade43c041a286d6f13696e872f7eb0.png"
+    },
+    {
+      "source": "3b2c1a3b52ce2cac9f942fd3eb9170ab.svg",
+      "output": "images/3b2c1a3b52ce2cac9f942fd3eb9170ab.png"
+    },
+    {
+      "source": "3622b69dfefe302057b11506354a0033.svg",
+      "output": "images/3622b69dfefe302057b11506354a0033.png"
+    },
+    {
+      "source": "0f68bda3dd2db0b158944ae9d073f06a.svg",
+      "output": "images/0f68bda3dd2db0b158944ae9d073f06a.png"
+    },
+    {
+      "source": "99a46d02ccb30c263b37751a91761623.svg",
+      "output": "images/99a46d02ccb30c263b37751a91761623.png"
+    },
+    {
+      "source": "d01e234f17e8e758554d790f4324fbda.svg",
+      "output": "images/d01e234f17e8e758554d790f4324fbda.png"
+    },
+    {
+      "source": "ba6585a4231fca694838bab2e68a6d53.svg",
+      "output": "images/ba6585a4231fca694838bab2e68a6d53.png"
+    },
+    {
+      "source": "fc8804885eae7fffbe0582c4950f837d.svg",
+      "output": "images/fc8804885eae7fffbe0582c4950f837d.png"
+    },
+    {
+      "source": "f3d791be861e7c29d18fb1accd4485fa.svg",
+      "output": "images/f3d791be861e7c29d18fb1accd4485fa.png"
+    },
+    {
+      "source": "575993327c4663282b893497b7a2ac0f.svg",
+      "output": "images/575993327c4663282b893497b7a2ac0f.png"
+    },
+    {
+      "source": "a101fcdf1b7f328d082ab09204ca077a.svg",
+      "output": "images/a101fcdf1b7f328d082ab09204ca077a.png"
+    },
+    {
+      "source": "f93a163415f547d7a80ecade24d05505.svg",
+      "output": "images/f93a163415f547d7a80ecade24d05505.png"
+    },
+    {
+      "source": "915ce959a47d5ce37b0a52e7312b5b3e.svg",
+      "output": "images/915ce959a47d5ce37b0a52e7312b5b3e.png"
+    },
+    {
+      "source": "11885eebb69378b126a0b908b998988e.svg",
+      "output": "images/11885eebb69378b126a0b908b998988e.png"
+    },
+    {
+      "source": "4babb32ff1b68328e54c6133af6860f5.svg",
+      "output": "images/4babb32ff1b68328e54c6133af6860f5.png"
+    },
+    {
+      "source": "32fd29c451c4cb15c0371797c32b40cf.svg",
+      "output": "images/32fd29c451c4cb15c0371797c32b40cf.png"
+    },
+    {
+      "source": "7d5c8ac23ea0be4f0c0850815a8408c9.svg",
+      "output": "images/7d5c8ac23ea0be4f0c0850815a8408c9.png"
+    },
+    {
+      "source": "c5d6caa39882637fdeddceabe8151d0e.svg",
+      "output": "images/c5d6caa39882637fdeddceabe8151d0e.png"
+    },
+    {
+      "source": "842d1cf6c578ca81574ea5010c92277f.svg",
+      "output": "images/842d1cf6c578ca81574ea5010c92277f.png"
+    },
+    {
+      "source": "506c62fbf491c78cb5b556349a3414d3.svg",
+      "output": "images/506c62fbf491c78cb5b556349a3414d3.png"
+    },
+    {
+      "source": "973827d4e12ee7ec7d0021a73ee23e77.svg",
+      "output": "images/973827d4e12ee7ec7d0021a73ee23e77.png"
+    },
+    {
+      "source": "b53dc16c28d6620b89094cc1d610477f.svg",
+      "output": "images/b53dc16c28d6620b89094cc1d610477f.png"
+    },
+    {
+      "source": "ef3fb549305c9212aba3937418d1da17.svg",
+      "output": "images/ef3fb549305c9212aba3937418d1da17.png"
+    },
+    {
+      "source": "ec284eb940c10c8c6b494ada083a6f69.svg",
+      "output": "images/ec284eb940c10c8c6b494ada083a6f69.png"
+    },
+    {
+      "source": "cc1a2f2d79476e53d1bd5bb27ef22001.svg",
+      "output": "images/cc1a2f2d79476e53d1bd5bb27ef22001.png"
+    },
+    {
+      "source": "91ca5e377857a4e2619cc5a49ee8ce72.svg",
+      "output": "images/91ca5e377857a4e2619cc5a49ee8ce72.png"
+    },
+    {
+      "source": "e1a60f31a6f95c17914c95bf4c402a97.svg",
+      "output": "images/e1a60f31a6f95c17914c95bf4c402a97.png"
+    },
+    {
+      "source": "9358ab217e5676d3099489e760c99141.svg",
+      "output": "images/9358ab217e5676d3099489e760c99141.png"
+    },
+    {
+      "source": "70207ffe90b0501b03bfd74778464300.svg",
+      "output": "images/70207ffe90b0501b03bfd74778464300.png"
+    },
+    {
+      "source": "03bfdf4136a79c9fceae947abf204314.svg",
+      "output": "images/03bfdf4136a79c9fceae947abf204314.png"
+    },
+    {
+      "source": "ed4fe3d415e1e38d890449a2cbd36cd1.svg",
+      "output": "images/ed4fe3d415e1e38d890449a2cbd36cd1.png"
+    },
+    {
+      "source": "31da4aa2ffca45fd192aebe08081ff3b.svg",
+      "output": "images/31da4aa2ffca45fd192aebe08081ff3b.png"
+    },
+    {
+      "source": "cdcb18fdd9210621698f02a7f26624d5.svg",
+      "output": "images/cdcb18fdd9210621698f02a7f26624d5.png"
+    },
+    {
+      "source": "73e3d6cb57296b4a3b6bbfee72c33278.svg",
+      "output": "images/73e3d6cb57296b4a3b6bbfee72c33278.png"
+    },
+    {
+      "source": "06ee819114ba67a55c4da6a412806de6.svg",
+      "output": "images/06ee819114ba67a55c4da6a412806de6.png"
+    },
+    {
+      "source": "4cf2d1a0b5ccec740cb925ba4afdf528.svg",
+      "output": "images/4cf2d1a0b5ccec740cb925ba4afdf528.png"
+    },
+    {
+      "source": "12c0f886650d0a642bc9e33b26a7edae.svg",
+      "output": "images/12c0f886650d0a642bc9e33b26a7edae.png"
+    },
+    {
+      "source": "819a071312f0f8a3df208e5520991d14.svg",
+      "output": "images/819a071312f0f8a3df208e5520991d14.png"
+    },
+    {
+      "source": "65302ca048373661962f70a5b503b655.svg",
+      "output": "images/65302ca048373661962f70a5b503b655.png"
+    }
+  ],
+  "cards": {
+    "red:0": "cards/red_0.png",
+    "yellow:0": "cards/yellow_0.png",
+    "green:0": "cards/green_0.png",
+    "blue:0": "cards/blue_0.png",
+    "red:1": "cards/red_1.png",
+    "yellow:1": "cards/yellow_1.png",
+    "green:1": "cards/green_1.png",
+    "blue:1": "cards/blue_1.png",
+    "red:2": "cards/red_2.png",
+    "yellow:2": "cards/yellow_2.png",
+    "green:2": "cards/green_2.png",
+    "blue:2": "cards/blue_2.png",
+    "red:3": "cards/red_3.png",
+    "yellow:3": "cards/yellow_3.png",
+    "green:3": "cards/green_3.png",
+    "blue:3": "cards/blue_3.png",
+    "red:4": "cards/red_4.png",
+    "yellow:4": "cards/yellow_4.png",
+    "green:4": "cards/green_4.png",
+    "blue:4": "cards/blue_4.png",
+    "red:5": "cards/red_5.png",
+    "yellow:5": "cards/yellow_5.png",
+    "green:5": "cards/green_5.png",
+    "blue:5": "cards/blue_5.png",
+    "red:6": "cards/red_6.png",
+    "yellow:6": "cards/yellow_6.png",
+    "green:6": "cards/green_6.png",
+    "blue:6": "cards/blue_6.png",
+    "red:7": "cards/red_7.png",
+    "yellow:7": "cards/yellow_7.png",
+    "green:7": "cards/green_7.png",
+    "blue:7": "cards/blue_7.png",
+    "red:8": "cards/red_8.png",
+    "yellow:8": "cards/yellow_8.png",
+    "green:8": "cards/green_8.png",
+    "blue:8": "cards/blue_8.png",
+    "red:9": "cards/red_9.png",
+    "yellow:9": "cards/yellow_9.png",
+    "green:9": "cards/green_9.png",
+    "blue:9": "cards/blue_9.png",
+    "red:discard all": "cards/red_discard_all.png",
+    "yellow:discard all": "cards/yellow_discard_all.png",
+    "green:discard all": "cards/green_discard_all.png",
+    "blue:discard all": "cards/blue_discard_all.png",
+    "red:draw 2": "cards/red_draw_2.png",
+    "yellow:draw 2": "cards/yellow_draw_2.png",
+    "green:draw 2": "cards/green_draw_2.png",
+    "blue:draw 2": "cards/blue_draw_2.png",
+    "red:draw 4": "cards/red_draw_4.png",
+    "yellow:draw 4": "cards/yellow_draw_4.png",
+    "green:draw 4": "cards/green_draw_4.png",
+    "blue:draw 4": "cards/blue_draw_4.png",
+    "red:reverse": "cards/red_reverse.png",
+    "yellow:reverse": "cards/yellow_reverse.png",
+    "green:reverse": "cards/green_reverse.png",
+    "blue:reverse": "cards/blue_reverse.png",
+    "red:skip all": "cards/red_skip_all.png",
+    "yellow:skip all": "cards/yellow_skip_all.png",
+    "green:skip all": "cards/green_skip_all.png",
+    "blue:skip all": "cards/blue_skip_all.png",
+    "red:skip": "cards/red_skip.png",
+    "yellow:skip": "cards/yellow_skip.png",
+    "green:skip": "cards/green_skip.png",
+    "blue:skip": "cards/blue_skip.png",
+    "back": "cards/back.png",
+    "wild:wild colour roulette": "cards/wild_wild_colour_roulette.png",
+    "wild:wild draw 6": "cards/wild_wild_draw_6.png",
+    "wild:wild draw 10": "cards/wild_wild_draw_10.png",
+    "wild:wild reverse draw 4": "cards/wild_wild_reverse_draw_4.png"
+  },
+  "format": 1,
+  "statistics": {
+    "unique_images": 279,
+    "unique_sounds": 66,
+    "costume_references": 350,
+    "sound_references": 71
+  },
+  "renderer": {
+    "library": "@scratch/scratch-svg-renderer",
+    "scale": 3,
+    "browser": "152.0.7977.83"
+  },
+  "wheels": {
+    "direction:red": "wheels/direction_red.png",
+    "direction:yellow": "wheels/direction_yellow.png",
+    "direction:green": "wheels/direction_green.png",
+    "direction:blue": "wheels/direction_blue.png",
+    "direction2:red": "wheels/direction2_red.png",
+    "direction2:yellow": "wheels/direction2_yellow.png",
+    "direction2:green": "wheels/direction2_green.png",
+    "direction2:blue": "wheels/direction2_blue.png"
+  },
+  "table": "images/table.png"
+}

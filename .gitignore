@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+.pytest_cache/
+build/
+dist/
+node_modules/
+*.spec.bak
+*.log
+
+
+# Local dependencies and temporary test output
+node_modules/
+pytest-cache-files-*/
+

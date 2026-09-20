@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node render.mjs"
+  },
+  "dependencies": {
+    "@scratch/scratch-render": "15.1.1",
+    "@scratch/scratch-storage": "15.1.1",
+    "@scratch/scratch-svg-renderer": "15.1.1",
+    "@scratch/scratch-vm": "15.1.1",
+    "esbuild": "0.28.2",
+    "playwright": "1.63.0"
+  }
+}
