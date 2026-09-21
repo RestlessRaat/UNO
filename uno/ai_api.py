@@ -147,6 +147,9 @@ class PublicGameView:
     mercy_limit: int
     events: tuple[GameEvent, ...]
     roulette_revealed: tuple[CardView, ...]
+    # Additive API v1 extension: older plugins can ignore these immutable fields.
+    history: tuple[GameEvent, ...] = ()
+    known_opponent_cards: tuple[tuple[int, tuple[int, ...]], ...] = ()
 
     @classmethod
     def from_dict(cls, value: Mapping[str, Any]) -> "PublicGameView":
@@ -165,6 +168,9 @@ class PublicGameView:
             mercy_limit=int(value["mercy_limit"]),
             events=tuple(GameEvent.from_dict(event) for event in value.get("events", ())),
             roulette_revealed=tuple(CardView.from_dict(c) for c in value.get("roulette_revealed", ())),
+            history=tuple(GameEvent.from_dict(event) for event in value.get("history", ())),
+            known_opponent_cards=tuple((int(pid), tuple(int(cid) for cid in cards))
+                                      for pid, cards in value.get("known_opponent_cards", {}).items()),
         )
 
     def to_dict(self, legal_actions: tuple[Action, ...] = ()) -> dict[str, Any]:
@@ -181,6 +187,8 @@ class PublicGameView:
             "mercy_limit": self.mercy_limit, "legal": [action_to_dict(a) for a in legal_actions],
             "events": [event.to_dict() for event in self.events],
             "roulette_revealed": [card.to_dict() for card in self.roulette_revealed],
+            "history": [event.to_dict() for event in self.history],
+            "known_opponent_cards": {str(pid): list(cards) for pid, cards in self.known_opponent_cards},
         }
 
 

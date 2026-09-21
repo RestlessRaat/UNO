@@ -11,7 +11,7 @@ from concurrent.futures import ProcessPoolExecutor
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from uno.ai import DIFFICULTIES, choose_action
+from uno.ai import DIFFICULTIES, choose_action, decision_view
 from uno.elo import DuelElo, save_calibration
 from uno.engine import GameConfig, new_game
 
@@ -25,7 +25,8 @@ def play_duel(seed, hard_seat, challenger="hard"):
             return challenger if game.winner == hard_seat else "normal", game.revision
         seat = game.current
         difficulty = challenger if seat == hard_seat else "normal"
-        game.apply_action(choose_action(game.view_for(seat), rngs[seat], difficulty))
+        view = decision_view(game, difficulty) if difficulty == "devil" else game.view_for(seat)
+        game.apply_action(choose_action(view, rngs[seat], difficulty))
     raise RuntimeError(f"Round did not finish: seed={seed}, hard_seat={hard_seat}")
 
 

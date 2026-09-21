@@ -9,8 +9,99 @@ import random
 
 from .engine import BY_ID, CARDS, COLORS, DRAW_VALUES, Game, GameConfig
 
-ROLLOUT_SAMPLES = 48
-ROLLOUT_STEPS = 160
+ROLLOUT_SAMPLES = 24
+ROLLOUT_STEPS = 100
+MAX_VOLUNTARY_DRAWS = 3
+_BELIEFS = {}
+
+
+class _Belief:
+    """Persistent public-information posterior used to generate particles."""
+    def __init__(self, view):
+        self.weights = {p['id']: {card.id: 1.0 for card in CARDS}
+                        for p in view['players'] if p['id'] != view['you']}
+        self.history_size = 0
+        self.sync(view)
+
+    def sync(self, view):
+        history = view.get('history', ())
+        if len(history) < self.history_size:
+            self.__init__(view)
+            return
+        for event in history[self.history_size:]:
+            player = event.get('player')
+            weights = self.weights.get(player)
+            if weights is None:
+                continue
+            if event['type'] == 'play':
+                weights[event['card']['id']] = 0.0
+            elif event['type'] == 'draw' and not event.get('revealed'):
+                color = event.get('color_before')
+                top = event.get('top_before')
+                pending = event.get('pending_before', 0)
+                # Accepting a stack is strong negative evidence for a legal
+                # counter.  A voluntary/required ordinary draw is weaker
+                # evidence because the observer cannot distinguish the two.
+                factor = 0.12 if pending else 0.68
+                for card_id in weights:
+                    card = BY_ID[card_id]
+                    if _public_playable(card, color, top, pending):
+                        weights[card_id] *= factor
+            elif event['type'] == 'color' and event.get('top_before') != 'wild colour roulette':
+                chosen = event.get('color')
+                for card_id in weights:
+                    card = BY_ID[card_id]
+                    if card.color != 'wild':
+                        weights[card_id] *= 1.35 if card.color == chosen else 0.90
+        self.history_size = len(history)
+        for weights in self.weights.values():
+            for card_id, weight in tuple(weights.items()):
+                weights[card_id] = min(30.0, max(0.01, weight)) if weight else 0.0
+
+    def take(self, player, pool, count, rng):
+        chosen = []
+        weights = self.weights.get(player, {})
+        for _ in range(min(count, len(pool))):
+            values = [max(0.001, weights.get(card_id, 1.0)) for card_id in pool]
+            card_id = rng.choices(pool, weights=values, k=1)[0]
+            pool.remove(card_id)
+            chosen.append(card_id)
+        return chosen
+
+
+def _public_playable(card, color, top, pending=0):
+    from .ai import _playable
+    return _playable(card.public(), color, top, pending,
+                     DRAW_VALUES.get(top, 0) if pending else 0)
+
+
+def _belief_for(view):
+    key = view.get('_devil_key')
+    if key is None:
+        return _Belief(view)
+    belief = _BELIEFS.get(key)
+    if belief is None:
+        belief = _BELIEFS[key] = _Belief(view)
+        if len(_BELIEFS) > 64:
+            del _BELIEFS[next(iter(_BELIEFS))]
+    else:
+        belief.sync(view)
+    return belief
+
+
+@lru_cache(maxsize=32768)
+def _cached_hand_burden(ids):
+    cards = [BY_ID[i] for i in ids]
+    colors = Counter(c.color for c in cards if c.color != 'wild')
+    shed = max((colors[c.color] - 1 for c in cards if c.value == 'discard all'), default=0)
+    attacks = sum(DRAW_VALUES.get(c.value, 0) for c in cards)
+    tempo = sum(c.value in ('skip', 'reverse', 'skip all') for c in cards)
+    wilds = sum(c.wild for c in cards)
+    return len(cards) - 0.58 * shed - 0.05 * attacks - 0.12 * tempo - 0.08 * wilds
+
+
+def _hand_burden(ids):
+    return _cached_hand_burden(tuple(sorted(ids)))
 
 def _forced_finish(view, budget=4000):
     """Search only guaranteed own turns; return a legal first step of a win."""
@@ -85,7 +176,7 @@ class _Simulation(Game):
             self.discard = self.discard[-1:]
 
     @classmethod
-    def sample(cls, view, rng):
+    def sample(cls, view, rng, belief=None):
         game = cls.__new__(cls)
         game.config = GameConfig(tuple(p['name'] for p in view['players']))
         game.current, game.direction = view['current'], view['direction']
@@ -110,21 +201,29 @@ class _Simulation(Game):
         for player in view['players']:
             if player['eliminated']:
                 discards.update(revealed.pop(player['id'], ()))
-        known = set(own) | discards | {c for hand in revealed.values() for c in hand}
+        remembered = {int(player): list(cards) for player, cards
+                      in view.get('known_opponent_cards', {}).items()}
+        known = (set(own) | discards | {c for hand in revealed.values() for c in hand}
+                 | {c for hand in remembered.values() for c in hand})
         unknown = [c.id for c in CARDS if c.id not in known]
-        rng.shuffle(unknown)
         game.hands = []
         for p in view['players']:
             if p['id'] == view['you']:
                 game.hands.append(list(own))
             else:
-                visible = revealed.get(p['id'], [])
+                visible = list(dict.fromkeys(remembered.get(p['id'], []) + revealed.get(p['id'], [])))
                 n = p['count'] - len(visible)
-                game.hands.append(unknown[:n] + visible)
-                del unknown[:n]
+                sampled = ((belief or _Belief(view)).take(p['id'], unknown, n, rng)
+                           if n > 0 else [])
+                game.hands.append(sampled + visible)
+        rng.shuffle(unknown)
         game.deck = unknown[:view['deck_count']]
         game.discard = unknown[view['deck_count']:] + sorted(discards - {top}) + [top]
         game.roulette_revealed = []
+        game.voluntary_draws = [0] * len(game.hands)
+        game.last_drawn = [None] * len(game.hands)
+        game.public_known = set(discards)
+        game.planning_player = view['you']
         return game
 
     def fork(self):
@@ -134,6 +233,10 @@ class _Simulation(Game):
         result.deck, result.discard = list(self.deck), list(self.discard)
         result.eliminated = list(self.eliminated)
         result.roulette_revealed = list(self.roulette_revealed)
+        result.voluntary_draws = list(self.voluntary_draws)
+        result.last_drawn = list(self.last_drawn)
+        result.public_known = set(self.public_known)
+        result.planning_player = self.planning_player
         result.rng = random.Random(0)
         result.rng.setstate(self.rng.getstate())
         return result
@@ -141,9 +244,18 @@ class _Simulation(Game):
     def act(self, action):
         kind = action['type']
         if kind == 'play':
+            if hasattr(self, 'voluntary_draws'):
+                self.voluntary_draws[self.current] = 0
             self._play(action['card_id'])
         elif kind == 'draw':
+            player, ordinary = self.current, self.phase == 'turn' and not self.pending
+            before = set(self.hands[player])
             self._draw()
+            added = next((card for card in self.hands[player] if card not in before), None)
+            if hasattr(self, 'last_drawn'):
+                self.last_drawn[player] = added
+            if hasattr(self, 'voluntary_draws') and ordinary and self.current == player:
+                self.voluntary_draws[player] += 1
         elif kind == 'choose_color':
             self._choose_color(action['color'])
         elif kind == 'choose_player':
@@ -158,7 +270,7 @@ class _Simulation(Game):
         hand = self.hands[self.current]
         if self.phase == 'choose_player':
             targets = [p for p in self.active if p != self.current]
-            target = min(targets, key=lambda p:len(self.hands[p])) if smart else self.rng.choice(targets)
+            target = min(targets, key=lambda p:_hand_burden(self.hands[p])) if smart else self.rng.choice(targets)
             return {'type':'choose_player','target':target}
         if self.phase == 'choose_color':
             colors = Counter(BY_ID[c].color for c in hand if BY_ID[c].color != 'wild')
@@ -193,8 +305,11 @@ class _Simulation(Game):
             if not left:
                 return 10000
             if value in ('0','7'):
-                take = min(len(self.hands[p]) for p in self.active if p != self.current) if value=='7' else len(self.hands[self._next(steps=len(self.active)-1)])
-                return (n-take)*10 - (35 if left==1 else 0)
+                if value == '7':
+                    take = min(_hand_burden(self.hands[p]) for p in self.active if p != self.current)
+                else:
+                    take = _hand_burden(self.hands[self._next(steps=len(self.active)-1)])
+                return (_hand_burden(hand) - take) * 12 - (35 if left == 1 else 0)
             bonus = (n-left)*10 + colors[c.color]
             if value == 'skip all' or duel and value in ('skip','reverse'):
                 bonus += 12
@@ -216,7 +331,18 @@ class _Simulation(Game):
                 expected_count = len(self.hands[next_player]) + 0.65 * (self.pending+amount if amount else 3 if value=='wild colour roulette' else 0)
                 bonus -= 45 / max(1, expected_count)**2
             return bonus
-        return {'type':'play','card_id':max(cards,key=score)}
+        best_card = max(cards, key=score)
+        if (self.current == self.planning_player and self.deck
+                and self.voluntary_draws[self.current] < MAX_VOLUNTARY_DRAWS
+                and len(hand) < self.config.mercy_limit - 3
+                and min(len(self.hands[p]) for p in self.active if p != self.current) > 2
+                and score(best_card) < 24):
+            unseen = [c for c in CARDS if c.id not in set(hand) | self.public_known]
+            useful = sum(c.value in ('skip', 'reverse', 'skip all', 'discard all')
+                         or DRAW_VALUES.get(c.value, 0) >= 4 for c in unseen)
+            if unseen and useful / len(unseen) >= 0.16:
+                return {'type':'draw'}
+        return {'type':'play','card_id':best_card}
 
 
 def _rollout(world, action, you):
@@ -225,14 +351,14 @@ def _rollout(world, action, you):
     for _ in range(ROLLOUT_STEPS):
         if sim.winner is not None:
             break
-        sim.act(sim.rollout_action(sim.current == you))
+        sim.act(sim.rollout_action(True))
     if sim.winner is not None:
         return 1.0 if sim.winner == you else 0.0
     if sim.eliminated[you]:
         return 0.0
-    own = len(sim.hands[you])
-    other = min(len(sim.hands[p]) for p in sim.active if p != you)
-    return other / (own + other + 0.001)
+    own = max(0.1, _hand_burden(sim.hands[you]))
+    other = max(0.1, min(_hand_burden(sim.hands[p]) for p in sim.active if p != you))
+    return other / (own + other)
 
 
 def choose_devil(view, rng, samples=None):
@@ -248,6 +374,7 @@ def choose_devil(view, rng, samples=None):
     if finish is not None:
         return finish
     policy = _HardPolicy(view)
+    belief = _belief_for(view)
     scores = policy.scores(legal)
     best = max(scores)
     if best >= _WIN:
@@ -266,23 +393,32 @@ def choose_devil(view, rng, samples=None):
         if key not in seen:
             seen.add(key)
             options.append((action, score))
-    options = options[:8]
+    primary = options[:8]
+    strategic = []
+    for item in options[8:]:
+        action = item[0]
+        card = BY_ID.get(action.get('card_id'))
+        if (action['type'] == 'draw' or card and
+                (card.value in ('0', '7', 'skip all', 'discard all') or
+                 DRAW_VALUES.get(card.value, 0) >= 4)):
+            strategic.append(item)
+    options = (primary + strategic)[:10]
     results = [0.0] * len(options)
     counts = [samples] * len(options)
     for _ in range(samples):
-        world = _Simulation.sample(view, random.Random(rng.getrandbits(64)))
+        world = _Simulation.sample(view, random.Random(rng.getrandbits(64)), belief)
         for index, (action, _) in enumerate(options):
             results[index] += _rollout(world, action, view['you'])
 
     def estimate(i):
         prior = 0.06 * max(-1, min(0, (options[i][1] - best) / 100))
-        draw_cost = 0.05 if options[i][0]['type'] == 'draw' and not view['pending'] else 0
+        draw_cost = 0.018 if options[i][0]['type'] == 'draw' and not view['pending'] else 0
         return results[i] / counts[i] + prior - draw_cost
 
     finalists = sorted(range(len(options)), key=lambda i: (estimate(i), options[i][1]), reverse=True)[:2]
     if len(finalists) == 2 and estimate(finalists[0]) - estimate(finalists[1]) < 0.2:
         for _ in range(samples):
-            world = _Simulation.sample(view, random.Random(rng.getrandbits(64)))
+            world = _Simulation.sample(view, random.Random(rng.getrandbits(64)), belief)
             for i in finalists:
                 results[i] += _rollout(world, options[i][0], view['you'])
                 counts[i] += 1

@@ -47,110 +47,45 @@
     },
     "devil": {
       "version": 1,
-      "method": "paired-duel-chain-v1",
+      "method": "paired-duel-elo-v1",
       "players": 2,
       "unit": "round",
       "reference": "normal",
       "reference_elo": 1000,
       "challenger": "devil",
-      "legs": [
+      "games": 400,
+      "wins": {
+        "normal": 71,
+        "devil": 329
+      },
+      "ratings": {
+        "normal": 1000.0,
+        "devil": 1265.4197508515792
+      },
+      "devil_win_rate": 0.8225,
+      "start_seed": 52001,
+      "seeds": 200,
+      "paired_seats": true,
+      "rng": "Random(seed * 101 + seat * 997)",
+      "devil_seat_results": [
         {
-          "reference": "normal",
-          "challenger": "imported_ai",
-          "games": 400,
-          "wins": {
-            "normal": 76,
-            "imported_ai": 324
-          },
-          "start_seed": 30001,
-          "seeds": 200,
-          "paired_seats": true,
-          "source_sha256": {
-            "ai_learning.json": "7a6762ef4ff52e4626140d140d5395de7ae61446a91a9f5745432757ac422750",
-            "ai_learning.py": "82cd04ec5131147833156b5f925d180ab92d50bb6442ceb50d27ac45ed52af31",
-            "AI_LOGIC_README.md": "a3030d4270f2249c8e852c2c91daf8e4855bfcfc84c78ba61badb31c3cbee343",
-            "game.py": "c3cbde633e4bdd44da87b2e258de07a780304679d80f6e3958a40cd0aaed348d",
-            "gpu_acceleration.py": "9154c1a79654bc9f92067deee1ec6adb801ee55903b480fd522b058b6c1da7cd",
-            "test_ai_learning.py": "4f7259aa300121313808580cf52d3c5bb8103b8a56f9a619bdd9d8b7525d1016"
-          },
-          "engine": "attached game.py (36 cards eliminate)"
+          "seat": 0,
+          "games": 200,
+          "devil_wins": 169
         },
         {
-          "reference": "imported_ai",
-          "challenger": "devil",
-          "games": 400,
-          "wins": {
-            "imported_ai": 191,
-            "devil": 209
-          },
-          "start_seed": 40001,
-          "seeds": 200,
-          "paired_seats": true,
-          "source_sha256": {
-            "ai_learning.json": "7a6762ef4ff52e4626140d140d5395de7ae61446a91a9f5745432757ac422750",
-            "ai_learning.py": "82cd04ec5131147833156b5f925d180ab92d50bb6442ceb50d27ac45ed52af31",
-            "AI_LOGIC_README.md": "a3030d4270f2249c8e852c2c91daf8e4855bfcfc84c78ba61badb31c3cbee343",
-            "game.py": "c3cbde633e4bdd44da87b2e258de07a780304679d80f6e3958a40cd0aaed348d",
-            "gpu_acceleration.py": "9154c1a79654bc9f92067deee1ec6adb801ee55903b480fd522b058b6c1da7cd",
-            "test_ai_learning.py": "4f7259aa300121313808580cf52d3c5bb8103b8a56f9a619bdd9d8b7525d1016"
-          },
-          "engine": "attached game.py (36 cards eliminate)"
+          "seat": 1,
+          "games": 200,
+          "devil_wins": 160
         }
       ],
-      "ratings": {
-        "normal": 1000,
-        "imported_ai": 1251.0213063931083,
-        "devil": 1266.6274059921773
+      "actions": 49794,
+      "source_sha256": {
+        "ai.py": "6dcc17b0da062e72d04a81f3c9eb37949e21ce30d631459547ef06c898d0153e",
+        "engine.py": "53273920d812d9fa593d09650cfdc8fa7cfb5325bb99f2b91c41dd45c29bf106",
+        "devil.py": "232b4578ec0224b647026cbc644222895f9153649a1470a03a50117fe06e1354"
       },
-      "paired_bootstrap_95_interval": [
-        1213.0257710656879,
-        1324.9111945350846
-      ],
-      "devil_sha256": "1ebcffe54e5bd897c4acce1591e32f93fe95018c6a2bb4d3b6d2b41969ad4512",
-      "baseline_sha256": "f02368dc153bf005b519a1799cc660d5e1afaff7692fb7c510aceaf60f34a17a",
-      "interpretation": "Indirect rating under attached 36-card engine; inherits reference uncertainty.",
-      "superseded_calibration": {
-        "version": 1,
-        "method": "paired-duel-elo-v1",
-        "players": 2,
-        "unit": "round",
-        "reference": "normal",
-        "reference_elo": 1000,
-        "challenger": "devil",
-        "games": 400,
-        "wins": {
-          "normal": 60,
-          "devil": 340
-        },
-        "ratings": {
-          "normal": 1000.0,
-          "devil": 1300.144696638534
-        },
-        "devil_win_rate": 0.85,
-        "start_seed": 10001,
-        "seeds": 200,
-        "paired_seats": true,
-        "rng": "Random(seed * 101 + seat * 997)",
-        "devil_seat_results": [
-          {
-            "seat": 0,
-            "games": 200,
-            "devil_wins": 174
-          },
-          {
-            "seat": 1,
-            "games": 200,
-            "devil_wins": 166
-          }
-        ],
-        "actions": 55297,
-        "source_sha256": {
-          "ai.py": "0d6c80ad0a1c4f74f9d198f1a3778149e4bbca23a79aca6d7538a4923d58df80",
-          "engine.py": "018f729b4d0d941025b5e2ec5bc0b531d143e4d75083a0f2fa5af8e1808e7602",
-          "devil.py": "c68e613a146a3e5fd9b8cd055739a29b0ac534b1866509f4d029d8df023d029d"
-        },
-        "seconds": 385.99
-      }
+      "seconds": 836.09
     }
   }
 }

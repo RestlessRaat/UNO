@@ -29,13 +29,13 @@ Reference: `Uno Show 'Em No Mercy (Multiplayer).sb3`, sprite `uno`, current `_Un
 | Normal AI | Random legal card, otherwise draw; randomly choose a colour present in its own hand, or any colour for wild-only hands; random swap target |
 | Hard AI (optional) | Strategic legal play based on its own hand and public counts, including hand exchanges, action-card threats and bounded follow-up planning; no hidden hands or deck order |
 
-| Devil AI (optional) | Bounded finishing-sequence search and sampled hidden-world rollouts using only public information; simulations reuse the rule engine |
+| Devil AI (optional) | Bounded finishing search plus persistent public-event beliefs, remembered 7/0 transfers, hand-quality exchange planning, strategic multi-draw continuations, and sampled hidden-world rollouts; simulations reuse the rule engine and never inspect hidden hands or deck order |
 
 ## Representation
 
 `GameConfig` holds names, the fixed mercy limit and previous scores. `Game` holds physical card IDs in deck/hands/discard, current player, direction, pending draw total, last draw value, selection phase, eliminated seats and scores.
 
-`legal_actions(player_id)` returns allowed semantic operations. `apply_action()` rejects invalid actions before mutation and emits events. `view_for()` hides other hands and non-public draws. Its `known_discards` records publicly revealed cards still in the discard pile, resets when shuffled, and excludes concealed cards discarded through mercy. `replay_game()` rebuilds the state from config, seed and commands.
+`legal_actions(player_id)` returns allowed semantic operations. `apply_action()` rejects invalid actions before mutation and emits events. `view_for()` hides other hands and non-public draws. Its `known_discards` records publicly revealed cards still in the discard pile, resets when shuffled, and excludes concealed cards discarded through mercy. Its public history removes ordinary drawn-card identities; private remembered-card entries contain only exact hands that the same seat previously held before a 7/0 transfer. `replay_game()` rebuilds the state from config, seed and commands.
 
 UI animation and network timing never determine the legality of a move. Normal, Hard and Devil use the same player-visible view. God alone receives a private host-side clone with every hand, the discard pile and the ordered draw pile; this clone is never included in network snapshots. AI choices are recorded as actions, so replay verification does not depend on the AI policy or selected difficulty; shuffle randomness remains the source algorithm. Difficulty is an application/room setting, defaults to Normal, and applies to all bots and disconnected-seat substitutes in that room. The host selects it before play; rematches keep it.
 

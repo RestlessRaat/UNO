@@ -199,6 +199,10 @@ class _HardPolicy:
 def decision_view(game, difficulty):
     """Private host-side AI input; never send this snapshot to clients."""
     view = game.view_for(game.current)
+    if difficulty == "devil":
+        # Opaque identity is host-local and reveals no game information.  It
+        # only lets Devil retain its own belief model between decisions.
+        view["_devil_key"] = (id(game), game.current)
     if difficulty == "god" and len(view["legal"]) > 1:
         from .god import GodSimulation
         view["_god_state"] = GodSimulation.from_game(game)

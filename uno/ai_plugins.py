@@ -100,9 +100,10 @@ class AiRegistry:
             "god": "Built-in omniscient search policy.",
         }
         budgets = {"normal": 2000, "hard": 2000, "devil": 5000, "god": 10000}
+        versions = {"normal": "1.0.0", "hard": "1.0.0", "devil": "1.1.0", "god": "1.0.0"}
         for difficulty in ("normal", "hard", "devil", "god"):
             plugin_id = LEGACY_TO_PLUGIN[difficulty]
-            spec = PluginSpec(plugin_id, difficulty.title(), "1.0.0", descriptions[difficulty],
+            spec = PluginSpec(plugin_id, difficulty.title(), versions[difficulty], descriptions[difficulty],
                               "UNO No Mercy", budgets[difficulty], builtin=True,
                               omniscient=difficulty == "god")
             factory = (lambda _settings, value=difficulty: _LegacyPolicy(value))
