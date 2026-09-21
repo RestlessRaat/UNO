@@ -21,11 +21,15 @@ from websockets.asyncio.server import serve
 from websockets.exceptions import ConnectionClosed
 
 from .ai import DIFFICULTIES, choose_action, decision_view
-from .animation import action_timeline, opening
+from .ai_plugins import (AiRegistry, DEFAULT_PLUGIN_ID, LEGACY_TO_PLUGIN,
+                         legacy_name, normalize_plugin_id)
+from .application import (AiController, AiRunner, DisconnectedController,
+                          FixedTurnPacing, GameSession, HumanController,
+                          settings_fingerprint)
 from .engine import GameConfig, RuleError, new_game
-from .elo import load_ai_elo
+from .elo import load_ai_elo, load_plugin_elo
 
-PROTOCOL = 1
+PROTOCOL = 2
 DEFAULT_PORT = 8765
 PRESET_MESSAGES = ("Hello", "Scratch on", "Well played", "It's your turn!", "Not again",
                    "Revenge!", "Ha ha ha!", "Keep drawing!", "Rain the pain!", "Ouch",
@@ -54,24 +58,49 @@ class Seat:
     last_seq: int = 0
     pending_return: bool = False
     return_after: int = -1
+    ai_plugin_id: str = DEFAULT_PLUGIN_ID
+    ai_settings: dict = field(default_factory=dict)
+    ai_explicit: bool = False
+
+    @property
+    def controller(self):
+        return "ai" if self.bot else "human"
 
 
 class RoomServer:
     def __init__(self, name="Host", host="0.0.0.0", port=DEFAULT_PORT,
                  ai_delay=0.75, timeout=15.0, log_dir: Path | None = None,
-                 presentation_pacing=False, voice_lengths=None, ai_difficulty="normal"):
+                 presentation_pacing=False, voice_lengths=None, ai_difficulty="normal",
+                 registry: AiRegistry | None = None, pacing=None, takeover_plugin_id=None):
         if ai_difficulty not in DIFFICULTIES:
             raise ValueError("Unsupported AI difficulty.")
         self.host, self.port = host, port
         self.ai_delay, self.timeout = ai_delay, timeout
         self.ai_difficulty = ai_difficulty
+        self.registry = registry or AiRegistry(discover=False)
+        self.ai_runner = AiRunner(self.registry)
+        self.ai_failure_log = []
+        self.default_ai_plugin = LEGACY_TO_PLUGIN[ai_difficulty]
+        # Omitted means the legacy constructor contract; the application composition
+        # root explicitly injects builtin.normal for protocol-v2 rooms.
+        self.takeover_plugin_id = (self.default_ai_plugin if takeover_plugin_id is None
+                                   else normalize_plugin_id(takeover_plugin_id))
+        if not self.registry.has(self.takeover_plugin_id):
+            raise ValueError("Unsupported takeover AI plugin.")
         self.presentation_pacing = presentation_pacing
         self.voice_lengths = voice_lengths or {}
+        if pacing is None and presentation_pacing:
+            # Compatibility composition only: networking itself has no animation dependency.
+            from .presentation import AnimationTurnPacing
+            pacing = AnimationTurnPacing(lambda key: self.voice_lengths.get(key, 0.8), ai_delay)
+        self.pacing = pacing or FixedTurnPacing(2.5, 0.0)
         self.ai_elo = load_ai_elo()
+        self.ai_plugin_elo = load_plugin_elo()
         self.log_dir = log_dir
         self.seats = [Seat(0, name[:16] or "Host")]
         self.host_token = self.seats[0].token
         self.game = None
+        self.session = None
         self.game_seats: list[int] = []
         self.round_id = 0
         self.revision = 0
@@ -98,6 +127,7 @@ class RoomServer:
         self._stop_requested.set()
         if self.thread and threading.current_thread() is not self.thread:
             self.thread.join(4)
+        self.ai_runner.close()
 
     def _thread_main(self):
         try:
@@ -204,7 +234,7 @@ class RoomServer:
             if not isinstance(action, dict):
                 raise RuleError("Invalid action.")
             before = self.game.view_for(0)
-            self.game.apply_action({**action, "player_id": self.game_seats.index(seat.id)})
+            self._ensure_session().submit(seat.id, action)
             self.next_ai = time.monotonic() + self._presentation_delay(before)
             self._save_replay()
         elif kind == "chat":
@@ -217,7 +247,7 @@ class RoomServer:
             if self.game and self.game.winner is None:
                 raise RuleError("A round is in progress.")
             seat.ready = not seat.ready
-        elif kind in ("add_ai", "remove_seat", "set_ai_difficulty", "start", "rematch"):
+        elif kind in ("add_ai", "remove_seat", "set_ai_difficulty", "set_seat_ai", "start", "rematch"):
             if seat.id != 0:
                 raise RuleError("Only the host can do that.")
             if self.game and self.game.winner is None:
@@ -227,11 +257,28 @@ class RoomServer:
                 if difficulty not in DIFFICULTIES:
                     raise RuleError("Unsupported AI difficulty.")
                 self.ai_difficulty = difficulty
+                self.default_ai_plugin = LEGACY_TO_PLUGIN[difficulty]
+                for target in self.seats:
+                    if target.bot:
+                        target.ai_plugin_id = self.default_ai_plugin
+                        target.ai_settings = {}
+                        target.ai_explicit = False
+            elif kind == "set_seat_ai":
+                target = next((s for s in self.seats if s.id == msg.get("seat_id") and s.bot), None)
+                if target is None:
+                    raise RuleError("Unknown AI seat.")
+                plugin_id, settings = self._validated_ai(msg.get("plugin_id"), msg.get("settings", {}))
+                target.ai_plugin_id, target.ai_settings = plugin_id, settings
+                target.ai_explicit = True
             elif kind == "add_ai":
                 if len(self.seats) >= 4:
                     raise RuleError("Room is full.")
                 new_id = next(i for i in range(4) if not any(s.id == i for s in self.seats))
-                self.seats.append(Seat(new_id, ("Ada", "Turing", "Grace")[new_id - 1], bot=True, ready=True))
+                plugin_id, settings = self._validated_ai(
+                    msg.get("plugin_id", self.default_ai_plugin), msg.get("settings", {}))
+                self.seats.append(Seat(new_id, ("Ada", "Turing", "Grace")[new_id - 1],
+                                       bot=True, ready=True, ai_plugin_id=plugin_id,
+                                       ai_settings=settings, ai_explicit=True))
                 self.seats.sort(key=lambda s: s.id)
             elif kind == "remove_seat":
                 target = next((s for s in self.seats if s.id == msg.get("seat_id") and s.id != 0), None)
@@ -252,17 +299,46 @@ class RoomServer:
                 self.game_seats = [s.id for s in self.seats]
                 scores = tuple(old_scores.get(i, 0) for i in self.game_seats)
                 self.game = new_game(GameConfig(tuple(s.name for s in self.seats), scores=scores), secrets.randbelow(65536))
+                self.session = GameSession(self.game, self._controllers(), tuple(self.game_seats))
+                self.ai_runner.reset()
+                self.ai_failure_log = []
                 self.round_id += 1
                 for s in self.seats:
                     s.pending_return = False
                 # Allow the opening deal animation to complete before AI starts.
-                delay = opening(self.game.view_for(0)).duration if self.presentation_pacing else 2.5
+                delay = self.pacing.opening_delay(self.game.view_for(0))
                 self.next_ai = time.monotonic() + max(self.ai_delay, delay)
                 self._save_replay()
         else:
             raise RuleError("Unknown room operation.")
         self.revision += 1
         await self._broadcast()
+
+    def _validated_ai(self, plugin_id, settings):
+        plugin_id = normalize_plugin_id(plugin_id)
+        if not self.registry.has(plugin_id):
+            raise RuleError("Unknown AI plugin.")
+        if not isinstance(settings, dict):
+            raise RuleError("AI settings must be an object.")
+        try:
+            return plugin_id, dict(self.registry.normalize_settings(plugin_id, settings))
+        except ValueError as exc:
+            raise RuleError(str(exc)) from exc
+
+    def _controllers(self):
+        result = {}
+        for seat in self.seats:
+            plugin_id = seat.ai_plugin_id if seat.ai_explicit else self.default_ai_plugin
+            result[seat.id] = (AiController(plugin_id, dict(seat.ai_settings))
+                               if seat.bot else HumanController())
+        return result
+
+    def _ensure_session(self):
+        if self.game is None:
+            self.session = None
+        elif self.session is None or self.session.game is not self.game or tuple(self.game_seats) != self.session.seat_ids:
+            self.session = GameSession(self.game, self._controllers(), tuple(self.game_seats))
+        return self.session
 
     async def _tick(self):
         now = time.monotonic()
@@ -279,13 +355,41 @@ class RoomServer:
             await self._broadcast()
         if (seat.bot or seat.ws is None or seat.pending_return) and now >= self.next_ai:
             game, revision = self.game, self.game.revision
-            view = decision_view(game, self.ai_difficulty)
-            if self.ai_difficulty in ("devil", "god") and len(view["legal"]) > 1:
-                action = await asyncio.to_thread(choose_action, view, self.rng, self.ai_difficulty)
-                if self.game is not game or game.revision != revision or self.closed:
-                    return
+            player_id = game.current
+            if seat.bot:
+                plugin_id = seat.ai_plugin_id if seat.ai_explicit else self.default_ai_plugin
+                controller = AiController(plugin_id, dict(seat.ai_settings))
             else:
-                action = choose_action(view, self.rng, self.ai_difficulty)
+                plugin_id = self.takeover_plugin_id
+                controller = (DisconnectedController() if plugin_id == DEFAULT_PLUGIN_ID
+                              else AiController(plugin_id, {}))
+            difficulty = legacy_name(plugin_id)
+            if difficulty is not None:
+                view = decision_view(game, difficulty)
+                # Keep the compatibility chooser injectable while every policy runs off-loop.
+                budget = self.registry.spec(plugin_id).time_budget_ms / 1000
+                try:
+                    action = await asyncio.wait_for(
+                        asyncio.to_thread(choose_action, view, self.rng, difficulty), timeout=budget)
+                except Exception as exc:
+                    action = self.ai_runner._fallback(game, player_id, plugin_id,
+                                                      self.rng.getrandbits(64), str(exc))
+            else:
+                seed = self.rng.getrandbits(64)
+                budget = self.registry.spec(plugin_id).time_budget_ms / 1000
+                try:
+                    action = await asyncio.wait_for(
+                        asyncio.to_thread(self.ai_runner.choose_blocking, game, player_id, controller, seed),
+                        timeout=budget)
+                except TimeoutError:
+                    action = self.ai_runner._fallback(game, player_id, plugin_id, seed,
+                                                      f"decision exceeded {budget * 1000:.0f} ms")
+            if self.game is not game or game.revision != revision or self.closed:
+                return
+            for failure in self.ai_runner.pop_failures():
+                self.ai_failure_log.append({"plugin_id": failure.plugin_id, "version": failure.version,
+                                            "player_id": failure.player_id, "revision": failure.revision,
+                                            "reason": failure.reason})
             if action:
                 before = self.game.view_for(0)
                 self.game.apply_action(action)
@@ -295,25 +399,37 @@ class RoomServer:
                 await self._broadcast()
 
     def _presentation_delay(self, before):
-        if not self.presentation_pacing:
-            return self.ai_delay
-        timeline = action_timeline(before, self.game.view_for(0), lambda name: self.voice_lengths.get(name, 0.8))
-        return timeline.duration + self.ai_delay
+        return self.pacing.action_delay(before, self.game.view_for(0)) + (
+            0 if self.presentation_pacing else self.ai_delay)
 
     def _save_replay(self):
         if self.log_dir and self.game:
             self.log_dir.mkdir(parents=True, exist_ok=True)
+            session = self._ensure_session()
+            metadata = {s.id: {"controller": s.controller,
+                               "plugin_id": (s.ai_plugin_id if s.ai_explicit else self.default_ai_plugin),
+                               "version": self.registry.spec(s.ai_plugin_id if s.ai_explicit else self.default_ai_plugin).version,
+                               "settings_sha256": settings_fingerprint(s.ai_settings)}
+                        for s in self.seats if s.bot}
             # Host-local diagnostics: never sent to clients.
             (self.log_dir / f"lan-round-{self.round_id}.json").write_text(
-                json.dumps(self.game.replay(), indent=2), encoding="utf8")
+                json.dumps(session.replay(metadata, self.ai_failure_log), indent=2), encoding="utf8")
 
     def _room_view(self, seat):
-        view = self.game.view_for(self.game_seats.index(seat.id)) if self.game and seat.id in self.game_seats else None
+        session = self._ensure_session()
+        view = session.view_for_seat(seat.id) if session and seat.id in self.game_seats else None
         return {"revision": self.revision, "round_id": self.round_id, "you": seat.id,
                 "is_host": seat.id == 0, "port": self.port, "chat": list(self.chat),
                 "ai_difficulty": self.ai_difficulty,
                 "ai_elo": dict(self.ai_elo),
-                "seats": [{"id": s.id, "name": s.name, "bot": s.bot,
+                "ai_plugin_elo": dict(self.ai_plugin_elo),
+                "ai_plugins": [spec.public() for spec in self.registry.specs],
+                "seats": [{"id": s.id, "name": s.name, "bot": s.bot, "controller": s.controller,
+                           "ai": ({"id": s.ai_plugin_id if s.ai_explicit else self.default_ai_plugin,
+                                   "name": self.registry.spec(s.ai_plugin_id if s.ai_explicit else self.default_ai_plugin).name,
+                                   "version": self.registry.spec(s.ai_plugin_id if s.ai_explicit else self.default_ai_plugin).version,
+                                   **({"settings": dict(s.ai_settings)} if seat.id == 0 else {})}
+                                  if s.bot else None),
                            "ready": s.ready, "connected": s.ws is not None,
                            "pending_return": s.pending_return} for s in self.seats],
                 "game": view, "pending_return": seat.pending_return}

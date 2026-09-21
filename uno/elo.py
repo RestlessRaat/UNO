@@ -119,6 +119,11 @@ def load_ai_elo(path=None):
         return {}
 
 
+def load_plugin_elo(path=None):
+    """Return measured ratings under stable built-in plugin IDs."""
+    return {f"builtin.{name}": value for name, value in load_ai_elo(path).items()}
+
+
 def save_calibration(report, path):
     """Publish measured evidence without removing other difficulty comparisons."""
     if not _pair_ratings(report):

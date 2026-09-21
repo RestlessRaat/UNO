@@ -1,0 +1,27 @@
+{
+  "api_version": 1,
+  "id": "example.random-plus",
+  "name": "Random Plus",
+  "version": "1.0.0",
+  "entry_point": "policy:create_policy",
+  "description": "Example fair-information plugin with generated settings controls.",
+  "author": "UNO No Mercy",
+  "time_budget_ms": 2000,
+  "settings_schema": [
+    {
+      "key": "prefer_play",
+      "type": "boolean",
+      "name": "Prefer playable cards",
+      "description": "Choose a play before draw or end-turn actions.",
+      "default": true
+    },
+    {
+      "key": "style",
+      "type": "enum",
+      "name": "Style",
+      "description": "Select the first legal action or use seeded randomness.",
+      "default": "random",
+      "options": ["random", "first"]
+    }
+  ]
+}

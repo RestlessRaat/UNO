@@ -22,6 +22,7 @@ def main():
     for name in ('README.md', 'CREDITS.md'):
         shutil.copy2(ROOT / name, dest / name)
     shutil.copytree(ROOT / 'docs', dest / 'docs', dirs_exist_ok=True)
+    shutil.copytree(ROOT / 'examples', dest / 'examples', dirs_exist_ok=True)
     archive = ROOT / 'dist/UNO_No_Mercy_Windows.zip'
     with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as z:
         for file in sorted(dest.rglob('*')):

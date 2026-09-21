@@ -1,6 +1,6 @@
 [project]
 name = "uno-no-mercy"
-version = "1.0.0"
+version = "2.0.0"
 description = "A Python desktop recreation of the supplied No Mercy Scratch project"
 requires-python = ">=3.14"
 dependencies = ["pygame-ce==2.5.8", "websockets==16.0", "Pillow==12.0.0"]
@@ -8,4 +8,5 @@ dependencies = ["pygame-ce==2.5.8", "websockets==16.0", "Pillow==12.0.0"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
-
+addopts = "--basetemp=.test-tmp"
+cache_dir = ".test-cache"

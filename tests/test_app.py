@@ -121,6 +121,21 @@ def test_devil_button_selects_third_difficulty(app):
     app._set_ai_difficulty('normal')
 
 
+def test_local_ai_plugins_are_configured_per_seat_and_saved(app):
+    app.player_count = 4
+    app._set_seat_ai(1, "builtin.hard")
+    app._set_seat_ai(2, "builtin.devil")
+    assert app.local_ai_seats[1]["plugin_id"] == "builtin.hard"
+    assert app.local_ai_seats[2]["plugin_id"] == "builtin.devil"
+    app._start_local()
+    assert app.session.controller(1).plugin_id == "builtin.hard"
+    assert app.session.controller(2).plugin_id == "builtin.devil"
+    saved = json.loads((app.directory / "settings.json").read_text(encoding="utf8"))
+    assert saved["settings_version"] == 2
+    assert saved["local_ai_seats"]["1"]["plugin_id"] == "builtin.hard"
+    app._set_ai_difficulty("normal")
+
+
 def test_devil_thinks_without_blocking_ui_and_applies_only_finished_result(app):
     app._start_local()
     app.ai_difficulty = 'devil'

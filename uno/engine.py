@@ -402,7 +402,7 @@ def new_game(config: GameConfig | dict, seed: int) -> Game:
 
 
 def replay_game(data):
-    if data.get("version") != 1:
+    if data.get("version") not in (1, 2):
         raise RuleError("Unsupported replay version.")
     game = new_game(data["config"], data["seed"])
     for action in data["actions"]:
