@@ -47,6 +47,47 @@ class Peer:
         self.ws.close()
 
 
+def test_protocol_v2_and_per_seat_ai_configuration():
+    assert PROTOCOL == 2
+
+    async def check():
+        room = RoomServer()
+        host = room.seats[0]
+        await room._command(host, {"type": "add_ai", "seq": 1,
+                                   "plugin_id": "builtin.hard", "settings": {}})
+        bot = room.seats[1]
+        assert bot.bot and bot.ai_plugin_id == "builtin.hard"
+        await room._command(host, {"type": "set_seat_ai", "seq": 2, "seat_id": bot.id,
+                                   "plugin_id": "builtin.devil", "settings": {}})
+        public = room._room_view(host)
+        assert public["seats"][1]["ai"]["id"] == "builtin.devil"
+        assert public["seats"][1]["ai"]["settings"] == {}
+        room.stop()
+    asyncio.run(check())
+
+
+def test_protocol_v2_disconnected_takeover_is_always_normal(monkeypatch):
+    async def check():
+        room = RoomServer(ai_delay=0, ai_difficulty="god", takeover_plugin_id="builtin.normal")
+        room.seats = [Seat(0, "Host"), Seat(1, "Guest")]
+        room.game_seats = [0, 1]
+        game = room.game = new_game(GameConfig(("Host", "Guest")), 123)
+        room.seats[game.current].ws = None
+        calls = []
+        monkeypatch.setattr("uno.network.choose_action",
+                            lambda view, rng, difficulty: calls.append(difficulty)
+                            or {"player_id": view["you"], **view["legal"][0]})
+
+        async def broadcast():
+            pass
+
+        monkeypatch.setattr(room, "_broadcast", broadcast)
+        await room._tick()
+        assert calls == ["normal"]
+        room.stop()
+    asyncio.run(check())
+
+
 @pytest.fixture
 def server():
     room = RoomServer("Host", host="127.0.0.1", port=0, ai_delay=0.01).start()

@@ -12,12 +12,18 @@ import time
 import pygame
 
 from .ai import DIFFICULTIES, choose_action, decision_view
+from .ai_plugins import (AiRegistry, DEFAULT_PLUGIN_ID, LEGACY_TO_PLUGIN,
+                         PLUGIN_TO_LEGACY, normalize_plugin_id)
 from .animation import Scene, action_timeline, opening, hover_layout, pile_position, FPS, ANIMATION_SPEED
+from .application import (AiController, AiRunner, GameSession, HumanController,
+                          plugin_directory, settings_fingerprint)
 from .engine import GameConfig, RuleError, new_game
-from .elo import load_ai_elo
+from .elo import load_ai_elo, load_plugin_elo
 from .layout import hand_layout, hit_card, mouse_to_logical, seat_position, viewport
 from .network import DEFAULT_PORT, NetworkClient, PRESET_MESSAGES, RoomServer, local_addresses
+from .presentation import AnimationTurnPacing
 from .resources import Assets, Audio, user_dir
+from .settings import dump_ai_seats, load_ai_seats
 
 WHITE = (245, 246, 255)
 GOLD = (253, 208, 77)
@@ -35,11 +41,17 @@ class App:
         self.canvas = pygame.Surface((960, 720)).convert()
         self.assets = Assets()
         self.ai_elo = load_ai_elo(self.assets.root / "ai_elo.json")
+        self.plugin_elo = load_plugin_elo(self.assets.root / "ai_elo.json")
         self.directory = user_dir()
         try:
             self.settings = json.loads((self.directory / "settings.json").read_text(encoding="utf8"))
         except (OSError, ValueError):
             self.settings = {}
+        self.ai_registry = AiRegistry(plugin_directory(self.directory))
+        self.local_ai_seats = load_ai_seats(self.settings, self.ai_registry)
+        self.ai_runner = AiRunner(self.ai_registry)
+        self.ai_failure_log = []
+        self.session = None
         self.audio = Audio(self.assets, silent or bool(self.settings.get("muted", False)))
         self.clock = pygame.time.Clock()
         self.running = True
@@ -71,6 +83,10 @@ class App:
         self.ai_difficulty = self.settings.get("ai_difficulty", "normal")
         if self.ai_difficulty not in DIFFICULTIES:
             self.ai_difficulty = "normal"
+        self.selected_ai_seat = 1
+        self.config_target = None
+        self.config_return = "local_setup"
+        self.config_page = 0
         self.fields = {"name": self.settings.get("name", "Player"),
                        "address": self.settings.get("address", "127.0.0.1:8765"), "port": "8765"}
         self.focus = None
@@ -203,6 +219,12 @@ class App:
         self._disconnect()
         names = (self.fields["name"].strip() or "Player", "Ada", "Turing", "Grace")[:self.player_count]
         self.game = new_game(GameConfig(names), self.rng.randrange(65536))
+        self.ai_failure_log = []
+        controllers = {0: HumanController(), **{
+            seat: AiController(self.local_ai_seats[seat]["plugin_id"],
+                               dict(self.local_ai_seats[seat].get("settings", {})))
+            for seat in range(1, self.player_count)}}
+        self.session = GameSession(self.game, controllers)
         self.round_key = ("local", time.monotonic())
         self._new_round(self.game.view_for(0))
         self._save_local()
@@ -246,7 +268,13 @@ class App:
 
     def _save_local(self):
         if self.game:
-            (self.directory / "last-local-replay.json").write_text(json.dumps(self.game.replay(), indent=2), encoding="utf8")
+            metadata = {seat: {"controller": "ai", "plugin_id": self.local_ai_seats[seat]["plugin_id"],
+                               "version": self.ai_registry.spec(self.local_ai_seats[seat]["plugin_id"]).version,
+                               "settings_sha256": settings_fingerprint(self.local_ai_seats[seat].get("settings", {}))}
+                        for seat in range(1, self.player_count)}
+            replay = (self.session.replay(metadata, self.ai_failure_log)
+                      if self.session and self.session.game is self.game else self.game.replay())
+            (self.directory / "last-local-replay.json").write_text(json.dumps(replay, indent=2), encoding="utf8")
 
     def _host(self):
         try:
@@ -260,6 +288,8 @@ class App:
         try:
             self.server = RoomServer(self.fields["name"] or "Host", port=port,
                                      ai_difficulty=self.ai_difficulty,
+                                     registry=self.ai_registry, takeover_plugin_id=DEFAULT_PLUGIN_ID,
+                                     pacing=AnimationTurnPacing(self._voice_duration),
                                      log_dir=self.directory / "replays", presentation_pacing=True,
                                      voice_lengths={name: self._voice_duration(name)
                                                     for name in self.assets.manifest['targets']['uno']['sounds']
@@ -297,7 +327,7 @@ class App:
 
     def leave(self):
         self._disconnect()
-        self.game = self.view = None
+        self.game = self.view = self.session = None
         self.confirm_god = None
         self.confirm_leave = False
         self.message_menu = False
@@ -330,7 +360,10 @@ class App:
                 self.client.send("action", action=action, revision=self.view["revision"], round_id=self.room["round_id"])
                 self.awaiting = True
             else:
-                self.game.apply_action({**action, "player_id": 0})
+                if self.session and self.session.game is self.game:
+                    self.session.submit(0, action)
+                else:
+                    self.game.apply_action({**action, "player_id": 0})
                 self._accept_view(self.game.view_for(0))
                 self.next_ai = time.monotonic() + 0.6
                 self._save_local()
@@ -347,26 +380,46 @@ class App:
         else:
             scores = tuple(self.game.scores) if self.game.match_winner is None else ()
             self.game = new_game(GameConfig(self.game.config.names, scores=scores), self.rng.randrange(65536))
+            self.ai_failure_log = []
+            controllers = {0: HumanController(), **{
+                seat: AiController(self.local_ai_seats[seat]["plugin_id"],
+                                   dict(self.local_ai_seats[seat].get("settings", {})))
+                for seat in range(1, len(self.game.hands))}}
+            self.session = GameSession(self.game, controllers)
             self._new_round(self.game.view_for(0))
 
     def _busy(self):
         return bool(self.current_move or self.moves or time.monotonic() < self.deal_started + self.deal_duration)
 
     def _reset_ai_search(self):
+        self.ai_runner.reset()
         if self.ai_pending:
             self.ai_pending[2].cancel()
             self.ai_pending = None
 
     def _local_ai_action(self):
-        if self.ai_difficulty == "god":
+        seat = self.game.current
+        selection = self.local_ai_seats.get(seat, {"plugin_id": DEFAULT_PLUGIN_ID, "settings": {}})
+        plugin_id = selection["plugin_id"]
+        legacy = PLUGIN_TO_LEGACY.get(plugin_id)
+        uniform_legacy = legacy == self.ai_difficulty
+        # One-release compatibility for callers that set the former public field
+        # and inject its executor directly.
+        if self.ai_executor is not None and self.ai_difficulty in ("devil", "god"):
+            plugin_id, legacy, uniform_legacy = LEGACY_TO_PLUGIN[self.ai_difficulty], self.ai_difficulty, True
+        if uniform_legacy and self.ai_difficulty == "god":
             legal = self.game.legal_actions(self.game.current)
             if len(legal) == 1:
-                self._reset_ai_search()
+                if self.ai_pending:
+                    self.ai_pending[2].cancel()
+                    self.ai_pending = None
                 return {"player_id": self.game.current, **legal[0]}
-        if self.ai_difficulty not in ("devil", "god"):
-            self._reset_ai_search()
+        if uniform_legacy and self.ai_difficulty not in ("devil", "god"):
+            if self.ai_pending:
+                self.ai_pending[2].cancel()
+                self.ai_pending = None
             return choose_action(self.game.view_for(self.game.current), self.rng, self.ai_difficulty)
-        if self.ai_pending:
+        if uniform_legacy and self.ai_pending:
             game, revision, future = self.ai_pending
             if game is not self.game or revision != self.game.revision:
                 self._reset_ai_search()
@@ -375,13 +428,23 @@ class App:
             else:
                 self.ai_pending = None
                 return future.result()
-        if self.ai_executor is None:
+        if uniform_legacy and self.ai_executor is None:
             self.ai_executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="UnoDevil")
-        view = decision_view(self.game, self.ai_difficulty)
-        rng = random.Random(self.rng.getrandbits(64))
-        future = self.ai_executor.submit(choose_action, view, rng, self.ai_difficulty)
-        self.ai_pending = (self.game, self.game.revision, future)
-        return None
+        if uniform_legacy:
+            view = decision_view(self.game, self.ai_difficulty)
+            rng = random.Random(self.rng.getrandbits(64))
+            future = self.ai_executor.submit(choose_action, view, rng, self.ai_difficulty)
+            self.ai_pending = (self.game, self.game.revision, future)
+            return None
+        action = self.ai_runner.tick(
+            self.game, seat, AiController(plugin_id, dict(selection.get("settings", {}))),
+            0 if self.ai_runner.pending else self.rng.getrandbits(64))
+        for failure in self.ai_runner.pop_failures():
+            self.ai_failure_log.append({"plugin_id": failure.plugin_id, "version": failure.version,
+                                        "player_id": failure.player_id, "revision": failure.revision,
+                                        "reason": failure.reason})
+            self.notify(f"{self.ai_registry.spec(failure.plugin_id).name} failed; using Normal.", 7)
+        return action
 
     def update(self):
         now = time.monotonic()
@@ -492,7 +555,81 @@ class App:
             self._room_command("set_ai_difficulty", ai_difficulty=difficulty)
         else:
             self.ai_difficulty = difficulty
+            plugin_id = LEGACY_TO_PLUGIN[difficulty]
+            for seat in self.local_ai_seats.values():
+                seat["plugin_id"], seat["settings"] = plugin_id, {}
             self.save_settings()
+
+    def _set_seat_ai(self, seat_id, plugin_id, *, room=False, confirmed=False):
+        plugin_id = normalize_plugin_id(plugin_id)
+        if not self.ai_registry.has(plugin_id):
+            self.notify("That AI plugin is not available.")
+            return
+        if plugin_id == LEGACY_TO_PLUGIN["god"] and not confirmed:
+            self.confirm_god = ("seat", seat_id, plugin_id, room)
+            return
+        self.confirm_god = None
+        if room:
+            self._room_command("set_seat_ai", seat_id=seat_id, plugin_id=plugin_id, settings={})
+        else:
+            self.local_ai_seats[seat_id] = {"plugin_id": plugin_id, "settings": {},
+                                            "requested_plugin_id": plugin_id, "config_reset": False}
+            selected = {self.local_ai_seats[i]["plugin_id"] for i in range(1, self.player_count)}
+            if len(selected) == 1 and plugin_id in PLUGIN_TO_LEGACY:
+                self.ai_difficulty = PLUGIN_TO_LEGACY[plugin_id]
+            self.save_settings()
+
+    def _cycle_seat_ai(self, seat_id, direction=1, *, room=False):
+        specs = self.ai_registry.specs
+        if room:
+            current = next(s for s in self.room["seats"] if s["id"] == seat_id)["ai"]["id"]
+        else:
+            current = self.local_ai_seats[seat_id]["plugin_id"]
+        ids = [spec.id for spec in specs]
+        index = ids.index(current) if current in ids else 0
+        self._set_seat_ai(seat_id, ids[(index + direction) % len(ids)], room=room)
+
+    def _open_plugin_config(self, seat_id, *, room=False):
+        self.config_target = ("room" if room else "local", seat_id)
+        self.config_return = "room" if room else "ai_setup"
+        self.config_page = 0
+        self.screen = "plugin_config"
+
+    def _config_state(self):
+        scope, seat_id = self.config_target
+        if scope == "local":
+            entry = self.local_ai_seats[seat_id]
+            return entry["plugin_id"], dict(entry.get("settings", {}))
+        seat = next(item for item in self.room["seats"] if item["id"] == seat_id)
+        return seat["ai"]["id"], dict(seat["ai"].get("settings", {}))
+
+    def _change_plugin_setting(self, key, direction=1):
+        scope, seat_id = self.config_target
+        plugin_id, values = self._config_state()
+        schema = {item.key: item for item in self.ai_registry.spec(plugin_id).settings_schema}
+        item = schema[key]
+        current = values.get(key, item.default)
+        if item.type == "boolean":
+            value = not current
+        elif item.type == "enum":
+            value = item.options[(item.options.index(current) + direction) % len(item.options)]
+        else:
+            step = item.step or (1 if item.type == "integer" else 0.1)
+            value = current + direction * step
+            if item.minimum is not None:
+                value = max(item.minimum, value)
+            if item.maximum is not None:
+                value = min(item.maximum, value)
+            if item.type == "integer":
+                value = int(value)
+        values[key] = value
+        values = dict(self.ai_registry.normalize_settings(plugin_id, values))
+        if scope == "local":
+            self.local_ai_seats[seat_id]["settings"] = values
+            self.save_settings()
+        else:
+            next(item for item in self.room["seats"] if item["id"] == seat_id)["ai"]["settings"] = values
+            self._room_command("set_seat_ai", seat_id=seat_id, plugin_id=plugin_id, settings=values)
 
     def draw_ai_difficulty(self, y, *, room=False):
         difficulty = self.room.get("ai_difficulty", "normal") if room else self.ai_difficulty
@@ -522,6 +659,7 @@ class App:
                 self.image("lobby", f"{n}p", (x, 176, 48, 48))
                 self.button(f"{n} players", (x - 10, 230, 76, 29), lambda n=n: setattr(self, "player_count", n), selected=self.player_count == n, small=True)
             self.draw_ai_difficulty(268)
+            self.button("Configure AI", (164, 302, 96, 32), lambda: self._set_screen("ai_setup"), small=True)
             self.button("Start game", (270, 302, 150, 32), self._start_local)
         elif self.screen == "host_setup":
             self.field("port", "Room port", (58, 174, 150, 31))
@@ -535,6 +673,66 @@ class App:
             self.text("Reconnect with the same saved player token.", (58, 247), 11, (160, 192, 208))
             self.button("Join room", (270, 302, 150, 32), self._join)
         self.button("Back", (58, 302, 95, 32), lambda: self._set_screen("menu"))
+
+    def draw_ai_setup(self):
+        self.image("lobby", "lobby", (0, 0, 480, 360))
+        self.panel((24, 52, 432, 301), (6, 18, 45, 248))
+        self.text("AI BY SEAT", (240, 73), 18, GOLD, center=True)
+        self.text("Click an AI name to cycle installed plugins.", (240, 94), 11, center=True)
+        for row, seat_id in enumerate(range(1, self.player_count)):
+            y = 116 + row * 61
+            entry = self.local_ai_seats[seat_id]
+            spec = self.ai_registry.spec(entry["plugin_id"])
+            self.text(f"Seat {seat_id + 1}", (53, y + 10), 13, GOLD)
+            self.button("<", (112, y, 30, 30),
+                        lambda seat_id=seat_id: self._cycle_seat_ai(seat_id, -1), small=True)
+            rating = self.plugin_elo.get(spec.id)
+            label = f"{spec.name} {rating:.0f}" if type(rating) in (int, float) else spec.name
+            self.button(label, (147, y, 192, 30),
+                        lambda seat_id=seat_id: self._cycle_seat_ai(seat_id), small=True)
+            self.button(">", (344, y, 30, 30),
+                        lambda seat_id=seat_id: self._cycle_seat_ai(seat_id), small=True)
+            self.button("Config", (381, y, 54, 30),
+                        lambda seat_id=seat_id: self._open_plugin_config(seat_id),
+                        enabled=bool(spec.settings_schema), small=True)
+            self.text(f"{spec.id}  v{spec.version}", (147, y + 35), 9, (151, 184, 204), max_width=285)
+        if self.ai_registry.diagnostics:
+            self.text(f"{len(self.ai_registry.diagnostics)} plugin(s) could not be loaded.",
+                      (240, 289), 10, (244, 137, 137), center=True)
+        self.button("Back", (90, 310, 95, 32), lambda: self._set_screen("local_setup"))
+        self.button("Start game", (270, 310, 150, 32), self._start_local)
+
+    def draw_plugin_config(self):
+        self.image("lobby", "lobby", (0, 0, 480, 360))
+        self.panel((24, 48, 432, 305), (6, 18, 45, 248))
+        plugin_id, values = self._config_state()
+        spec = self.ai_registry.spec(plugin_id)
+        self.text(spec.name, (240, 69), 18, GOLD, center=True)
+        self.text(spec.description or spec.id, (240, 91), 10, center=True, max_width=390)
+        if not spec.settings_schema:
+            self.text("This plugin has no configurable settings.", (240, 180), 13, center=True)
+        page_size = 5
+        pages = max(1, math.ceil(len(spec.settings_schema) / page_size))
+        self.config_page = min(self.config_page, pages - 1)
+        visible = spec.settings_schema[self.config_page * page_size:(self.config_page + 1) * page_size]
+        for row, item in enumerate(visible):
+            y = 115 + row * 34
+            value = values.get(item.key, item.default)
+            self.text(item.name, (53, y + 8), 11, max_width=170)
+            self.button("-", (239, y, 28, 26),
+                        lambda key=item.key: self._change_plugin_setting(key, -1), small=True)
+            self.text(str(value), (318, y + 13), 11, GOLD, center=True, max_width=88)
+            self.button("+", (374, y, 28, 26),
+                        lambda key=item.key: self._change_plugin_setting(key, 1), small=True)
+        if pages > 1:
+            self.button("<", (183, 284, 32, 24),
+                        lambda: setattr(self, "config_page", max(0, self.config_page - 1)),
+                        enabled=self.config_page > 0, small=True)
+            self.text(f"{self.config_page + 1}/{pages}", (240, 296), 10, center=True)
+            self.button(">", (265, 284, 32, 24),
+                        lambda: setattr(self, "config_page", min(pages - 1, self.config_page + 1)),
+                        enabled=self.config_page + 1 < pages, small=True)
+        self.button("Back", (90, 310, 95, 32), lambda: self._set_screen(self.config_return))
 
     def draw_room(self):
         self.image("lobby", "lobby", (0, 0, 480, 360))
@@ -554,8 +752,20 @@ class App:
             self.panel((40, y, 396, 30), (19, 41, 65, 245), radius=4)
             suffix = " (you)" if seat["id"] == self.room["you"] else ""
             self.text(seat["name"] + suffix, (50, y + 5), 13, GOLD if seat["id"] == 0 else WHITE, max_width=225)
-            status = "AI" if seat["bot"] else "Host" if seat["id"] == 0 else "Ready" if seat["ready"] else "Waiting" if seat["connected"] else "Offline"
+            status = (seat.get("ai", {}).get("name", "AI") if seat["bot"] else
+                      "Host" if seat["id"] == 0 else "Ready" if seat["ready"] else
+                      "Waiting" if seat["connected"] else "Offline")
             self.text(status, (320, y + 6), 11, (108, 220, 184))
+            if host and seat["bot"]:
+                self.button(status, (274, y + 3, 121, 24),
+                            lambda seat=seat: self._cycle_seat_ai(seat["id"], room=True), small=True)
+                try:
+                    configurable = bool(self.ai_registry.spec(seat["ai"]["id"]).settings_schema)
+                except ValueError:
+                    configurable = False
+                if configurable:
+                    self.button("cfg", (240, y + 3, 31, 24),
+                                lambda seat=seat: self._open_plugin_config(seat["id"], room=True), small=True)
             if host and seat["id"] != 0:
                 self.button("x", (403, y + 3, 25, 24), lambda seat=seat: self._room_command("remove_seat", seat_id=seat["id"]), small=True)
         self.draw_ai_difficulty(262, room=True)
@@ -850,6 +1060,10 @@ class App:
             self.draw_intro()
         elif self.screen == "menu":
             self.draw_menu()
+        elif self.screen == "ai_setup":
+            self.draw_ai_setup()
+        elif self.screen == "plugin_config":
+            self.draw_plugin_config()
         elif self.screen.endswith("_setup"):
             self.draw_setup()
         elif self.screen == "room":
@@ -863,8 +1077,12 @@ class App:
             self.panel((52, 112, 376, 138), (10, 19, 36, 255), GOLD)
             self.text("God is omniscient,", (240, 139), 20, GOLD, center=True)
             self.text("are you sure to defy God's will?", (240, 174), 17, center=True)
-            self.button("Yes", (112, 209, 100, 28),
-                        lambda: self._set_ai_difficulty("god", room=self.confirm_god, confirmed=True), danger=True)
+            if isinstance(self.confirm_god, tuple):
+                _, seat_id, plugin_id, room = self.confirm_god
+                yes = lambda: self._set_seat_ai(seat_id, plugin_id, room=room, confirmed=True)
+            else:
+                yes = lambda: self._set_ai_difficulty("god", room=self.confirm_god, confirmed=True)
+            self.button("Yes", (112, 209, 100, 28), yes, danger=True)
             self.button("No", (268, 209, 100, 28), lambda: setattr(self, "confirm_god", None))
         if self.confirm_leave:
             self.buttons = []
@@ -890,7 +1108,8 @@ class App:
 
     def save_settings(self):
         self.settings.update(name=self.fields["name"], address=self.fields["address"], muted=self.audio.muted,
-                             ai_difficulty=self.ai_difficulty)
+                             ai_difficulty=self.ai_difficulty,
+                             settings_version=2, local_ai_seats=dump_ai_seats(self.local_ai_seats))
         (self.directory / "settings.json").write_text(json.dumps(self.settings, indent=2), encoding="utf8")
 
     def handle(self, event):
@@ -949,6 +1168,10 @@ class App:
                     self.screen = "menu"
                 elif self.screen == "help":
                     self.screen = self.help_return
+                elif self.screen == "plugin_config":
+                    self.screen = self.config_return
+                elif self.screen == "ai_setup":
+                    self.screen = "local_setup"
                 elif self.message_menu:
                     self.message_menu = False
                 elif self.screen == "game":
@@ -994,4 +1217,5 @@ class App:
         finally:
             self.save_settings()
             self._disconnect()
+            self.ai_runner.close()
             pygame.quit()

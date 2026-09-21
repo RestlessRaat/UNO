@@ -9,10 +9,11 @@ def main():
     parser = argparse.ArgumentParser(description="UNO No Mercy - 36-card edition")
     parser.add_argument("--skip-intro", action="store_true")
     parser.add_argument("--silent", action="store_true")
-    parser.add_argument("--smoke", choices=("menu", "game", "help", "room", "intro"))
+    parser.add_argument("--smoke", choices=("menu", "game", "ai-setup", "plugin-config", "help", "room", "intro"))
     parser.add_argument("--frames", type=int, default=None)
     parser.add_argument("--screenshot")
     parser.add_argument("--replay", help="Verify a recorded JSON game without opening a window")
+    parser.add_argument("--ai-plugin", help="Use an installed AI plugin for local bot seats")
     args = parser.parse_args()
     if args.replay:
         from .engine import replay_game
@@ -24,11 +25,23 @@ def main():
         os.environ.setdefault("SDL_AUDIODRIVER", "dummy")
     from .app import App
     app = App(silent=args.silent, skip_intro=args.skip_intro or bool(args.smoke))
+    if args.ai_plugin:
+        if not app.ai_registry.has(args.ai_plugin):
+            parser.error(f"Unknown AI plugin: {args.ai_plugin}")
+        for seat in app.local_ai_seats.values():
+            seat["plugin_id"], seat["settings"] = args.ai_plugin, {}
     if args.smoke == "game":
         app._start_local()
         app.finish_animations()
+        if args.ai_plugin:
+            app.game.current = 1
+            app.next_ai = 0
     elif args.smoke == "help":
         app.open_help()
+    elif args.smoke == "ai-setup":
+        app.screen = "ai_setup"
+    elif args.smoke == "plugin-config":
+        app._open_plugin_config(1)
     elif args.smoke == "intro":
         app.screen = "intro"
     elif args.smoke == "room":
@@ -36,7 +49,8 @@ def main():
         app.server = RoomServer("Packaged host", host="127.0.0.1", port=0).start()
         app.client = NetworkClient(f"127.0.0.1:{app.server.port}", "Packaged host", app.server.host_token).start()
         app.screen = "room"
-    app.run(max_frames=args.frames or (90 if args.smoke == "room" else 3 if args.smoke else None), screenshot=args.screenshot)
+    default_frames = 90 if args.smoke == "room" or args.smoke == "game" and args.ai_plugin else 3 if args.smoke else None
+    app.run(max_frames=args.frames or default_frames, screenshot=args.screenshot)
 
 
 def entrypoint():

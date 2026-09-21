@@ -132,9 +132,19 @@ SVG 使用 Scratch 自带的字体渲染；空 SVG 输出透明占位图。
 
 - `uno/engine.py`：牌组、纯规则状态机、可见状态及回放。
 - `uno/ai.py`：难度入口及正常／困难 AI。
+- `uno/ai_api.py`、`uno/ai_plugins.py`：稳定的第三方 AI 契约、插件发现、配置校验与内置 AI 注册表。
+- `uno/application.py`：对局会话、座位控制器、统一 AI 执行与故障回退。
 - `uno/devil.py`：魔鬼 AI 的连续出牌搜索与公开信息模拟。
 - `uno/elo.py`、`tools/calibrate_elo.py`：累计对战 Elo 拟合、双人轮换座位校准与结果加载。
 - `uno/network.py`：房间、主机判定、私有快照、掉线与重连。
 - `uno/app.py`、`uno/layout.py`、`uno/resources.py`：Pygame 界面、布局、动画、音乐及语音。
 - `tools/`：只读 SB3 检查、资源构建、原版对照、联机冒烟和发行打包。
 - `tests/`：规则、完整对局、素材、UI 操作、网络和大手牌选取测试。
+
+## 外部 AI 插件
+
+将插件文件夹复制到 `%LOCALAPPDATA%\UnoNoMercy\plugins` 后重启游戏即可发现。
+外部 AI 只能读取自己的手牌和公开牌局信息；机器人座位可以分别选择不同插件和参数。
+插件是在游戏进程中运行的可信 Python 代码，请只安装可信来源。开发规范、manifest、
+超时回退和示例见 `docs/AI_PLUGINS.md` 与 `examples/plugins/random-plus`。
+本版本的局域网协议为 v2；旧版客户端会收到明确的版本不匹配提示，不能加入 v2 房间。

@@ -3,6 +3,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import shutil
 import tempfile
 import time
 
@@ -20,13 +21,21 @@ def main():
             environment["PATH"] = os.pathsep.join((str(Path(os.environ["SYSTEMROOT"]) / "System32"), os.environ["SYSTEMROOT"]))
             directory = ROOT / "build/exe-user" / screen
             directory.mkdir(parents=True, exist_ok=True)
+            arguments = [str(executable), "--smoke", screen]
+            if screen == "game":
+                plugin = directory / "plugins/random-plus"
+                shutil.copytree(ROOT / "examples/plugins/random-plus", plugin, dirs_exist_ok=True)
+                arguments.extend(("--ai-plugin", "example.random-plus"))
             environment["UNO_USER_DIR"] = str(directory)
             screenshot = ROOT / f"build/screenshots/packaged-{screen}.png"
             started = time.monotonic()
-            subprocess.run([str(executable), "--smoke", screen, "--screenshot", str(screenshot)],
+            subprocess.run([*arguments, "--screenshot", str(screenshot)],
                            cwd=cwd, env=environment, timeout=30, check=True)
             assert screenshot.exists() and screenshot.stat().st_mtime >= time.time() - 30
             assert not (directory / "crash.log").exists()
+            if screen == "game":
+                replay = json.loads((directory / "last-local-replay.json").read_text(encoding="utf8"))
+                assert replay["actions"], "Packaged external plugin never completed a decision"
             results.append({"screen": screen, "image": str(screenshot), "bytes": screenshot.stat().st_size,
                             "seconds": round(time.monotonic() - started, 2)})
     report = {"executable": str(executable), "checks": results}
