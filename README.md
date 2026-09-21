@@ -1,14 +1,12 @@
-# UNO Show 'Em No Mercy — Python 36-card edition
+# UNO Show 'Em No Mercy — Python 36-Card Edition
 
-Windows 桌面重写版，使用本项目 SB3 的 168 张牌、造型、字体、音乐与语音。
-支持 2–4 人离线 AI 对战，以及同一局域网内真人与 AI 混合对战。
+A Windows desktop remake built with the 168 cards, costumes, fonts, music, and voice clips from the SB3 project included here. Supports offline AI matches for 2–4 players, plus LAN matches with a mix of human players and AI.
 
-## 运行
+## Run the Game
 
-解压 `dist/UNO_No_Mercy_Windows.zip`，双击里面的 `UNO_No_Mercy.exe`。
-请保留整个目录及 `_internal` 子目录。游戏无需安装 Python、Scratch 或浏览器。
+Extract `dist/UNO_No_Mercy_Windows.zip` and launch `UNO_No_Mercy.exe` from the extracted folder. Keep the entire folder, including the `_internal` subfolder. The game does not require Python, Scratch, or a browser to be installed.
 
-从源码运行（Python 3.14）：
+To run from source (Python 3.14):
 
 ```powershell
 python -m venv .venv
@@ -16,65 +14,59 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m uno
 ```
 
-已生成的 `assets` 可直接使用。`sb3_assets` 和原始 SB3 是资源导入的源文件。
+The generated `assets` directory is ready to use. `sb3_assets` and the original SB3 file are the source files used to import the assets.
 
-## 操作
+## Controls
 
-- **Play with AI**：填写名字，选择 2、3 或 4 人和 AI / Elo 后开始。**Normal（正常）**保留原有强度；**Hard（困难）**使用策略 AI；**Devil（魔鬼）**使用模拟搜索 AI。默认正常，选择会自动保存；按钮上的数字是双人校准的相对 Elo。
-- 动画以 **1.5 倍速**播放，包括发牌、抽牌、换手、计分、悬停和颜色选择；语音与音乐保持正常速度，联机房主使用相同的加速动画时长安排 AI 动作。
-- 鼠标悬停放大手牌；点击亮色的合法牌出牌。点击右侧牌堆或 Draw 按钮抽牌。
-- 万能牌选择颜色；7 选择交换对象。颜色轮盘由受罚的下一位玩家选颜色。
-- `←` / `→` 选择手牌，Enter 出牌；`D` / 空格抽牌，`M` 静音，`F11` 全屏，`Esc` 返回或打开离开确认。
-- Messages 使用原版 20 条预设短语；问号打开原版说明页。
-- UNO 自动喊出。当前 No Mercy 模式没有普通的“结束回合”按钮，也没有经典 UNO 的 +4 挑战。
-- 累计分数达到两人 500、三人 750、四人 1000 后赢得整场；New match 重新计分。
+- **Play with AI**: Enter player names, choose 2, 3, or 4 players and AI / Elo, then start. **Normal** keeps the original strength; **Hard** uses a strategic AI; **Devil** uses simulation search. Normal is the default, and the selection is saved automatically. The number on each button is the relative Elo calibrated in two-player matches.
+- Animations play at **1.5× speed**, including dealing, drawing, hand swaps, scoring, hover effects, and color selection. Voice and music stay at normal speed. In LAN games, the host schedules AI actions using the same accelerated animation timings.
+- Hover over a card to enlarge it. Click a highlighted legal card to play it. Click the draw pile on the right or the Draw button to draw.
+- Wild cards let you choose a color; a 7 lets you choose a player to swap hands with. The next player receiving a Color Roulette penalty chooses the color.
+- Use `←` / `→` to select a card and Enter to play it; `D` / Space to draw, `M` to mute, `F11` for fullscreen, and `Esc` to go back or open the quit confirmation.
+- Messages uses the original 20 preset phrases. Click the question mark to open the original rules pages.
+- UNO is called automatically. No Mercy mode has no regular “end turn” button and does not use the classic UNO +4 challenge.
+- Reach a cumulative score of 500 with two players, 750 with three, or 1000 with four to win the match. **New match** resets the score.
 
-## 局域网
+## Local Network Play
 
-1. 房主选择 **Create LAN room**，使用默认端口 `8765` 或自选端口。
-2. 房间显示本机局域网 IP 和端口。其他玩家在 **Join LAN room** 输入该地址，例如 `192.168.1.10:8765`。
-3. 房主可添加 AI、移除座位，并在大厅选择 AI / Elo；真人客人点击 Ready，房主点击 Start。房内所有 AI（包括掉线接管）使用同一难度，开局后固定，下一局沿用；客人看到房主提供的 Elo 分数。
-4. Windows 防火墙询问时，为游戏允许“专用网络”；两台电脑需处于可互相访问的网络。如果有多个网卡，使用朋友能访问的那个本机 IPv4 地址。
+1. The host selects **Create LAN room**, using the default port `8765` or choosing another port.
+2. The room displays the host's local IP address and port. Other players enter that address in **Join LAN room**, for example `192.168.1.10:8765`.
+3. The host can add AI players, remove seats, and choose the AI / Elo setting in the lobby. Human guests click Ready; the host clicks Start. All AI players in the room, including AI that takes over after a disconnect, use the same difficulty. It is fixed for the match and carries over to the next one. Guests see the Elo value provided by the host.
+4. If Windows Firewall prompts you, allow the game on **Private networks**. Both computers must be on a network that lets them reach each other. If the host has multiple network adapters, use the local IPv4 address that guests can reach.
 
-游戏不需要互联网。第一版使用 IP 直连，不提供自动发现、公开匹配或 NAT 穿透。
-房主决定牌序和规则，只向客人发送其自己的手牌及公开信息。
+The game does not need internet access. The first version uses direct IP connections and does not provide automatic discovery, public matchmaking, or NAT traversal. The host controls card order and rules, and sends each guest only that guest's hand and public information.
 
-非房主掉线后由 AI 接管；客户端自动尝试重连。关闭重开程序后，使用相同地址和保存的令牌也能回到原座位。
-重连玩家在自己下一个回合恢复控制，AI 会先完成当前操作。房主退出则结束整个房间。
-回合中仅接受重连，不接受新玩家加入；不要把局域网服务端口暴露到公共互联网。
+If a non-host disconnects, AI takes over and the client attempts to reconnect automatically. After closing and reopening the game, the player can reclaim the same seat with the same address and saved token. A reconnecting player regains control on their next turn; AI finishes any action already in progress. If the host exits, the room ends. During a match, only reconnects are accepted; new players cannot join. Do not expose the LAN service port to the public internet.
 
-## 规则依据
+## Rules Reference
 
-本版按 SB3 的实际 No Mercy 分支实现，**唯一主动修改的玩法是手牌达到 36 张即淘汰**。
-部分细节与实体 UNO 官方规则不同，详见 `docs/RULES.md`。
-保留原版四种颜色、叠加限制、7 换手、0 轮转、特殊牌与计分；未增加其他 UNO 模式。
+This version follows the No Mercy branch as implemented in the SB3. **The only intentional gameplay change is elimination when a hand reaches 36 cards.** Some details differ from Mattel's official physical-game rules; see [`docs/RULES.md`](docs/RULES.md). The original four colors, stacking restrictions, 7 hand swap, 0 rotation, special cards, and scoring are retained. No other UNO modes have been added.
 
-## AI 难度
+## AI Difficulties
 
-- **正常 / Normal**：沿用原版随机合法出牌、随机换手和手牌内随机选色。
-- **困难 / Hard**：优先争取直接出完，评估弃同色牌和连续回合的后续出牌；结合各家公开张数使用 7 换手、0 轮转、跳过和罚牌；根据剩余手牌选色，并单独处理颜色轮盘和双人反转 +4。
+- **Normal**: Uses the original behavior: choose a legal card, hand-swap target, and color at random.
+- **Hard**: Prioritizes playing out, evaluates same-color discards and follow-up plays, and uses 7 hand swaps, 0 rotation, skips, and penalties based on each player's public hand size. It selects colors based on its remaining cards and handles Color Roulette and two-player reverse +4 separately.
+- **Devil**: Searches for sequences of actions that can play out, remembers public discards, and runs multiple simulations over possible unknown-card distributions to compare candidate moves. It computes in the background in offline and LAN games so the interface stays responsive.
 
-- **魔鬼 / Devil**：搜索连续行动直接出完的路线，记忆公开弃牌，并对可能的未知牌分布进行多次模拟，比较候选动作的胜算。离线和联机均在后台计算，避免思考时阻塞界面。
+Normal, Hard, and Devil only read their own hand and public information. They do not inspect opponents' hidden cards or the deck order. Hidden cards in simulations are randomized assumptions; the rules are otherwise the same.
 
-正常、困难、魔鬼 AI 只读取自己的手牌及公开信息，不读取真实对手暗牌或牌堆顺序。模拟中的暗牌是随机假设，规则与其他难度相同。
+- **God**: An omniscient difficulty that can read every hand, the discard pile, and the complete deck order. It uses iterative-deepening adversarial search on the actual game state, fully resolves penalties and Color Roulette, and plans color locks, penalty stacking, and eliminations. Color Roulette selects the nearest matching color in the real deck order, including after recycling and shuffling. Deck order is cached between shuffles; simulation branches share the order and advance their indices separately. Forced draws are executed directly. A warning appears before selection, with a dark red Yes button to confirm and No to cancel. God still follows the play rules; omniscience does not guarantee a win. Elo is not calculated or displayed.
 
-- **God**：全知难度，可以读取所有手牌、弃牌及完整牌堆顺序，按真实牌局进行逐层加深的对抗搜索，完整结算罚牌与轮盘，规划颜色封锁、反叠罚牌及淘汰。颜色轮盘按真实牌序（包括回收洗牌）选择最近可命中的颜色。牌序在洗牌之间缓存，模拟分支共享牌序并分别推进索引；强制摸牌直接执行。选择时先显示警告，深红色 Yes 确认，No 取消。它仍遵守出牌规则；全知不表示保证获胜。不计算或显示 Elo。
+## Relative AI Elo
 
-## AI 相对 Elo
+Normal AI is the **1000**-point baseline. Hard is **1174** (a historical reference calibrated under the old 35-card rule). The latest Devil estimate is **1267** (an indirect calibration under the 36-card rule). God does not display Elo.
 
-普通 AI 固定为 **1000** 分基准；困难 AI 为 **1174** 分（旧版 35 张规则下的历史参考）；魔鬼 AI 最新为 **1267** 分（36 张规则下的间接校准）。God 不显示 Elo。
+The latest calibration used the rule engine included with the imported AI and measured single-game outcomes in two-player matches:
 
-最新校准在附件 AI 自带的规则引擎中进行，按双人单局胜负计算：
+- Imported AI vs. Normal: seeds 30001–30200, with seats swapped for 400 games; 324 wins and 76 losses, an 81% win rate, fitted to **1251.02**.
+- Devil vs. imported AI: independent seeds 40001–40200, with seats swapped for 400 games; Devil had **209 wins and 191 losses, a 52.25% win rate**, corresponding to an advantage of **15.61** points and an estimate of **1266.63**.
+- The paired bootstrap 95% interval for Devil is approximately **1213–1325**, accounting for uncertainty in both test groups. The observed advantage was small and does not establish a clear strength difference.
 
-- 附件 AI 对普通：种子 30001–30200，交换座位共 400 局，324 胜、76 负，胜率 81%，拟合 **1251.02** 分。
-- Devil 对附件 AI：独立种子 40001–40200，交换座位共 400 局，Devil **209 胜、191 负，胜率 52.25%**；比附件 AI 高 **15.61** 分，得到 **1266.63** 分。
-- 同时考虑两组测试的不确定性，Devil 的成对 bootstrap 95% 区间约为 **1213–1325**。这次对战优势较小，不能据此认定两者存在明显强度差距。
+Both sides used their unmodified strategies and default search budgets, and the imported AI's learned weights were fixed. The interface gave Devil only its own hand and public information, including the public Color Roulette card. Since the imported engine uses different shuffling and scoring implementations, treat the new score as an indirect estimate for this test environment. The difference from the old 1300 score does not mean the strategy became weaker. The two-player rating is also used for three- and four-player games.
 
-双方使用未修改的策略与默认搜索预算，附件学习权重固定。接口只向 Devil 提供自身手牌与公开信息，包括轮盘公开牌。附件引擎的洗牌及计分实现不同，因此新分数应视为该测试环境中的间接标定，不能把与旧 1300 分的差值解释为策略变弱。3／4 人游戏沿用双人标定数字。
+The rating difference is calculated as `400 × log10((wins + 0.5) / (losses + 0.5))`. The program recalculates scores from the two sets of recorded results in `assets/ai_elo.json` instead of trusting manually entered reference values. Evidence for the old direct Devil calibration is also stored there.
 
-分差按 `400 × log10((胜局 + 0.5) / (负局 + 0.5))` 计算。程序从 `assets/ai_elo.json` 保存的两段真实战绩重新计算，不信任手工填写的参考分。旧 Devil 直接校准证据也保存在该文件中。
-
-复现新校准（需保留 `build/external-ai-evaluation/source` 中的附件副本）：
+To reproduce the latest calibration, keep the imported AI copy in `build/external-ai-evaluation/source`:
 
 ```powershell
 .\.venv\Scripts\python.exe tools/evaluate_imported_ai.py --seeds 200 --start-seed 30001 --workers 8 --output build/external-ai-evaluation/result.json
@@ -83,21 +75,19 @@ python -m venv .venv
 .\.venv\Scripts\python.exe tools/build_release.py
 ```
 
-仍可用 `tools/calibrate_elo.py --challenger devil` 在本项目引擎中重新进行直接对普通的校准；发布结果会替换该难度的现行证据。
+You can still run a direct calibration against Normal using `tools/calibrate_elo.py --challenger devil`; publishing the result replaces the current evidence for that difficulty.
 
-## 保存与诊断
+## Saves and Diagnostics
 
-设置、重连令牌、最近离线回放、房主回放和错误日志保存在 `%LOCALAPPDATA%\UnoNoMercy`。
-令牌仅用于回到当前房间。回放包含完整牌序，只保存在离线玩家／房主本机，不发送给客人。
-可以用环境变量 `UNO_USER_DIR` 指定不同目录。
+Settings, reconnect tokens, recent offline replays, host replays, and error logs are saved under `%LOCALAPPDATA%\UnoNoMercy`. A token is only used to reclaim a seat in the current room. Replays contain the full deck order and are stored only on the offline player's or host's computer; they are not sent to guests. Set `UNO_USER_DIR` to use another directory.
 
 ```powershell
 .\.venv\Scripts\python.exe -m uno --replay path\to\replay.json
 ```
 
-## 资源重建
+## Rebuilding Assets
 
-仅开发者重建素材需要 Node.js 和 Chromium。已打包游戏不需要它们。
+Developers need Node.js and Chromium only to rebuild assets. The packaged game does not need them.
 
 ```powershell
 .\.venv\Scripts\python.exe tools/prepare_assets.py
@@ -106,12 +96,9 @@ node tools/renderer/render.mjs
 .\.venv\Scripts\python.exe tools/finalize_assets.py
 ```
 
-渲染脚本默认使用已安装的 Chrome 或 Edge，也可设置 `UNO_CHROMIUM_PATH`。
-SVG 使用 Scratch 自带的字体渲染；空 SVG 输出透明占位图。
-原版说明第 1 页嵌入了带“25”的位图，本版用同一手写字体重新排版为 36 张规则；其他页复用原版。
-源文件不修改；资源索引保存原文件名、角色／造型映射、旋转中心和位图比例。
+The renderer uses an installed copy of Chrome or Edge by default; set `UNO_CHROMIUM_PATH` to choose another browser. SVGs are rendered with Scratch's bundled fonts; empty SVGs produce transparent placeholders. Page 1 of the original rules contains a bitmap with “25”; this version re-lays it out in the same handwritten font for the 36-card rules. The remaining pages reuse the original. Source files are not modified; the asset index records original filenames, sprite/costume mappings, rotation centers, and bitmap scales.
 
-## 测试与打包
+## Tests and Packaging
 
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q -p no:cacheprovider
@@ -122,29 +109,27 @@ SVG 使用 Scratch 自带的字体渲染；空 SVG 输出透明占位图。
 .\.venv\Scripts\python.exe tools/smoke_release.py
 ```
 
-`tools/renderer/baseline.mjs` 在本机 Scratch VM 中读取原 SB3，保存原版开场、大厅、牌桌和状态到 `build/baseline`，不上传项目。
-`tools/benchmark_ai.py` 可用 `--challenger devil --opponent hard --players 2` 比较魔鬼与困难；默认让一名困难 AI 对战其余正常 AI，并遍历 2／3／4 人局的全部座位；默认每个座位 100 个种子，共 900 局，输出实际胜率与决策耗时。
-已通过规则、动画、UI 和联网测试、75 局固定种子 AI 对局、本机双客户端进程整局，以及 EXE 独立目录启动／联机服务冒烟验证。Python 依赖在 `requirements.lock.txt`，素材构建依赖在 `tools/renderer/package-lock.json` 锁定。
-动画保留原版逐帧运动轨迹，以每秒 45 个逻辑帧播放原版 30 帧节奏，即 1.5 倍速。源脚本依据、逐帧对照和 GIF 预览生成方法见 `docs/ANIMATIONS.md`。
-视觉与测试记录见 `docs/VERIFICATION.md`。两台实体电脑以及完全未安装 Python 的 Windows 环境需要设备补验。
+On this computer, `tools/renderer/baseline.mjs` reads the original SB3 in Scratch VM and saves the original opening, lobby, table, and states to `build/baseline`; it does not upload the project. `tools/benchmark_ai.py --challenger devil --opponent hard --players 2` compares Devil with Hard. By default, one Hard AI plays against Normal AI opponents across every seat in 2-, 3-, and 4-player games: 100 seeds per seat, 900 games total, with actual win rates and decision times reported.
 
-## 项目结构
+The project has passed rule, animation, UI, and network tests; 75 fixed-seed AI games; a full local game using two client processes; and standalone EXE launch and LAN-service smoke checks. Python dependencies are pinned in `requirements.lock.txt`, and asset-build dependencies are pinned in `tools/renderer/package-lock.json`.
 
-- `uno/engine.py`：牌组、纯规则状态机、可见状态及回放。
-- `uno/ai.py`：难度入口及正常／困难 AI。
-- `uno/ai_api.py`、`uno/ai_plugins.py`：稳定的第三方 AI 契约、插件发现、配置校验与内置 AI 注册表。
-- `uno/application.py`：对局会话、座位控制器、统一 AI 执行与故障回退。
-- `uno/devil.py`：魔鬼 AI 的连续出牌搜索与公开信息模拟。
-- `uno/elo.py`、`tools/calibrate_elo.py`：累计对战 Elo 拟合、双人轮换座位校准与结果加载。
-- `uno/network.py`：房间、主机判定、私有快照、掉线与重连。
-- `uno/app.py`、`uno/layout.py`、`uno/resources.py`：Pygame 界面、布局、动画、音乐及语音。
-- `tools/`：只读 SB3 检查、资源构建、原版对照、联机冒烟和发行打包。
-- `tests/`：规则、完整对局、素材、UI 操作、网络和大手牌选取测试。
+Animations preserve the original frame-by-frame motion and play the original 30-frame timing at 45 logical frames per second, or 1.5× speed. Source-script references, frame comparisons, and GIF-preview instructions are in [`docs/ANIMATIONS.md`](docs/ANIMATIONS.md). Visual and test records are in [`docs/VERIFICATION.md`](docs/VERIFICATION.md). Testing on two physical computers and on a Windows installation without Python is still needed.
 
-## 外部 AI 插件
+## Project Structure
 
-将插件文件夹复制到 `%LOCALAPPDATA%\UnoNoMercy\plugins` 后重启游戏即可发现。
-外部 AI 只能读取自己的手牌和公开牌局信息；机器人座位可以分别选择不同插件和参数。
-插件是在游戏进程中运行的可信 Python 代码，请只安装可信来源。开发规范、manifest、
-超时回退和示例见 `docs/AI_PLUGINS.md` 与 `examples/plugins/random-plus`。
-本版本的局域网协议为 v2；旧版客户端会收到明确的版本不匹配提示，不能加入 v2 房间。
+- `uno/engine.py`: deck, pure rules state machine, visible state, and replays.
+- `uno/ai.py`: difficulty entry points and Normal / Hard AI.
+- `uno/ai_api.py`, `uno/ai_plugins.py`: stable third-party AI contract, plugin discovery, configuration validation, and built-in AI registry.
+- `uno/application.py`: game sessions, seat controllers, unified AI execution, and failure fallback.
+- `uno/devil.py`: Devil's play-out search and public-information simulations.
+- `uno/elo.py`, `tools/calibrate_elo.py`: cumulative-match Elo fitting, two-player seat-swapped calibration, and result loading.
+- `uno/network.py`: rooms, host authority, private snapshots, disconnects, and reconnects.
+- `uno/app.py`, `uno/layout.py`, `uno/resources.py`: Pygame interface, layout, animation, music, and voice.
+- `tools/`: read-only SB3 inspection, asset building, original-project comparisons, LAN smoke checks, and release packaging.
+- `tests/`: rules, full matches, assets, UI interactions, networking, and large-hand selection.
+
+## External AI Plugins
+
+Copy a plugin folder to `%LOCALAPPDATA%\UnoNoMercy\plugins` and restart the game for it to be discovered. External AIs can read only their own hand and public game information. Each bot seat can use a different plugin and its own settings.
+
+Plugins run as trusted Python code inside the game process, so install them only from sources you trust. See [`docs/AI_PLUGINS.md`](docs/AI_PLUGINS.md) and [`examples/plugins/random-plus`](examples/plugins/random-plus) for the development contract, manifest, timeout fallback, and example. This version uses LAN protocol v2; older clients receive a clear version-mismatch message and cannot join a v2 room.
