@@ -1,0 +1,4 @@
+# Verified on Windows / Python 3.14 / RTX 5070 Laptop, CUDA 12.8.
+# Install PyTorch from the CUDA index separately; see docs/NEURAL_AI.md.
+torch==2.11.0
+numpy==2.4.6

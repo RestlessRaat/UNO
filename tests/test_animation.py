@@ -64,7 +64,7 @@ def test_draw_reflows_whole_hand_and_fades_back():
     segment = timeline.segments[0]
     assert segment.frames == 15
     _, poses, progress = segment.sample(6 / FPS)
-    assert progress == pytest.approx(7 / 15)
+    assert progress == pytest.approx(6 / 15)
     start = hand_layout(0, 0, 4, 7)[0]
     end = hand_layout(0, 0, 4, 8)[0]
     assert poses[0][1] == pytest.approx(interpolate(start, end, progress))
@@ -72,6 +72,29 @@ def test_draw_reflows_whole_hand_and_fades_back():
     assert face == game.view_for(0)['hand'][-1]
     assert 0 < back_alpha < 255
     assert len(segment.before.hands[0]) == 7 and len(segment.after.hands[0]) == 8
+
+
+def test_transfer_samples_continuously_between_source_frames():
+    game = new_game(GameConfig(), 123)
+    old = game.view_for(0)
+    game.apply_action({'type': 'draw', 'player_id': 0})
+    segment = action_timeline(old, game.view_for(0)).segments[0]
+    start = hand_layout(0, 0, 4, 7)[0]
+    end = hand_layout(0, 0, 4, 8)[0]
+
+    _, at_start, start_progress = segment.sample(0)
+    _, at_frame, frame_progress = segment.sample(6 / FPS)
+    _, between, between_progress = segment.sample(6.5 / FPS)
+    _, at_end, end_progress = segment.sample(segment.frames / FPS)
+
+    assert start_progress == 0
+    assert at_start[0][1] == pytest.approx(start)
+    assert frame_progress == pytest.approx(6 / 15)
+    assert between_progress == pytest.approx(6.5 / 15)
+    assert between[0][1] == pytest.approx(interpolate(start, end, between_progress))
+    assert between[0][1] != pytest.approx(at_frame[0][1])
+    assert end_progress == 1
+    assert at_end[0][1] == pytest.approx(end)
 
 
 def test_swap_moves_every_card_in_sequence_not_three_fake_backs():

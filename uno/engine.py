@@ -110,6 +110,13 @@ class Game:
         self.log: list[dict] = []
         self.events: list[dict] = []
         self.last_events: list[dict] = []
+        # Public history is intentionally card-private for ordinary draws.  It
+        # lets information-limited AIs remember behaviour across turns without
+        # receiving anything a human at the table could not have observed.
+        self.public_history: list[dict] = []
+        # Exact cards remembered after a 7/0 transfer.  Each viewer has an
+        # independent mapping from the current holder to cards once seen.
+        self.ai_known_hands: list[dict[int, set[int]]] = [dict() for _ in self.hands]
         self.round_points = 0
         self.score_target = len(config.names) * 250
         self.match_winner = None
@@ -140,6 +147,35 @@ class Game:
         elif kind == "mercy" and self.events and self.events[-1].get("revealed"):
             self.known_discards.update(self.roulette_revealed)
         self.events.append({"type": kind, **data})
+        public = {"type": kind, "serial": len(self.public_history),
+                  "color_before": self.color,
+                  "top_before": BY_ID[self.discard[-1]].value,
+                  "pending_before": self.pending,
+                  **data}
+        if kind == "draw" and not data.get("revealed"):
+            public.pop("card", None)
+        # Winning hands are a scoring detail, not persistent in-round evidence.
+        public.pop("scoring_hands", None)
+        self.public_history.append(public)
+
+    def _forget_public_card(self, player, card_id):
+        if not hasattr(self, "ai_known_hands"):
+            return
+        for knowledge in self.ai_known_hands:
+            known = knowledge.get(player)
+            if known is not None:
+                known.discard(card_id)
+
+    def _remember_transfer(self, transfers):
+        """Update private memories after exact hands move between seats."""
+        if not hasattr(self, "ai_known_hands"):
+            return
+        holders = {target for _, target, _ in transfers}
+        for knowledge in self.ai_known_hands:
+            for holder in holders:
+                knowledge.pop(holder, None)
+        for source, target, cards in transfers:
+            self.ai_known_hands[source][target] = set(cards)
 
     def _next(self, player=None, steps=1):
         player = self.current if player is None else player
@@ -213,7 +249,10 @@ class Game:
             self._choose_color(candidate["color"])
         elif kind == "choose_player":
             other = candidate["target"]
+            old_player, old_other = list(self.hands[player]), list(self.hands[other])
             self.hands[player], self.hands[other] = self.hands[other], self.hands[player]
+            self._remember_transfer(((player, other, old_player),
+                                     (other, player, old_other)))
             self._emit("swap", player=player, target=other)
             self._uno(player)
             self._uno(other)
@@ -232,6 +271,7 @@ class Game:
         c = BY_ID[card_id]
         hand_index = self.hands[player].index(card_id)
         self.hands[player].remove(card_id)
+        self._forget_public_card(player, card_id)
         self.discard.append(card_id)
         self.roulette_revealed = []
         if not c.wild:
@@ -267,6 +307,8 @@ class Game:
             removed = [i for i in self.hands[player] if BY_ID[i].color == c.color]
             hand_indices = [self.hands[player].index(i) for i in removed]
             self.hands[player] = [i for i in self.hands[player] if i not in removed]
+            for removed_id in removed:
+                self._forget_public_card(player, removed_id)
             self.discard[-1:-1] = removed
             self._emit("discard_all", player=player, cards=[BY_ID[i].public() for i in removed], hand_indices=hand_indices)
             self._uno(player)
@@ -278,8 +320,12 @@ class Game:
             self.phase = "choose_player"
         elif c.value == "0":
             old = [list(hand) for hand in self.hands]
+            transfers = []
             for i in self.active:
-                self.hands[self._next(i)] = old[i]
+                target = self._next(i)
+                self.hands[target] = old[i]
+                transfers.append((i, target, old[i]))
+            self._remember_transfer(transfers)
             self._emit("rotate", direction=self.direction)
             for i in self.active:
                 self._uno(i)
@@ -336,6 +382,9 @@ class Game:
         # Source puts the eliminated hand underneath the existing discard pile.
         self.discard[0:0] = self.hands[player]
         self.hands[player] = []
+        if hasattr(self, "ai_known_hands"):
+            for knowledge in self.ai_known_hands:
+                knowledge.pop(player, None)
         self.pending = self.last_draw = 0
         self.penalty_started = False
         self._emit("mercy", player=player)
@@ -383,6 +432,12 @@ class Game:
                 "match_winner": self.match_winner, "score_target": self.score_target,
                 "mercy_limit": self.config.mercy_limit,
                 "legal": self.legal_actions(player_id), "events": events,
+                "history": [dict(event) for event in self.public_history],
+                "known_opponent_cards": {
+                    str(target): sorted(cards.intersection(self.hands[target]))
+                    for target, cards in self.ai_known_hands[player_id].items()
+                    if target != player_id and not self.eliminated[target]
+                },
                 "roulette_revealed": [BY_ID[i].public() for i in self.roulette_revealed]}
 
     def replay(self):

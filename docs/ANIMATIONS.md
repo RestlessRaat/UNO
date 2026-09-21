@@ -1,11 +1,13 @@
 # Scratch animation fidelity
 
 The supplied SB3 is the reference. `uno/animation.py` translates its display
-updates into a presentation timeline. Original frame counts and geometry are
-preserved, now played at 45 logical frames per second (30 × 1.5). Pygame may
-draw at 60 Hz; the same frame sequence completes in two-thirds of its original
-time. Hover, wheel, selection fades and the intro use the same 1.5x speed.
-Voice pauses use real audio duration, and speech/music retain normal speed.
+updates into a presentation timeline. Original frame counts, geometry and
+durations are preserved and played on a 45 Hz source clock (30 × 1.5). Pygame
+draws at 60 Hz and continuously interpolates between source-frame landmarks,
+so movement no longer repeats quantised 45 Hz poses. The same actions still
+complete in two-thirds of their original time. Hover, wheel, selection fades
+and the intro use the same 1.5x speed. Voice pauses use real audio duration,
+and speech/music retain normal speed.
 
 | Animation | Source procedure | Implemented behaviour |
 |---|---|---|
@@ -16,7 +18,7 @@ Voice pauses use real audio duration, and speech/music retain normal speed.
 | Turn pulse | `pulse player's cards` / `pulse size` | 20 frames, `1 + 0.15 * sin(frame * 9°)`; card centres stay fixed |
 | Face / back | `Uno.Update sprites` clone dispatch | Back overlays fade in/out throughout the transfer; remote private hands remain concealed |
 | Brightness | `highlight playable cards` | Scratch's additive brightness, target -48, transitions at 4 units per frame |
-| Direction wheel | `update colour wheel for direction...` | ±1 degree each frame, brightness -20; direction cross-fade over 25 frames; old colour fades by 8 ghost units per frame |
+| Direction wheel | `update colour wheel for direction...` | Continuous rotation at the source rate of ±1 degree per frame, brightness -20; direction cross-fade over 25 source frames; old colour fades by 8 ghost units per frame |
 | Colour selection | `process colour select clones` | Original circle and four quadrant costumes with original rotation centres; 20-frame fades, ±2% size and ±2° rotation; silhouette hit testing and press/release selection |
 | 7 swap | `Swap cards between players` | Original target hand moves first, then the playing hand; one card at a time, 6 frames each; both hands reflow for each transfer |
 | 0 rotation | `rotate hands in direction of play` | Start at the playing seat, follow active seats in the play direction; original hand contents move one card at a time, 6 frames each |
@@ -51,3 +53,9 @@ output: WebGL/SVG and Pygame rasterisation differ, desktop/LAN controls have
 their own layout, and private remote card identities cannot be used for
 cosmetic animation. Audio device latency and loaded-machine scheduling also
 affect perceived timing. The disabled promotional scene stays disabled.
+
+Card scale, rotation and brightness results are cached by their actual pixel
+transform. This removes repeated work for stationary hands while continuous
+poses remain uncached until the same transform is reused. At the default
+960×720 window size the already matching canvas is blitted directly rather
+than being smooth-scaled to its existing size.

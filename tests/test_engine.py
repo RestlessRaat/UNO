@@ -153,6 +153,8 @@ def test_hidden_draw_is_not_sent_to_other_player():
     game.apply_action({'player_id': 0, 'type': 'draw'})
     assert 'card' in game.view_for(0)['events'][0]
     assert 'card' not in game.view_for(1)['events'][0]
+    assert 'card' not in game.view_for(0)['history'][-1]
+    assert game.view_for(0)['history'] == game.view_for(1)['history']
     assert 'deck' not in game.view_for(1) and 'seed' not in game.view_for(1)
 
 

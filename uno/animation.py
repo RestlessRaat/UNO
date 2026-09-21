@@ -1,9 +1,11 @@
-"""Scratch's display frames, played on a 1.5x presentation timeline.
+"""Scratch's animation timing, played on a 1.5x presentation timeline.
 
 Rules and networking never wait for this timeline. A transfer moves one real
-card, reflows both hands linearly, and cross-fades its back in the same frames.
-The No Mercy source uses 15 frames for play/draw, 6 for hand transfers and
-mercy, 10 for scoring, and a 20-frame sine pulse at the start of each turn.
+card, reflows both hands linearly, and cross-fades its back over the same
+duration. The No Mercy source uses 15 frames for play/draw, 6 for hand
+transfers and mercy, 10 for scoring, and a 20-frame sine pulse at the start of
+each turn. Poses are sampled continuously so a 60 Hz renderer does not repeat
+the 45 Hz source steps.
 """
 from copy import deepcopy
 from dataclasses import dataclass
@@ -115,8 +117,11 @@ class Segment:
     end_sounds: tuple = ()
 
     def sample(self, elapsed):
-        frame = min(self.frames, max(1, int(elapsed * FPS) + 1))
-        progress = frame / self.frames
+        # ``frames`` still defines the source-accurate duration, but rendering
+        # is not quantised to source frames. This lets a 60/120 Hz display
+        # interpolate every refresh while preserving pacing and sound edges.
+        source_phase = min(float(self.frames), max(0.0, elapsed * FPS))
+        progress = source_phase / self.frames
         starts, ends = self.before.poses(), self.after.poses()
         cards = []
         you = self.before.view['you']
@@ -128,7 +133,7 @@ class Segment:
             face = tile.card if owner == you or tile.revealed else None
             placement = interpolate(start, end, progress)
             if self.kind == 'pulse' and owner == self.after.view['current']:
-                scale = 1 + 0.15 * math.sin(math.radians(frame * 9))
+                scale = 1 + 0.15 * math.sin(math.radians(source_phase * 9))
                 placement = (*placement[:3], placement[3] * scale, placement[4] * scale)
             cards.append((face, placement, None))
         if self.moving:

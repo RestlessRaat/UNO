@@ -3,8 +3,9 @@ import random
 
 import pytest
 
-from uno.ai import choose_action
-from uno.devil import _forced_finish, _Simulation, choose_devil
+from uno.ai import choose_action, decision_view
+from uno.devil import (_Belief, _forced_finish, _rollout, _Simulation,
+                       choose_devil)
 from uno.engine import BY_ID, Game, GameConfig, new_game
 from test_ai import position
 
@@ -77,6 +78,78 @@ def test_sampling_preserves_revealed_roulette_cards():
     sample = _Simulation.sample(view, random.Random(8))
     assert set(game.roulette_revealed) <= set(sample.hands[1])
     assert len(set(sample.deck + sample.discard + sum(sample.hands, []))) == 168
+
+
+def test_seven_and_zero_create_private_exact_hand_memory():
+    game = position([[('red', '7'), ('blue', '1')],
+                     [('wild', 'wild draw 10'), ('green', '2'), ('green', '3')]])
+    old_own, old_other = set(game.hands[0][1:]), set(game.hands[1])
+    game.apply_action({'player_id': 0, 'type': 'play', 'card_id': game.hands[0][0]})
+    game.apply_action({'player_id': 0, 'type': 'choose_player', 'target': 1})
+    assert set(game.view_for(0)['known_opponent_cards']['1']) == old_own
+    assert set(game.view_for(1)['known_opponent_cards']['0']) == old_other
+
+    game = position([[('red', '0'), ('blue', '4')],
+                     [('wild', 'wild draw 6'), ('green', '5')]])
+    passed = set(game.hands[0][1:])
+    game.apply_action({'player_id': 0, 'type': 'play', 'card_id': game.hands[0][0]})
+    assert set(game.view_for(0)['known_opponent_cards']['1']) == passed
+
+
+def test_particle_sample_honors_remembered_cards():
+    game = position([[('red', '7'), ('blue', '1')],
+                     [('wild', 'wild draw 10'), ('green', '2'), ('green', '3')]])
+    game.apply_action({'player_id': 0, 'type': 'play', 'card_id': game.hands[0][0]})
+    game.apply_action({'player_id': 0, 'type': 'choose_player', 'target': 1})
+    view = game.view_for(0)
+    remembered = set(view['known_opponent_cards']['1'])
+    for seed in range(8):
+        sample = _Simulation.sample(view, random.Random(seed), _Belief(view))
+        assert remembered <= set(sample.hands[1])
+
+
+def test_belief_downweights_stack_cards_after_penalty_is_accepted():
+    game = new_game(GameConfig(('A', 'B')), 19)
+    game.current = 1
+    game.pending, game.last_draw = 6, 6
+    game.apply_action({'player_id': 1, 'type': 'draw'})
+    view = game.view_for(0)
+    belief = _Belief(view)
+    stack = next(c.id for c in BY_ID.values() if c.value == 'wild draw 10')
+    ordinary = next(c.id for c in BY_ID.values() if c.value == '1')
+    assert belief.weights[1][stack] < belief.weights[1][ordinary]
+
+
+def test_rollout_can_draw_repeatedly_but_stops_at_plan_limit():
+    game = new_game(GameConfig(('A', 'B')), 29)
+    sim = _Simulation.sample(game.view_for(0), random.Random(3))
+    weak = [c.id for c in BY_ID.values() if c.value.isdigit() and c.value not in ('0', '7')][:10]
+    sim.hands[0] = weak[:2]
+    sim.hands[1] = weak[2:6]
+    sim.current, sim.phase, sim.pending = 0, 'turn', 0
+    sim.color = BY_ID[sim.hands[0][0]].color
+    sim.discard[-1] = sim.hands[0][0]
+    sim.deck = sim.deck + weak[6:]
+    for expected in range(3):
+        action = sim.rollout_action(True)
+        assert action == {'type': 'draw'}
+        sim.act(action)
+        assert sim.voluntary_draws[0] == expected + 1
+    assert sim.rollout_action(True)['type'] == 'play'
+
+
+def test_rollout_models_opponents_as_strategic(monkeypatch):
+    game = new_game(GameConfig(('A', 'B')), 61)
+    world = _Simulation.sample(game.view_for(0), random.Random(8))
+    seen = []
+    original = _Simulation.rollout_action
+    def record(self, smart):
+        seen.append((self.current, smart))
+        return original(self, smart)
+    monkeypatch.setattr(_Simulation, 'rollout_action', record)
+    monkeypatch.setattr('uno.devil.ROLLOUT_STEPS', 12)
+    _rollout(world, game.legal_actions(0)[0], 0)
+    assert any(player == 1 and smart for player, smart in seen)
 
 
 def test_mercy_keeps_concealed_hands_private_and_sample_valid():

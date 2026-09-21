@@ -203,15 +203,11 @@ class App:
         return im, rect
 
     def draw_card(self, card, x, y, angle=0, width=56.7, height=88.55, dim=False, alpha=255, brightness=0):
-        im = pygame.transform.smoothscale(self.assets.card(card), (round(width * 2), round(height * 2)))
         if dim:
             brightness = -48
-        if brightness:
-            amount = round(abs(brightness) * 255 / 100)
-            im.fill((amount, amount, amount, 0), special_flags=pygame.BLEND_RGB_SUB if brightness < 0 else pygame.BLEND_RGB_ADD)
-        if angle:
-            im = pygame.transform.rotate(im, angle)
+        im = self.assets.card_surface(card, width, height, angle, brightness)
         if alpha != 255:
+            im = im.copy()
             im.set_alpha(alpha)
         self.canvas.blit(im, im.get_rect(center=(round(x * 2), round(y * 2))))
 
@@ -874,14 +870,13 @@ class App:
             self._old_wheel, self._wheel_state = self._wheel_state, state
             self._wheel_changed = now
         age = (now - self._wheel_changed) * FPS
-        frame = int((now - self.animation_clock) * FPS)
+        source_phase = (now - self.animation_clock) * FPS
         def layer(state, alpha):
             direction, color = state
             name = 'direction' if direction == 1 else 'direction2'
             path = self.assets.manifest['wheels'][f'{name}:{color}']
-            im = self.assets.scaled(path, 240, 240).copy()
-            im.fill((51, 51, 51, 0), special_flags=pygame.BLEND_RGB_SUB)
-            im = pygame.transform.rotate(im, -direction * frame)
+            source = self.assets.shaded_scaled(path, 240, 240, -20)
+            im = pygame.transform.rotate(source, -direction * (source_phase % 360))
             im.set_alpha(round(max(0, min(255, alpha))))
             self.canvas.blit(im, im.get_rect(center=(480, 360)))
         old = getattr(self, '_old_wheel', None)
@@ -898,9 +893,9 @@ class App:
         local = scene.hands[scene.view['you']]
         legal = {a.get('card_id') for a in self.view['legal'] if a['type'] == 'play'}
         scene_legal = {a.get('card_id') for a in scene.view['legal'] if a['type'] == 'play'}
-        frame = int((time.monotonic() - self.animation_clock) * FPS)
-        steps = max(0, frame - self._brightness_frame)
-        self._brightness_frame = frame
+        source_phase = (time.monotonic() - self.animation_clock) * FPS
+        steps = max(0, source_phase - self._brightness_frame)
+        self._brightness_frame = source_phase
         local_ids = {t.card['id'] for t in local if t.card}
         if segment and segment.moving and segment.moving.card and segment.target_owner == scene.view['you']:
             local_ids.add(segment.moving.card['id'])
@@ -955,10 +950,10 @@ class App:
             self._choice_phase, self._choice_started = 'choose_color', now
             self._selector_brightness = {c: -40 for c in ('blue', 'green', 'red', 'yellow')}
             self._selector_frame = 0
-        frame = int((now - self._choice_started) * FPS)
-        scale = 1 + 0.02 * math.sin(math.radians(frame * 5))
-        angle = -2 * math.sin(math.radians(frame * 6))
-        alpha = round(255 * min(1, (frame + 1) / 20))
+        source_phase = (now - self._choice_started) * FPS
+        scale = 1 + 0.02 * math.sin(math.radians(source_phase * 5))
+        angle = -2 * math.sin(math.radians(source_phase * 6))
+        alpha = round(255 * min(1, source_phase / 20))
         if fading:
             alpha = round(255 * max(0, 1 - (now - self._choice_fade_start) * FPS / 20))
         if not fading:
@@ -969,13 +964,13 @@ class App:
             name = 'select.' + color
             target = 0 if getattr(self, '_selector_hover', None) == color else -40
             previous = getattr(self, '_selector_brightness', {}).get(color, -40)
-            steps = max(0, frame - getattr(self, '_selector_frame', 0))
+            steps = max(0, source_phase - getattr(self, '_selector_frame', 0))
             brightness = previous + max(-steps * 4, min(steps * 4, target - previous))
             self._selector_brightness[color] = brightness
             image, rect = self.scratch_sprite('uno', name, 0, 36, scale, angle, alpha, brightness)
             self.choice_regions.append((pygame.mask.from_surface(image, 1), rect, color))
         self._selector_hover = self._color_at(self.mouse)
-        self._selector_frame = frame
+        self._selector_frame = source_phase
 
     def _color_at(self, point):
         x, y = round(point[0] * 2), round(point[1] * 2)
@@ -1099,7 +1094,8 @@ class App:
         ox, oy, scale = viewport(self.window.get_size())
         size = (round(480 * scale), round(360 * scale))
         self.window.fill((0, 0, 0))
-        self.window.blit(pygame.transform.smoothscale(self.canvas, size), (round(ox), round(oy)))
+        frame = self.canvas if size == self.canvas.get_size() else pygame.transform.smoothscale(self.canvas, size)
+        self.window.blit(frame, (round(ox), round(oy)))
         pygame.display.flip()
 
     def toggle_sound(self):

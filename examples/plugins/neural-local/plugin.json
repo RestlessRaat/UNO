@@ -1,0 +1,19 @@
+{
+  "api_version": 1,
+  "id": "local.neural",
+  "name": "Neural (local self-play)",
+  "version": "0.1.0",
+  "entry_point": "policy:create_policy",
+  "description": "Local learned policy. A short-training checkpoint is experimental, not a calibrated difficulty.",
+  "author": "UNO No Mercy",
+  "time_budget_ms": 10000,
+  "settings_schema": [
+    {
+      "key": "deterministic",
+      "type": "boolean",
+      "name": "Choose highest probability",
+      "description": "Off samples the learned policy; on always selects its highest probability action.",
+      "default": false
+    }
+  ]
+}

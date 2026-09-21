@@ -46,7 +46,7 @@ This version follows the No Mercy branch as implemented in the SB3. **The only i
 
 - **Normal**: Uses the original behavior: choose a legal card, hand-swap target, and color at random.
 - **Hard**: Prioritizes playing out, evaluates same-color discards and follow-up plays, and uses 7 hand swaps, 0 rotation, skips, and penalties based on each player's public hand size. It selects colors based on its remaining cards and handles Color Roulette and two-player reverse +4 separately.
-- **Devil**: Searches for sequences of actions that can play out, remembers public discards, and runs multiple simulations over possible unknown-card distributions to compare candidate moves. It computes in the background in offline and LAN games so the interface stays responsive.
+- **Devil**: Searches for finishing combinations and keeps a persistent belief model from public play, concealed draws, chosen colours, and exact hands it previously saw through 7/0 transfers. It samples hidden-card worlds from that evidence, evaluates the usefulness of whole hands when choosing 7/0 targets, models strategic replies, and can deliberately draw up to three cards when a continuation is worth pursuing. It computes in the background in offline and LAN games so the interface stays responsive.
 
 Normal, Hard, and Devil only read their own hand and public information. They do not inspect opponents' hidden cards or the deck order. Hidden cards in simulations are randomized assumptions; the rules are otherwise the same.
 
@@ -54,28 +54,24 @@ Normal, Hard, and Devil only read their own hand and public information. They do
 
 ## Relative AI Elo
 
-Normal AI is the **1000**-point baseline. Hard is **1174** (a historical reference calibrated under the old 35-card rule). The latest Devil estimate is **1267** (an indirect calibration under the 36-card rule). God does not display Elo.
+Normal AI is the **1000**-point baseline. Hard is **1174** (a historical reference calibrated under the old 35-card rule). The strengthened Devil is **1265** under the current 36-card rule. God does not display Elo.
 
-The latest calibration used the rule engine included with the imported AI and measured single-game outcomes in two-player matches:
+The latest Devil calibration used this game's native rule engine and measured single-round outcomes in two-player matches:
 
-- Imported AI vs. Normal: seeds 30001–30200, with seats swapped for 400 games; 324 wins and 76 losses, an 81% win rate, fitted to **1251.02**.
-- Devil vs. imported AI: independent seeds 40001–40200, with seats swapped for 400 games; Devil had **209 wins and 191 losses, a 52.25% win rate**, corresponding to an advantage of **15.61** points and an estimate of **1266.63**.
-- The paired bootstrap 95% interval for Devil is approximately **1213–1325**, accounting for uncertainty in both test groups. The observed advantage was small and does not establish a clear strength difference.
+- Seeds 52001–52200 were held out from the implementation check. Each seed was played twice with Devil and Normal swapping seats, for **400 rounds** total.
+- Devil won **329** and Normal won **71**, an **82.25%** Devil win rate. Devil won 169/200 as the first seat and 160/200 as the second seat.
+- Fitting the stated Elo curve gives Devil **1265.42** relative to Normal at 1000. This two-player estimate does not claim a human rating or guaranteed strength in three- and four-player games.
 
-Both sides used their unmodified strategies and default search budgets, and the imported AI's learned weights were fixed. The interface gave Devil only its own hand and public information, including the public Color Roulette card. Since the imported engine uses different shuffling and scoring implementations, treat the new score as an indirect estimate for this test environment. The difference from the old 1300 score does not mean the strategy became weaker. The two-player rating is also used for three- and four-player games.
+Devil received only its own hand and public information, including publicly revealed Color Roulette cards. It did not receive hidden hands or deck order. Its persistent card beliefs are deductions from public actions; exact remembered cards come only from hands the same seat previously possessed and transferred through 7 or 0. The displayed two-player rating is also used for three- and four-player games.
 
-The rating difference is calculated as `400 × log10((wins + 0.5) / (losses + 0.5))`. The program recalculates scores from the two sets of recorded results in `assets/ai_elo.json` instead of trusting manually entered reference values. Evidence for the old direct Devil calibration is also stored there.
+The rating difference is calculated as `400 × log10((wins + 0.5) / (losses + 0.5))`. The program recalculates scores from the recorded wins in `assets/ai_elo.json` instead of trusting a manually entered value.
 
-To reproduce the latest calibration, keep the imported AI copy in `build/external-ai-evaluation/source`:
+To reproduce the latest calibration:
 
 ```powershell
-.\.venv\Scripts\python.exe tools/evaluate_imported_ai.py --seeds 200 --start-seed 30001 --workers 8 --output build/external-ai-evaluation/result.json
-.\.venv\Scripts\python.exe tools/evaluate_imported_ai.py --opponent devil --seeds 200 --start-seed 40001 --workers 16 --output build/external-ai-evaluation/devil-result.json
-.\.venv\Scripts\python.exe tools/publish_imported_ai_calibration.py --reference build/external-ai-evaluation/result.json --duel build/external-ai-evaluation/devil-result.json --report build/external-ai-evaluation/devil-calibration.json
+.\.venv\Scripts\python.exe tools/calibrate_elo.py --challenger devil --start-seed 52001 --seeds 200 --workers 16 --output assets/ai_elo.json
 .\.venv\Scripts\python.exe tools/build_release.py
 ```
-
-You can still run a direct calibration against Normal using `tools/calibrate_elo.py --challenger devil`; publishing the result replaces the current evidence for that difficulty.
 
 ## Saves and Diagnostics
 

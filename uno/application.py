@@ -135,7 +135,12 @@ class AiRunner:
 
         spec = self.registry.spec(plugin_id)
         try:
-            if spec.omniscient:
+            difficulty = legacy_name(plugin_id)
+            if difficulty is not None:
+                private_view = decision_view(game, difficulty)
+                future = self.executor.submit(_run_builtin_legacy, private_view,
+                                              random_seed, difficulty)
+            elif spec.omniscient:
                 private_view = decision_view(game, "god")
                 future = self.executor.submit(_run_builtin_god, private_view, random_seed)
             else:
@@ -162,7 +167,11 @@ class AiRunner:
         plugin_id = self.effective_plugin(game, player_id, requested)
         spec = self.registry.spec(plugin_id)
         try:
-            if spec.omniscient:
+            difficulty = legacy_name(plugin_id)
+            if difficulty is not None:
+                action = _run_builtin_legacy(decision_view(game, difficulty),
+                                             random_seed, difficulty)
+            elif spec.omniscient:
                 action = _run_builtin_god(decision_view(game, "god"), random_seed)
             else:
                 normalized = self.registry.normalize_settings(plugin_id, settings)
@@ -216,6 +225,13 @@ def _run_builtin_god(view: dict[str, Any], seed: int) -> dict[str, Any]:
     result = choose_legacy_action(view, random.Random(seed), "god")
     if result is None:
         raise PluginError("God returned no action.")
+    return {key: value for key, value in result.items() if key != "player_id"}
+
+
+def _run_builtin_legacy(view: dict[str, Any], seed: int, difficulty: str) -> dict[str, Any]:
+    result = choose_legacy_action(view, random.Random(seed), difficulty)
+    if result is None:
+        raise PluginError(f"{difficulty.title()} returned no action.")
     return {key: value for key, value in result.items() if key != "player_id"}
 
 

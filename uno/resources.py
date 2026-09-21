@@ -40,6 +40,43 @@ class Assets:
         key = f'{card["color"]}:{card["value"]}' if card else "back"
         return self.image(self.manifest["cards"][key])
 
+    def card_surface(self, card=None, width=56.7, height=88.55, angle=0, brightness=0):
+        """Return a cached, presentation-ready card surface.
+
+        Static hands used to smooth-scale and rotate every card on every
+        display refresh. Pixel dimensions and visual brightness are the actual
+        transform inputs, so they form a compact cache key while continuous
+        animation poses remain correct.
+        """
+        key = f'{card["color"]}:{card["value"]}' if card else "back"
+        brightness_amount = round(abs(brightness) * 255 / 100)
+        if brightness < 0:
+            brightness_amount = -brightness_amount
+        return self._card_surface(key, max(1, round(width * 2)), max(1, round(height * 2)),
+                                  round(angle, 4), brightness_amount)
+
+    @lru_cache(maxsize=768)
+    def _card_surface(self, key, width, height, angle, brightness_amount):
+        im = pygame.transform.smoothscale(self.image(self.manifest["cards"][key]), (width, height))
+        if brightness_amount:
+            im = im.copy()
+            amount = abs(brightness_amount)
+            flag = pygame.BLEND_RGB_SUB if brightness_amount < 0 else pygame.BLEND_RGB_ADD
+            im.fill((amount, amount, amount, 0), special_flags=flag)
+        if angle:
+            im = pygame.transform.rotate(im, angle)
+        return im
+
+    @lru_cache(maxsize=16)
+    def shaded_scaled(self, path, width, height, brightness):
+        """Cache large, repeatedly rotated sprites such as the direction wheel."""
+        im = self.scaled(path, width, height).copy()
+        if brightness:
+            amount = round(abs(brightness) * 255 / 100)
+            flag = pygame.BLEND_RGB_SUB if brightness < 0 else pygame.BLEND_RGB_ADD
+            im.fill((amount, amount, amount, 0), special_flags=flag)
+        return im
+
     @lru_cache(maxsize=512)
     def font(self, size, handwriting=True, unicode=False):
         if unicode:
@@ -143,4 +180,3 @@ class Audio:
             elif kind == "win":
                 self.play("voice: hooray")
                 self.music("music: winner", once=True)
-

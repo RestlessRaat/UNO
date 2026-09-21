@@ -44,8 +44,11 @@ privileged built-in policy and its internal interface is not part of this API.
 
 Import types only from `uno.ai_api`. `DecisionContext.game` is an immutable
 public snapshot containing the AI's own hand, public player counts, public
-events, and public discard/roulette information. It never contains opponents'
-cards, live engine objects, or the real deck order.
+events, and public discard/roulette information. It never contains unknown
+opponents' cards, live engine objects, or the real deck order. The additive v1
+extension supplies immutable `history` and `known_opponent_cards` fields. The
+latter only records cards the player legitimately learned through a hand
+transfer. Both fields default to empty for older snapshot producers.
 
 Return one of the immutable action objects already present in
 `context.legal_actions`. Do not add a player ID: the host assigns the actor and
@@ -62,3 +65,8 @@ The public API version changes only for incompatible DTO or lifecycle changes.
 The game rejects unsupported versions without preventing other plugins from
 loading. Replays store actions, plugin identity, version, and settings metadata;
 they remain playable after a plugin is removed because replay never reruns AI.
+
+The optional `local.neural` plugin is in `examples/plugins/neural-local`. Use
+`launch_neural.cmd` for its preloaded Python runtime and model; see
+[`NEURAL_AI.md`](NEURAL_AI.md). It is not bundled into the ordinary standalone
+EXE and does not require Torch for other plugins to be discovered.

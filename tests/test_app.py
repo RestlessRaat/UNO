@@ -291,11 +291,15 @@ def test_draw_boundary_keeps_all_cards_in_one_consistent_frame(app, monkeypatch,
     with patch.object(timeline, 'sample', wraps=timeline.sample) as sample:
         app.draw()
         assert sample.call_count == 1
-    assert rendered == [29]
+    # Just before the boundary, the continuously interpolated local draw still
+    # has a one-pixel-alpha back overlay. Once the sampled frame is beyond the
+    # boundary, only the 29 real cards remain.
+    first_count = 29 if cross_before_draw else 30
+    assert rendered == [first_count]
     app.update()
     app.draw()
     assert app.current_move is None
-    assert rendered == [29, 29]
+    assert rendered == [first_count, 29]
 
 
 def test_god_warning_confirmation_and_cancel(app):
