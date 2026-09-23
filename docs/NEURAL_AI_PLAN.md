@@ -42,5 +42,11 @@ Design decisions:
   before opening the window, then reuse the existing background AI executor for
   inference. Existing packaged EXEs lack the new API and ML dependencies.
 
-Status: implementation in progress. Final commands, measurements, and limitations
-will be recorded in NEURAL_AI.md and the local run directory.
+Status: all seven local implementation/verification stages completed on 2026-09-21.
+The bounded CUDA experiment completed 9 updates (18,432 environment actions,
+63 complete rounds), including an actual checkpoint resume. Both the initial and
+trained actors completed 72 held-out evaluation games; this small experiment did
+not establish improved playing strength. The real UI/plugin smoke passed without
+fallback. No long-running training was started. Commands, measured results, and
+remaining strength/performance work are recorded in NEURAL_AI.md; artifacts are
+in build/neural/local.

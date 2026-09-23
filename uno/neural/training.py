@@ -24,6 +24,13 @@ from .model import Actor, Critic, ModelConfig, choose_device, config_dict, tenso
 FORMAT_VERSION = 1
 
 
+def format_duration(seconds: float) -> str:
+    seconds = max(0, int(seconds))
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    return f'{hours:d}:{minutes:02d}:{seconds:02d}' if hours else f'{minutes:02d}:{seconds:02d}'
+
+
 @dataclass
 class TrainConfig:
     seed: int = 20260921
@@ -336,6 +343,13 @@ def main(argv=None):
                      'model_config': asdict(model_config), 'actor': cpu_state(actor), 'rules_hash': rules_hash(),
                      'update': 0, 'environment_steps': 0, 'objective': config.objective}, args.output / 'initial-actor.pt')
     for step in range(start_update + 1, start_update + args.updates + 1):
+        completed = step - start_update - 1
+        elapsed = time.monotonic() - started
+        average_update = elapsed / completed if completed else 0
+        eta = average_update * (args.updates - completed)
+        print(f'[训练] 更新 {completed + 1}/{args.updates} 开始'
+              f' | 已用 {format_duration(elapsed)}'
+              f' | 预计剩余 {format_duration(eta) if completed else "计算中"}', flush=True)
         tick = time.monotonic()
         data, stats = collector.collect(actor, critic, league, device)
         collected = time.monotonic()
@@ -361,6 +375,10 @@ def main(argv=None):
                    'league_size': len(league), **stats, **losses}
         with (args.output / 'metrics.jsonl').open('a', encoding='utf8') as stream:
             stream.write(json.dumps(metrics) + '\n')
+        print(f'[训练] 更新 {completed + 1}/{args.updates} 完成'
+              f' | 本轮 {format_duration(elapsed)}'
+              f' | 总用时 {format_duration(time.monotonic() - started)}'
+              f' | 完成局数 {stats.get("rounds", 0)}', flush=True)
         print(json.dumps(metrics), flush=True)
         if args.minutes and time.monotonic() - started >= args.minutes * 60:
             break
